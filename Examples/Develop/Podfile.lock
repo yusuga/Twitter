@@ -1,0 +1,50 @@
+PODS:
+  - AFNetworking (2.5.2):
+    - AFNetworking/NSURLConnection (= 2.5.2)
+    - AFNetworking/NSURLSession (= 2.5.2)
+    - AFNetworking/Reachability (= 2.5.2)
+    - AFNetworking/Security (= 2.5.2)
+    - AFNetworking/Serialization (= 2.5.2)
+    - AFNetworking/UIKit (= 2.5.2)
+  - AFNetworking/NSURLConnection (2.5.2):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.2):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.2)
+  - AFNetworking/Security (2.5.2)
+  - AFNetworking/Serialization (2.5.2)
+  - AFNetworking/UIKit (2.5.2):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - NSData+Base64 (1.0.0)
+  - OAuthCore (0.0.1):
+    - NSData+Base64
+  - RMUniversalAlert (0.7):
+    - RMUniversalAlert/Core (= 0.7)
+  - RMUniversalAlert/Core (0.7):
+    - UIActionSheet+Blocks (>= 0.9)
+    - UIAlertController+Blocks (>= 0.9)
+    - UIAlertView+Blocks (>= 0.9)
+  - UIActionSheet+Blocks (0.9)
+  - UIAlertController+Blocks (0.9)
+  - UIAlertView+Blocks (0.9)
+
+DEPENDENCIES:
+  - AFNetworking
+  - OAuthCore
+  - RMUniversalAlert
+
+SPEC CHECKSUMS:
+  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  OAuthCore: 43dce261db846a1fe20234d95654257e00e78581
+  RMUniversalAlert: bce2ca406c24065b76665725c83e48006e8f65f8
+  UIActionSheet+Blocks: e180b7dad0a721ab7f212ac9742af799008bb358
+  UIAlertController+Blocks: b48c673ff60726da468b32ab21bbc7683512d45b
+  UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
+
+COCOAPODS: 0.35.0

@@ -1,0 +1,10 @@
+"Seconds short" = "秒";
+"Minutes short" = "分";
+
+"Multiple Errors" = "複数のエラー";
+
+"Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
+"Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
+
+"Authentication failed format with screenName" = "@%@の認証情報を確認できませんでした";
+"Authentication failed" = "認証エラー";

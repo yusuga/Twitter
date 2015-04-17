@@ -1,0 +1,8 @@
+"Seconds short" = "s";
+"Minutes short" = "m";
+
+"Error 88 format with screenName" = "Rate limit exceeded(@%@). Limit is reset after %@.";
+"Error 88 format" = "Rate limit exceeded. Limit is reset after %@.";
+
+"Authentication failed format with screenName" = "Could not authenticate @%@.";
+"Authentication failed" = "Could not authenticate you.";

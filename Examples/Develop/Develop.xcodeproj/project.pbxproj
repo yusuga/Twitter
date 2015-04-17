@@ -1,0 +1,786 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5ECDD3ECFFF0A6A18C24D744 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5DD9BACDFA5A13179C7764 /* libPods.a */; };
+		B80100FB1AE5405400EA9D5A /* ObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B80100FA1AE5405400EA9D5A /* ObjectTests.m */; };
+		B80100FE1AE5EBAB00EA9D5A /* NSString+TWTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = B80100FD1AE5EBAB00EA9D5A /* NSString+TWTwitter.m */; };
+		B810F7521ADE68AC006A7100 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B810F7511ADE68AC006A7100 /* Constants.m */; };
+		B810F7541ADE6EB1006A7100 /* keys.txt in Resources */ = {isa = PBXBuildFile; fileRef = B810F7531ADE6EB1006A7100 /* keys.txt */; };
+		B810F7621ADF835E006A7100 /* ErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B810F7611ADF835E006A7100 /* ErrorTests.m */; };
+		B8412E381ADA7E40003742A8 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8412E371ADA7E40003742A8 /* AuthViewController.m */; };
+		B8412E3E1ADA87A4003742A8 /* TWOAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B8412E3D1ADA87A4003742A8 /* TWOAuthToken.m */; };
+		B851142B1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */; };
+		B85114601AE4BF9100ECEEEA /* TWAPIClient+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B851145F1AE4BF9100ECEEEA /* TWAPIClient+Convenience.m */; };
+		B85114621AE4E3DC00ECEEEA /* APIConvenienceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */; };
+		B87381E41AD7A198003AA0B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B87381E31AD7A198003AA0B4 /* main.m */; };
+		B87381E71AD7A198003AA0B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B87381E61AD7A198003AA0B4 /* AppDelegate.m */; };
+		B87381ED1AD7A198003AA0B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B87381EB1AD7A198003AA0B4 /* Main.storyboard */; };
+		B87381EF1AD7A198003AA0B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87381EE1AD7A198003AA0B4 /* Images.xcassets */; };
+		B87381F21AD7A198003AA0B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87381F01AD7A198003AA0B4 /* LaunchScreen.xib */; };
+		B873821D1AD7A1C0003AA0B4 /* TWAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B873820A1AD7A1C0003AA0B4 /* TWAPIClient.m */; };
+		B873821E1AD7A1C0003AA0B4 /* TWOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = B873820D1AD7A1C0003AA0B4 /* TWOAuth2.m */; };
+		B873821F1AD7A1C0003AA0B4 /* TWAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B873820F1AD7A1C0003AA0B4 /* TWAuth.m */; };
+		B87382201AD7A1C0003AA0B4 /* TWOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382111AD7A1C0003AA0B4 /* TWOAuth1.m */; };
+		B87382211AD7A1C0003AA0B4 /* TWAuthOS.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382131AD7A1C0003AA0B4 /* TWAuthOS.m */; };
+		B87382221AD7A1C0003AA0B4 /* TWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382161AD7A1C0003AA0B4 /* TWConstants.m */; };
+		B87382231AD7A1C0003AA0B4 /* TWStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */; };
+		B87382261AD7BCCC003AA0B4 /* TWAPIRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */; };
+		B873822A1AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382291AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m */; };
+		B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382301AD846E3003AA0B4 /* TWPostData.m */; };
+		B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */; };
+		B873823B1AD860DC003AA0B4 /* NSError+TWTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */; };
+		B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */; };
+		B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */; };
+		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
+		B88E3B3B1AE94C8E00881B39 /* TWLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */; };
+		B88E3B411AEA263F00881B39 /* TWAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B401AEA263F00881B39 /* TWAuthorization.m */; };
+		B8BAC8741ADC4D8E00C59FA4 /* OAuth1WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BAC8731ADC4D8E00C59FA4 /* OAuth1WebViewController.m */; };
+		B8BAC8791ADC6BF400C59FA4 /* APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BAC8781ADC6BF400C59FA4 /* APITests.m */; };
+		B8F1177A1AD93E51003B940B /* TWRequestToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F117791AD93E51003B940B /* TWRequestToken.m */; };
+		B8F117BE1ADA3E39003B940B /* TWOAuth2Token.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F117BD1ADA3E39003B940B /* TWOAuth2Token.m */; };
+		B8F117C91ADA623D003B940B /* AuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F117C81ADA623D003B940B /* AuthTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B87381F81AD7A198003AA0B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B87381D61AD7A198003AA0B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B87381DD1AD7A198003AA0B4;
+			remoteInfo = Develop;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5E0F9023D49D213EA2C19E0C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8295FF868446BA71E494A4DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B80100FA1AE5405400EA9D5A /* ObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectTests.m; sourceTree = "<group>"; };
+		B80100FC1AE5EBAB00EA9D5A /* NSString+TWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TWTwitter.h"; sourceTree = "<group>"; };
+		B80100FD1AE5EBAB00EA9D5A /* NSString+TWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TWTwitter.m"; sourceTree = "<group>"; };
+		B810F7511ADE68AC006A7100 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		B810F7531ADE6EB1006A7100 /* keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.txt; sourceTree = "<group>"; };
+		B810F7611ADF835E006A7100 /* ErrorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTests.m; sourceTree = "<group>"; };
+		B816146B1ADBB0C200C1F724 /* TWAuthProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthProtocol.h; sourceTree = "<group>"; };
+		B8412E361ADA7E40003742A8 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		B8412E371ADA7E40003742A8 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		B8412E3A1ADA7F3A003742A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B8412E3C1ADA87A4003742A8 /* TWOAuthToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuthToken.h; sourceTree = "<group>"; };
+		B8412E3D1ADA87A4003742A8 /* TWOAuthToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuthToken.m; sourceTree = "<group>"; };
+		B85114291AE4923800ECEEEA /* TWAPIMultipleRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIMultipleRequestOperation.h; sourceTree = "<group>"; };
+		B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIMultipleRequestOperation.m; sourceTree = "<group>"; };
+		B851145E1AE4BF9100ECEEEA /* TWAPIClient+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWAPIClient+Convenience.h"; sourceTree = "<group>"; };
+		B851145F1AE4BF9100ECEEEA /* TWAPIClient+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWAPIClient+Convenience.m"; sourceTree = "<group>"; };
+		B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIConvenienceTests.m; sourceTree = "<group>"; };
+		B87381DE1AD7A198003AA0B4 /* Develop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Develop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B87381E21AD7A198003AA0B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B87381E31AD7A198003AA0B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B87381E51AD7A198003AA0B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B87381E61AD7A198003AA0B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B87381EC1AD7A198003AA0B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B87381EE1AD7A198003AA0B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B87381F11AD7A198003AA0B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B87381F71AD7A198003AA0B4 /* DevelopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DevelopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B87381FC1AD7A198003AA0B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B87382091AD7A1C0003AA0B4 /* TWAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIClient.h; sourceTree = "<group>"; };
+		B873820A1AD7A1C0003AA0B4 /* TWAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIClient.m; sourceTree = "<group>"; };
+		B873820C1AD7A1C0003AA0B4 /* TWOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuth2.h; sourceTree = "<group>"; };
+		B873820D1AD7A1C0003AA0B4 /* TWOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuth2.m; sourceTree = "<group>"; };
+		B873820E1AD7A1C0003AA0B4 /* TWAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuth.h; sourceTree = "<group>"; };
+		B873820F1AD7A1C0003AA0B4 /* TWAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuth.m; sourceTree = "<group>"; };
+		B87382101AD7A1C0003AA0B4 /* TWOAuth1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuth1.h; sourceTree = "<group>"; };
+		B87382111AD7A1C0003AA0B4 /* TWOAuth1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuth1.m; sourceTree = "<group>"; };
+		B87382121AD7A1C0003AA0B4 /* TWAuthOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthOS.h; sourceTree = "<group>"; };
+		B87382131AD7A1C0003AA0B4 /* TWAuthOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthOS.m; sourceTree = "<group>"; };
+		B87382151AD7A1C0003AA0B4 /* TWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWConstants.h; sourceTree = "<group>"; };
+		B87382161AD7A1C0003AA0B4 /* TWConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWConstants.m; sourceTree = "<group>"; };
+		B873821A1AD7A1C0003AA0B4 /* TWStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStreamParser.h; sourceTree = "<group>"; };
+		B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWStreamParser.m; sourceTree = "<group>"; };
+		B873821C1AD7A1C0003AA0B4 /* Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Twitter.h; sourceTree = "<group>"; };
+		B87382241AD7BCCC003AA0B4 /* TWAPIRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperation.h; sourceTree = "<group>"; };
+		B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperation.m; sourceTree = "<group>"; };
+		B87382281AD7BF3E003AA0B4 /* TWAPIResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIResponseSerializer.h; sourceTree = "<group>"; };
+		B87382291AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIResponseSerializer.m; sourceTree = "<group>"; };
+		B873822F1AD846E3003AA0B4 /* TWPostData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPostData.h; sourceTree = "<group>"; };
+		B87382301AD846E3003AA0B4 /* TWPostData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPostData.m; sourceTree = "<group>"; };
+		B87382321AD8483A003AA0B4 /* TWAuthModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWAuthModels.h; sourceTree = "<group>"; };
+		B87382361AD85C50003AA0B4 /* TWOAuth1Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuth1Token.h; sourceTree = "<group>"; };
+		B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuth1Token.m; sourceTree = "<group>"; };
+		B87382391AD860DC003AA0B4 /* NSError+TWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+TWTwitter.h"; sourceTree = "<group>"; };
+		B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+TWTwitter.m"; sourceTree = "<group>"; };
+		B886C2C91AD8F27A00C53095 /* TWAuthObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthObject.h; sourceTree = "<group>"; };
+		B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthObject.m; sourceTree = "<group>"; };
+		B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationManager.h; sourceTree = "<group>"; };
+		B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperationManager.m; sourceTree = "<group>"; };
+		B88E3B361AE94BB900881B39 /* TWLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocalization.h; sourceTree = "<group>"; };
+		B88E3B371AE94BB900881B39 /* TWLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocalization.m; sourceTree = "<group>"; };
+		B88E3B3C1AE94C8E00881B39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/TWLocalizable.strings; sourceTree = "<group>"; };
+		B88E3B3E1AE94CA200881B39 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/TWLocalizable.strings; sourceTree = "<group>"; };
+		B88E3B3F1AEA263F00881B39 /* TWAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthorization.h; sourceTree = "<group>"; };
+		B88E3B401AEA263F00881B39 /* TWAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthorization.m; sourceTree = "<group>"; };
+		B8BAC8721ADC4D8E00C59FA4 /* OAuth1WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth1WebViewController.h; sourceTree = "<group>"; };
+		B8BAC8731ADC4D8E00C59FA4 /* OAuth1WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth1WebViewController.m; sourceTree = "<group>"; };
+		B8BAC8781ADC6BF400C59FA4 /* APITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITests.m; sourceTree = "<group>"; };
+		B8F117781AD93E51003B940B /* TWRequestToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRequestToken.h; sourceTree = "<group>"; };
+		B8F117791AD93E51003B940B /* TWRequestToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRequestToken.m; sourceTree = "<group>"; };
+		B8F117BC1ADA3E39003B940B /* TWOAuth2Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuth2Token.h; sourceTree = "<group>"; };
+		B8F117BD1ADA3E39003B940B /* TWOAuth2Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuth2Token.m; sourceTree = "<group>"; };
+		B8F117C81ADA623D003B940B /* AuthTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTests.m; sourceTree = "<group>"; };
+		BA5DD9BACDFA5A13179C7764 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B87381DB1AD7A198003AA0B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5ECDD3ECFFF0A6A18C24D744 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B87381F41AD7A198003AA0B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B8412E2C1ADA7CF0003742A8 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B8412E361ADA7E40003742A8 /* AuthViewController.h */,
+				B8412E371ADA7E40003742A8 /* AuthViewController.m */,
+				B8BAC8721ADC4D8E00C59FA4 /* OAuth1WebViewController.h */,
+				B8BAC8731ADC4D8E00C59FA4 /* OAuth1WebViewController.m */,
+			);
+			name = Auth;
+			sourceTree = "<group>";
+		};
+		B87381D51AD7A198003AA0B4 = {
+			isa = PBXGroup;
+			children = (
+				B87381E01AD7A198003AA0B4 /* Develop */,
+				B87382071AD7A1C0003AA0B4 /* Twitter */,
+				B87381FA1AD7A198003AA0B4 /* DevelopTests */,
+				B87381DF1AD7A198003AA0B4 /* Products */,
+				F7511FF295B0D54DAFB6769E /* Pods */,
+				FA06C90A3AC73BE31B63D361 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B87381DF1AD7A198003AA0B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B87381DE1AD7A198003AA0B4 /* Develop.app */,
+				B87381F71AD7A198003AA0B4 /* DevelopTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B87381E01AD7A198003AA0B4 /* Develop */ = {
+			isa = PBXGroup;
+			children = (
+				B8412E3A1ADA7F3A003742A8 /* Constants.h */,
+				B810F7511ADE68AC006A7100 /* Constants.m */,
+				B810F7531ADE6EB1006A7100 /* keys.txt */,
+				B87381E51AD7A198003AA0B4 /* AppDelegate.h */,
+				B87381E61AD7A198003AA0B4 /* AppDelegate.m */,
+				B87381EB1AD7A198003AA0B4 /* Main.storyboard */,
+				B8412E2C1ADA7CF0003742A8 /* Auth */,
+				B87381EE1AD7A198003AA0B4 /* Images.xcassets */,
+				B87381F01AD7A198003AA0B4 /* LaunchScreen.xib */,
+				B87381E11AD7A198003AA0B4 /* Supporting Files */,
+			);
+			path = Develop;
+			sourceTree = "<group>";
+		};
+		B87381E11AD7A198003AA0B4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B87381E21AD7A198003AA0B4 /* Info.plist */,
+				B87381E31AD7A198003AA0B4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B87381FA1AD7A198003AA0B4 /* DevelopTests */ = {
+			isa = PBXGroup;
+			children = (
+				B80100FA1AE5405400EA9D5A /* ObjectTests.m */,
+				B8F117C81ADA623D003B940B /* AuthTests.m */,
+				B8BAC8781ADC6BF400C59FA4 /* APITests.m */,
+				B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */,
+				B810F7611ADF835E006A7100 /* ErrorTests.m */,
+				B87381FB1AD7A198003AA0B4 /* Supporting Files */,
+			);
+			path = DevelopTests;
+			sourceTree = "<group>";
+		};
+		B87381FB1AD7A198003AA0B4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B87381FC1AD7A198003AA0B4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B87382071AD7A1C0003AA0B4 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				B873821C1AD7A1C0003AA0B4 /* Twitter.h */,
+				B87382081AD7A1C0003AA0B4 /* API */,
+				B873820B1AD7A1C0003AA0B4 /* Authentication */,
+				B87382171AD7A1C0003AA0B4 /* Model */,
+				B87382181AD7A1C0003AA0B4 /* Operation */,
+				B87382271AD7BF0F003AA0B4 /* Serialization */,
+				B87382191AD7A1C0003AA0B4 /* Parser */,
+				B873822B1AD7C27D003AA0B4 /* Category */,
+				B87382141AD7A1C0003AA0B4 /* Constants */,
+				B88E3B351AE94B0C00881B39 /* Localization */,
+			);
+			name = Twitter;
+			path = ../../Classes/Twitter;
+			sourceTree = "<group>";
+		};
+		B87382081AD7A1C0003AA0B4 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B87382091AD7A1C0003AA0B4 /* TWAPIClient.h */,
+				B873820A1AD7A1C0003AA0B4 /* TWAPIClient.m */,
+				B851145E1AE4BF9100ECEEEA /* TWAPIClient+Convenience.h */,
+				B851145F1AE4BF9100ECEEEA /* TWAPIClient+Convenience.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		B873820B1AD7A1C0003AA0B4 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B873820E1AD7A1C0003AA0B4 /* TWAuth.h */,
+				B873820F1AD7A1C0003AA0B4 /* TWAuth.m */,
+				B816146B1ADBB0C200C1F724 /* TWAuthProtocol.h */,
+				B87382101AD7A1C0003AA0B4 /* TWOAuth1.h */,
+				B87382111AD7A1C0003AA0B4 /* TWOAuth1.m */,
+				B87382121AD7A1C0003AA0B4 /* TWAuthOS.h */,
+				B87382131AD7A1C0003AA0B4 /* TWAuthOS.m */,
+				B873820C1AD7A1C0003AA0B4 /* TWOAuth2.h */,
+				B873820D1AD7A1C0003AA0B4 /* TWOAuth2.m */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B87382141AD7A1C0003AA0B4 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				B87382151AD7A1C0003AA0B4 /* TWConstants.h */,
+				B87382161AD7A1C0003AA0B4 /* TWConstants.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		B87382171AD7A1C0003AA0B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B87382321AD8483A003AA0B4 /* TWAuthModels.h */,
+				B873822F1AD846E3003AA0B4 /* TWPostData.h */,
+				B87382301AD846E3003AA0B4 /* TWPostData.m */,
+				B886C2C91AD8F27A00C53095 /* TWAuthObject.h */,
+				B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */,
+				B8412E3C1ADA87A4003742A8 /* TWOAuthToken.h */,
+				B8412E3D1ADA87A4003742A8 /* TWOAuthToken.m */,
+				B87382361AD85C50003AA0B4 /* TWOAuth1Token.h */,
+				B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */,
+				B8F117BC1ADA3E39003B940B /* TWOAuth2Token.h */,
+				B8F117BD1ADA3E39003B940B /* TWOAuth2Token.m */,
+				B8F117781AD93E51003B940B /* TWRequestToken.h */,
+				B8F117791AD93E51003B940B /* TWRequestToken.m */,
+				B88E3B3F1AEA263F00881B39 /* TWAuthorization.h */,
+				B88E3B401AEA263F00881B39 /* TWAuthorization.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B87382181AD7A1C0003AA0B4 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */,
+				B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */,
+				B87382241AD7BCCC003AA0B4 /* TWAPIRequestOperation.h */,
+				B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */,
+				B85114291AE4923800ECEEEA /* TWAPIMultipleRequestOperation.h */,
+				B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
+		B87382191AD7A1C0003AA0B4 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				B873821A1AD7A1C0003AA0B4 /* TWStreamParser.h */,
+				B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		B87382271AD7BF0F003AA0B4 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				B87382281AD7BF3E003AA0B4 /* TWAPIResponseSerializer.h */,
+				B87382291AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
+		B873822B1AD7C27D003AA0B4 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B87382391AD860DC003AA0B4 /* NSError+TWTwitter.h */,
+				B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */,
+				B80100FC1AE5EBAB00EA9D5A /* NSString+TWTwitter.h */,
+				B80100FD1AE5EBAB00EA9D5A /* NSString+TWTwitter.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		B88E3B351AE94B0C00881B39 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				B88E3B361AE94BB900881B39 /* TWLocalization.h */,
+				B88E3B371AE94BB900881B39 /* TWLocalization.m */,
+				B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		F7511FF295B0D54DAFB6769E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E0F9023D49D213EA2C19E0C /* Pods.debug.xcconfig */,
+				8295FF868446BA71E494A4DD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA06C90A3AC73BE31B63D361 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA5DD9BACDFA5A13179C7764 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B87381DD1AD7A198003AA0B4 /* Develop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B87382011AD7A198003AA0B4 /* Build configuration list for PBXNativeTarget "Develop" */;
+			buildPhases = (
+				456AF7EC68CD4956581F8CC1 /* Check Pods Manifest.lock */,
+				B87381DA1AD7A198003AA0B4 /* Sources */,
+				B87381DB1AD7A198003AA0B4 /* Frameworks */,
+				B87381DC1AD7A198003AA0B4 /* Resources */,
+				B4F2B11143F86D2AD33CFF5B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Develop;
+			productName = Develop;
+			productReference = B87381DE1AD7A198003AA0B4 /* Develop.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B87381F61AD7A198003AA0B4 /* DevelopTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B87382041AD7A198003AA0B4 /* Build configuration list for PBXNativeTarget "DevelopTests" */;
+			buildPhases = (
+				B87381F31AD7A198003AA0B4 /* Sources */,
+				B87381F41AD7A198003AA0B4 /* Frameworks */,
+				B87381F51AD7A198003AA0B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B87381F91AD7A198003AA0B4 /* PBXTargetDependency */,
+			);
+			name = DevelopTests;
+			productName = DevelopTests;
+			productReference = B87381F71AD7A198003AA0B4 /* DevelopTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B87381D61AD7A198003AA0B4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Yu Sugawara";
+				TargetAttributes = {
+					B87381DD1AD7A198003AA0B4 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					B87381F61AD7A198003AA0B4 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = B87381DD1AD7A198003AA0B4;
+					};
+				};
+			};
+			buildConfigurationList = B87381D91AD7A198003AA0B4 /* Build configuration list for PBXProject "Develop" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ja,
+			);
+			mainGroup = B87381D51AD7A198003AA0B4;
+			productRefGroup = B87381DF1AD7A198003AA0B4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B87381DD1AD7A198003AA0B4 /* Develop */,
+				B87381F61AD7A198003AA0B4 /* DevelopTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B87381DC1AD7A198003AA0B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B87381ED1AD7A198003AA0B4 /* Main.storyboard in Resources */,
+				B87381F21AD7A198003AA0B4 /* LaunchScreen.xib in Resources */,
+				B810F7541ADE6EB1006A7100 /* keys.txt in Resources */,
+				B88E3B3B1AE94C8E00881B39 /* TWLocalizable.strings in Resources */,
+				B87381EF1AD7A198003AA0B4 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B87381F51AD7A198003AA0B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		456AF7EC68CD4956581F8CC1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4F2B11143F86D2AD33CFF5B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B87381DA1AD7A198003AA0B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B87382261AD7BCCC003AA0B4 /* TWAPIRequestOperation.m in Sources */,
+				B851142B1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m in Sources */,
+				B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */,
+				B810F7521ADE68AC006A7100 /* Constants.m in Sources */,
+				B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */,
+				B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */,
+				B873823B1AD860DC003AA0B4 /* NSError+TWTwitter.m in Sources */,
+				B8F1177A1AD93E51003B940B /* TWRequestToken.m in Sources */,
+				B8BAC8741ADC4D8E00C59FA4 /* OAuth1WebViewController.m in Sources */,
+				B85114601AE4BF9100ECEEEA /* TWAPIClient+Convenience.m in Sources */,
+				B873821D1AD7A1C0003AA0B4 /* TWAPIClient.m in Sources */,
+				B8412E3E1ADA87A4003742A8 /* TWOAuthToken.m in Sources */,
+				B873821F1AD7A1C0003AA0B4 /* TWAuth.m in Sources */,
+				B873822A1AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m in Sources */,
+				B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */,
+				B87382231AD7A1C0003AA0B4 /* TWStreamParser.m in Sources */,
+				B8F117BE1ADA3E39003B940B /* TWOAuth2Token.m in Sources */,
+				B8412E381ADA7E40003742A8 /* AuthViewController.m in Sources */,
+				B80100FE1AE5EBAB00EA9D5A /* NSString+TWTwitter.m in Sources */,
+				B873821E1AD7A1C0003AA0B4 /* TWOAuth2.m in Sources */,
+				B87382211AD7A1C0003AA0B4 /* TWAuthOS.m in Sources */,
+				B88E3B411AEA263F00881B39 /* TWAuthorization.m in Sources */,
+				B87382221AD7A1C0003AA0B4 /* TWConstants.m in Sources */,
+				B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */,
+				B87381E71AD7A198003AA0B4 /* AppDelegate.m in Sources */,
+				B87382201AD7A1C0003AA0B4 /* TWOAuth1.m in Sources */,
+				B87381E41AD7A198003AA0B4 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B87381F31AD7A198003AA0B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BAC8791ADC6BF400C59FA4 /* APITests.m in Sources */,
+				B8F117C91ADA623D003B940B /* AuthTests.m in Sources */,
+				B80100FB1AE5405400EA9D5A /* ObjectTests.m in Sources */,
+				B85114621AE4E3DC00ECEEEA /* APIConvenienceTests.m in Sources */,
+				B810F7621ADF835E006A7100 /* ErrorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B87381F91AD7A198003AA0B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B87381DD1AD7A198003AA0B4 /* Develop */;
+			targetProxy = B87381F81AD7A198003AA0B4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B87381EB1AD7A198003AA0B4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B87381EC1AD7A198003AA0B4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B87381F01AD7A198003AA0B4 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B87381F11AD7A198003AA0B4 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B88E3B3C1AE94C8E00881B39 /* Base */,
+				B88E3B3E1AE94CA200881B39 /* ja */,
+			);
+			name = TWLocalizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B87381FF1AD7A198003AA0B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B87382001AD7A198003AA0B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B87382021AD7A198003AA0B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E0F9023D49D213EA2C19E0C /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Develop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B87382031AD7A198003AA0B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8295FF868446BA71E494A4DD /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Develop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B87382051AD7A198003AA0B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SRCROOT}/Pods/Headers/**",
+				);
+				INFOPLIST_FILE = DevelopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Develop.app/Develop";
+			};
+			name = Debug;
+		};
+		B87382061AD7A198003AA0B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SRCROOT}/Pods/Headers/**",
+				);
+				INFOPLIST_FILE = DevelopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Develop.app/Develop";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B87381D91AD7A198003AA0B4 /* Build configuration list for PBXProject "Develop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B87381FF1AD7A198003AA0B4 /* Debug */,
+				B87382001AD7A198003AA0B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B87382011AD7A198003AA0B4 /* Build configuration list for PBXNativeTarget "Develop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B87382021AD7A198003AA0B4 /* Debug */,
+				B87382031AD7A198003AA0B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B87382041AD7A198003AA0B4 /* Build configuration list for PBXNativeTarget "DevelopTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B87382051AD7A198003AA0B4 /* Debug */,
+				B87382061AD7A198003AA0B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B87381D61AD7A198003AA0B4 /* Project object */;
+}
