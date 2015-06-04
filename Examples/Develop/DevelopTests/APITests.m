@@ -13,7 +13,7 @@
 static TWAPIClient *__apiClient;
 
 static int64_t const kSinceID = 1;
-static int64_t const kMaxID = INT64_MAX;
+static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum value
 
 @interface APITests : XCTestCase
 
