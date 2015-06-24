@@ -18,6 +18,7 @@ static NSDictionary *__keys;
  *      "consumerSecret" : "",
  *      "accessToken" : "",
  *      "accessTokenSecret" : "",
+ *      "userID : "",
  *      "consumerKeyOfAllowedXAuth" : "",
  *      "consumerSecretOfAllowedXAuth" : "",
  *      "screenName" : "",
@@ -43,30 +44,37 @@ static NSDictionary *__keys;
 
 + (NSString *)consumerKey
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 + (NSString *)consumerSecret
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 + (NSString *)accessToken
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 + (NSString *)accessTokenSecret
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
+}
+
++ (NSString *)userID
+{
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 + (NSString *)consumerKeyOfAllowedXAuth
@@ -81,16 +89,16 @@ static NSDictionary *__keys;
 
 + (NSString *)screenName
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 + (NSString *)password
 {
-    NSString *key = __keys[NSStringFromSelector(_cmd)];
-    NSAssert1(key, @"%@ is not found.", NSStringFromSelector(_cmd));
-    return key;
+    NSString *value = __keys[NSStringFromSelector(_cmd)];
+    NSAssert1(value, @"%@ is not found.", NSStringFromSelector(_cmd));
+    return value;
 }
 
 #pragma mark -

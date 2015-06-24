@@ -56,6 +56,7 @@ XCTFail();\
 + (NSString *)consumerSecret;
 + (NSString *)accessToken;
 + (NSString *)accessTokenSecret;
++ (NSString *)userID;
 
 + (NSString *)consumerKeyOfAllowedXAuth;
 + (NSString *)consumerSecretOfAllowedXAuth;
