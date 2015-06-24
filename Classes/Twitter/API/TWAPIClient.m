@@ -1091,7 +1091,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        orSourceScreenName:(NSString * __nullable)sourceScreenName
                                                  targetID:(int64_t)targetID
                                        orTargetScreenName:(NSString * __nullable)targetScreenName
-                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable relationship, NSError * __nullable error))completion
+                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error))completion
 {
     NSParameterAssert(sourceID || sourceScreenName);
     NSParameterAssert(targetID || targetScreenName);

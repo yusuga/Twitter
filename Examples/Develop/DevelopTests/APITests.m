@@ -597,9 +597,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 
 - (void)testPostFriendshipsCreateAndPostFriendshipsDestroy
 {
+    int64_t targetUserID = kTargetUserID;
+    
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client postFriendshipsCreateWithUserID:kTargetUserID
-                                   orScreenName:@"picos_01"
+        [client postFriendshipsCreateWithUserID:targetUserID
+                                   orScreenName:nil
                                      completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
          {
              validateAPICompletion(operation, NSDictionary, user, error);
@@ -608,11 +610,35 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                  return ;
              }
              
-             [client postFriendshipsDestroyWithUserID:kTargetUserID
-                                         orScreenName:nil
-                                           completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+             // Duplicate request
+             [client postFriendshipsCreateWithUserID:targetUserID
+                                        orScreenName:nil
+                                          completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
               {
-                  validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
+                  validateAPICompletion(operation, NSDictionary, user, error);
+                  if (error) {
+                      [expectation fulfill];
+                      return ;
+                  }
+                  
+                  [client postFriendshipsDestroyWithUserID:targetUserID
+                                              orScreenName:nil
+                                                completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                   {
+                       validateAPICompletion(operation, NSDictionary, user, error);
+                       if (error) {
+                           [expectation fulfill];
+                           return ;
+                       }
+                       
+                       // Duplicate request
+                       [client postFriendshipsDestroyWithUserID:targetUserID
+                                                   orScreenName:nil
+                                                     completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                        {
+                            validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
+                        }];
+                   }];
               }];
          }];
     }];

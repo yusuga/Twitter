@@ -562,17 +562,23 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  GET friendships/show
  *  https://dev.twitter.com/rest/reference/get/friendships/show
+ *
+ *  Returns detailed information about the relationship between two arbitrary users.
+ *  指定のユーザ同士の関係を返します。
  */
 
 - (TWAPIRequestOperation *)getFriendshipsShowWithSourceID:(int64_t)sourceID
                                        orSourceScreenName:(NSString * __nullable)sourceScreenName
                                                  targetID:(int64_t)targetID
                                        orTargetScreenName:(NSString * __nullable)targetScreenName
-                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable relationship, NSError * __nullable error))completion;
+                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error))completion;
 
 /**
  *  GET friendships/lookup
  *  https://dev.twitter.com/rest/reference/get/friendships/lookup
+ *
+ *  Returns the relationships of the authenticating user to the comma-separated list of up to 100 screen_names or user_ids provided.
+ *  認証ユーザとの関連を返します。
  */
 
 - (TWAPIRequestOperation *)getFriendshipsLookupWithUserIDs:(NSArray * __nullable)userIDs
@@ -585,6 +591,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Allows the authenticating users to follow the user specified in the ID parameter.
  *  指定のユーザをフォローします。
+ *
+ *  Note: It is not an error in duplicate request. (6/24/15)
+ *  備考: 重複でリクエストをしてもエラーにはならない。 (2015/6/24)
  */
 
 - (TWAPIRequestOperation *)postFriendshipsCreateWithUserID:(int64_t)userID
@@ -594,8 +603,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  POST friendships/destroy
  *  https://dev.twitter.com/rest/reference/post/friendships/destroy
+ *
  *  Allows the authenticating user to unfollow the user specified in the ID parameter.
  *  指定のユーザへのフォローを解除します。
+ *
+ *  Note: It is not an error in duplicate request. (6/24/15)
+ *  備考: 重複でリクエストをしてもエラーにはならない。 (2015/6/24)
  */
 
 - (TWAPIRequestOperation *)postFriendshipsDestroyWithUserID:(int64_t)userID
@@ -618,6 +631,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  GET friendships/no_retweets/ids
  *  https://dev.twitter.com/rest/reference/get/friendships/no_retweets/ids
+ *
+ *  Returns a collection of user_ids that the currently authenticated user does not want to receive retweets from.
+ *  認証ユーザのリツイートを受信しないリストを返します。
  */
 
 - (TWAPIRequestOperation *)getFriendshipsNoRetweetsIDsWithStringifyIDs:(BOOL)stringifyIDs
@@ -626,6 +642,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  GET friendships/incoming
  *  https://dev.twitter.com/rest/reference/get/friendships/incoming
+ *
+ *  Returns a collection of numeric IDs for every user who has a pending request to follow the authenticating user.
  */
 
 - (TWAPIRequestOperation *)getFriendshipsIncomingWithCursor:(int64_t)cursor
@@ -635,6 +653,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  GET friendships/outgoing
  *  https://dev.twitter.com/rest/reference/get/friendships/outgoing
+ *
+ *  Returns a collection of numeric IDs for every protected user for whom the authenticating user has a pending follow request.
  */
 
 - (TWAPIRequestOperation *)getFriendshipsOutgoingWithCursor:(int64_t)cursor
