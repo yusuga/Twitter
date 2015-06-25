@@ -122,11 +122,16 @@ NSString * const TWApplicationLaunchedWithURLNotification = @"TWApplicationLaunc
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.httpClient = [TWAPIRequestOperationManager manager];
-        self.httpClient.operationQueue = [[self class] twitterOerationQueue];
+        TWAPIRequestOperationManager *client = [TWAPIRequestOperationManager manager];
+        client.operationQueue = [[self class] twitterOerationQueue];
+        
+        client.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        
         TWAPIResponseSerializer *responseSerializer = [TWAPIResponseSerializer serializer];
         responseSerializer.removesKeysWithNullValues = YES;
-        self.httpClient.responseSerializer = responseSerializer;
+        client.responseSerializer = responseSerializer;
+        
+        self.httpClient = client;
     }
     return self;
 }
