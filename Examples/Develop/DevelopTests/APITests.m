@@ -607,10 +607,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
         int64_t targetUserID = kTargetUserID;
         NSString *followingKeyPath = @"relationship.source.following";
         
-        // Follow
-        [client postFriendshipsCreateWithUserID:targetUserID
-                                   orScreenName:nil
-                                     completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+        /*  Unfollow -> Follow -> Unfollow */
+        
+        // Unfollow
+        [client postFriendshipsDestroyWithUserID:targetUserID
+                                    orScreenName:nil
+                                      completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
          {
              validateAPICompletion(operation, NSDictionary, user, error);
              if (error) {
@@ -618,37 +620,34 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                  return ;
              }
              
-             // Duplicate follow request
-             [client postFriendshipsCreateWithUserID:targetUserID
-                                        orScreenName:nil
-                                          completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+             // Verify unfollowing
+             [client getFriendshipsShowWithSourceID:sourceUserID
+                                 orSourceScreenName:nil
+                                           targetID:targetUserID
+                                 orTargetScreenName:nil
+                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
               {
-                  validateAPICompletion(operation, NSDictionary, user, error);
+                  validateAPICompletion(operation, NSDictionary, friendship, error);
                   if (error) {
                       [expectation fulfill];
                       return ;
                   }
                   
-                  // Verify Following
-                  [client getFriendshipsShowWithSourceID:sourceUserID
-                                      orSourceScreenName:nil
-                                                targetID:targetUserID
-                                      orTargetScreenName:nil
-                                              completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
+                  // Follow
+                  [client postFriendshipsCreateWithUserID:targetUserID
+                                             orScreenName:nil
+                                               completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
                    {
-                       validateAPICompletion(operation, NSDictionary, friendship, error);
+                       validateAPICompletion(operation, NSDictionary, user, error);
                        if (error) {
                            [expectation fulfill];
                            return ;
                        }
                        
-                       NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
-                       XCTAssertTrue(following.boolValue);
-                       
-                       // Unfollow
-                       [client postFriendshipsDestroyWithUserID:targetUserID
-                                                   orScreenName:nil
-                                                     completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                       // Duplicate follow request
+                       [client postFriendshipsCreateWithUserID:targetUserID
+                                                  orScreenName:nil
+                                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
                         {
                             validateAPICompletion(operation, NSDictionary, user, error);
                             if (error) {
@@ -656,29 +655,58 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                                 return ;
                             }
                             
-                            // Duplicate unfollow request
-                            [client postFriendshipsDestroyWithUserID:targetUserID
-                                                        orScreenName:nil
-                                                          completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                            // Verify following
+                            [client getFriendshipsShowWithSourceID:sourceUserID
+                                                orSourceScreenName:nil
+                                                          targetID:targetUserID
+                                                orTargetScreenName:nil
+                                                        completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
                              {
+                                 validateAPICompletion(operation, NSDictionary, friendship, error);
+                                 if (error) {
+                                     [expectation fulfill];
+                                     return ;
+                                 }
                                  
-                                 // Verify Following
-                                 [client getFriendshipsShowWithSourceID:sourceUserID
-                                                     orSourceScreenName:nil
-                                                               targetID:targetUserID
-                                                     orTargetScreenName:nil
-                                                             completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
+                                 NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
+                                 XCTAssertTrue(following.boolValue);
+                                 
+                                 // Unfollow
+                                 [client postFriendshipsDestroyWithUserID:targetUserID
+                                                             orScreenName:nil
+                                                               completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
                                   {
-                                      validateAPICompletion(operation, NSDictionary, friendship, error);
+                                      validateAPICompletion(operation, NSDictionary, user, error);
                                       if (error) {
                                           [expectation fulfill];
                                           return ;
                                       }
                                       
-                                      NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
-                                      XCTAssertFalse(following.boolValue);
-                                      
-                                      validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
+                                      // Duplicate unfollow request
+                                      [client postFriendshipsDestroyWithUserID:targetUserID
+                                                                  orScreenName:nil
+                                                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                                       {
+                                           
+                                           // Verify unfollowing
+                                           [client getFriendshipsShowWithSourceID:sourceUserID
+                                                               orSourceScreenName:nil
+                                                                         targetID:targetUserID
+                                                               orTargetScreenName:nil
+                                                                       completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
+                                            {
+                                                validateAPICompletion(operation, NSDictionary, friendship, error);
+                                                if (error) {
+                                                    [expectation fulfill];
+                                                    return ;
+                                                }
+                                                
+                                                NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
+                                                XCTAssertFalse(following.boolValue);
+                                                
+                                                validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
+                                            }];
+                                       }];
                                   }];
                              }];
                         }];
