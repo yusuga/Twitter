@@ -589,11 +589,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  POST friendships/create
  *  https://dev.twitter.com/rest/reference/post/friendships/create
  *
- *  Allows the authenticating users to follow the user specified in the ID parameter.
- *  指定のユーザをフォローします。
+ *  Allows the authenticating users to follow the user specified in the ID parameter. If you are already friends with the user a HTTP 403 may be returned, though for performance reasons you may get a 200 OK message even if the friendship already exists. Actions taken in this method are asynchronous and changes will be eventually consistent.
+ *  指定のユーザをフォローします。すでにフォローしている場合は`HTTP 403`を返すが、パフォーマンス上の理由からHTTP 200を返す場合があります。アクションは非同期で実行され、最終的に変更は矛盾しないものになる。
  *
- *  Note: It is not an error in duplicate request. (6/24/15)
- *  備考: 重複でリクエストをしてもエラーにはならない。 (2015/6/24)
+ *  Note:
+ *  備考: Friendships create/destroyを連続して実行した場合にHTTP 200なのに最終的なフォロー関係が最後に実行したリクエストどおりでないケースがあった。連続するリクエストは避け数秒の間隔を設けた方が安全かもしれない。(リクエストを遅延させ連続実行はキャンセル扱いにするなど)
  */
 
 - (TWAPIRequestOperation *)postFriendshipsCreateWithUserID:(int64_t)userID
@@ -608,7 +608,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  指定のユーザへのフォローを解除します。
  *
  *  Note: It is not an error in duplicate request. (6/24/15)
- *  備考: 重複でリクエストをしてもエラーにはならない。 (2015/6/24)
+ *  備考: `friendships/create`と同様に重複でリクエストをしてもHTTP 200が返される。 (2015/6/24)
  */
 
 - (TWAPIRequestOperation *)postFriendshipsDestroyWithUserID:(int64_t)userID

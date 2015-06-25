@@ -605,9 +605,10 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
         int64_t sourceUserID = client.auth.userID.longLongValue;
         XCTAssertGreaterThan(sourceUserID, 0);
         int64_t targetUserID = kTargetUserID;
+        
         NSString *followingKeyPath = @"relationship.source.following";
         
-        /*  Unfollow -> Follow -> Unfollow */
+        /*  Unfollow -> Follow -> Unfollow -> Follow */
         
         // Unfollow
         [client postFriendshipsDestroyWithUserID:targetUserID
@@ -628,10 +629,15 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                                          completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
               {
                   validateAPICompletion(operation, NSDictionary, friendship, error);
-                  if (error) {
+                  BOOL following = [[friendship valueForKeyPath:followingKeyPath] boolValue];
+                  XCTAssertFalse(following, @"friendship = %@", friendship);
+                  if (error || following) {
                       [expectation fulfill];
                       return ;
                   }
+                  
+                  //
+                  [NSThread sleepForTimeInterval:5.];
                   
                   // Follow
                   [client postFriendshipsCreateWithUserID:targetUserID
@@ -663,13 +669,14 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
                              {
                                  validateAPICompletion(operation, NSDictionary, friendship, error);
-                                 if (error) {
+                                 BOOL following = [[friendship valueForKeyPath:followingKeyPath] boolValue];
+                                 XCTAssertTrue(following, @"friendship = %@", friendship);
+                                 if (error || !following) {
                                      [expectation fulfill];
                                      return ;
                                  }
                                  
-                                 NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
-                                 XCTAssertTrue(following.boolValue);
+                                 [NSThread sleepForTimeInterval:5.];
                                  
                                  // Unfollow
                                  [client postFriendshipsDestroyWithUserID:targetUserID
@@ -687,6 +694,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                                                                   orScreenName:nil
                                                                     completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
                                        {
+                                           validateAPICompletion(operation, NSDictionary, user, error);
+                                           if (error) {
+                                               [expectation fulfill];
+                                               return ;
+                                           }
                                            
                                            // Verify unfollowing
                                            [client getFriendshipsShowWithSourceID:sourceUserID
@@ -696,15 +708,40 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                                                                        completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
                                             {
                                                 validateAPICompletion(operation, NSDictionary, friendship, error);
-                                                if (error) {
+                                                BOOL following = [[friendship valueForKeyPath:followingKeyPath] boolValue];
+                                                XCTAssertFalse(following, @"friendship = %@", friendship);
+                                                if (error || following) {
                                                     [expectation fulfill];
                                                     return ;
                                                 }
                                                 
-                                                NSNumber *following = [friendship valueForKeyPath:followingKeyPath];
-                                                XCTAssertFalse(following.boolValue);
+                                                [NSThread sleepForTimeInterval:5.];
                                                 
-                                                validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
+                                                // Follow
+                                                [client postFriendshipsCreateWithUserID:targetUserID
+                                                                           orScreenName:nil
+                                                                             completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                                                 {
+                                                     validateAPICompletion(operation, NSDictionary, user, error);
+                                                     if (error) {
+                                                         [expectation fulfill];
+                                                         return ;
+                                                     }
+                                                     
+                                                     // Verify following
+                                                     [client getFriendshipsShowWithSourceID:sourceUserID
+                                                                         orSourceScreenName:nil
+                                                                                   targetID:targetUserID
+                                                                         orTargetScreenName:nil
+                                                                                 completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable friendship, NSError * __nullable error)
+                                                      {
+                                                          validateAPICompletion(operation, NSDictionary, friendship, error);
+                                                          BOOL following = [[friendship valueForKeyPath:followingKeyPath] boolValue];
+                                                          XCTAssertTrue(following, @"friendship = %@", friendship);
+                                                          
+                                                          [expectation fulfill];
+                                                      }];
+                                                 }];
                                             }];
                                        }];
                                   }];
@@ -713,7 +750,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                    }];
               }];
          }];
-    } timeout:30.];
+    } timeout:60.];
 }
 
 - (void)testPostFriendshipsUpdate
