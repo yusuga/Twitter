@@ -120,7 +120,7 @@ extern NSString * const TWApplicationLaunchedWithURLNotification;
 
 #pragma mark - API Request
 
-- (TWAPIRequestOperationManager *)httpClient;
+@property (nonatomic, readonly) TWAPIRequestOperationManager *httpClient;
 
 - (TWAPIRequestOperation * __nullable)sendRequestWithHTTPMethod:(NSString *)HTTPMethod
                                                   baseURLString:(NSString *)baseURLString

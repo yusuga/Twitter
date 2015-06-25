@@ -22,7 +22,7 @@ NSString * const TWApplicationLaunchedWithURLNotification = @"TWApplicationLaunc
 
 @interface TWAuth () <TWAuthProtocol>
 
-@property (nonatomic) TWAPIRequestOperationManager *httpClient;
+@property (nonatomic, readwrite) TWAPIRequestOperationManager *httpClient;
 
 @end
 
