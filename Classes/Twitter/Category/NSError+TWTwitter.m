@@ -64,6 +64,9 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
             NSString *error = json[@"error"];
             if (![error isKindOfClass:[NSString class]]) return underlyingError;
             
+            NSError *originalError = [self tw_protectedUserTimeLineErrorWithHTTPOperation:operation];
+            if (originalError) return originalError;
+            
             return [self tw_apiErrorWithCode:TWAPIErrorCodeUnknown
                                  description:error
                                failureReason:nil
@@ -129,6 +132,11 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
     return [NSError errorWithDomain:TWAPIErrorDomain
                                code:TWAPIErrorCodeMultipleErrors
                            userInfo:[NSDictionary dictionaryWithDictionary:info]];
+}
+
+- (BOOL)isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code
+{
+    return [self.domain isEqualToString:TWAPIErrorDomain] && self.code == code;
 }
 
 - (NSURL * __nullable)tw_failingURL
@@ -424,6 +432,35 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
                          description:desc
                        failureReason:failureReason
                    appendingUserInfo:[NSDictionary dictionaryWithDictionary:userInfo]];
+}
+
++ (NSError *)tw_protectedUserTimeLineErrorWithHTTPOperation:(AFHTTPRequestOperation *)operation
+{
+    /**
+     *  HTTP Status: 401
+     *  Respons JSON
+     *  {
+     *      error: "Not authorized.",
+     *      request: "/1.1/statuses/user_timeline.json"
+     *  }
+     */
+    if (operation.response.statusCode != 401) return nil;
+    
+    NSDictionary *responseObject = operation.responseObject;
+    if (![responseObject isKindOfClass:[NSDictionary class]]) return nil;
+    
+    NSString *error = responseObject[@"error"];
+    NSString *request = responseObject[@"request"];
+    
+    if ([error isEqualToString:@"Not authorized."] &&
+        [request isEqualToString:@"/1.1/statuses/user_timeline.json"])
+    {
+        return [self tw_apiErrorWithCode:TWAPIErrorCodeProtectedUserTimeLine
+                             description:TWLocalizedString(@"Error 1001")
+                           failureReason:nil
+                       appendingUserInfo:nil];
+    }
+    return nil;
 }
 
 @end

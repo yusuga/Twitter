@@ -206,7 +206,19 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      *  HTTP Status Code
      *  Returned in API v1.1 when a request cannot be served due to the application's rate limit having been exhausted for the resource. See [Rate Limiting in API v1.1]( https://dev.twitter.com/docs/rate-limiting/1.1 ).
      */
-    TWAPIErrorCodeTooManyRequests = 429
+    TWAPIErrorCodeTooManyRequests = 429,
+    
+    /**
+     *  Undefined Error in the Twitter.
+     *
+     *  HTTP Status: 401
+     *  Respons JSON
+     *  {
+     *      error: "Not authorized.",
+     *      request: "/1.1/statuses/user_timeline.json"
+     *  }
+     */
+    TWAPIErrorCodeProtectedUserTimeLine = 1001,
 };
 
 typedef NS_ENUM(NSInteger, TWOperationErrorCode) {
@@ -228,6 +240,7 @@ typedef NS_ENUM(NSInteger, TWAccountErrorCode) {
                                               underlyingError:(NSError *)underlyingError
                                                    screenName:(NSString * __nullable)screenName;
 + (NSError * __nullable)tw_errorFromErrors:(NSArray *)errors;
+- (BOOL)isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code;
 
 - (NSURL * __nullable)tw_failingURL;
 - (NSHTTPURLResponse * __nullable)tw_failingURLResponse;
