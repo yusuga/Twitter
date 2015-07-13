@@ -673,7 +673,7 @@ NS_ASSUME_NONNULL_BEGIN
                                              count:(NSUInteger)count
                                             cursor:(int64_t)cursor
                                       stringifyIDs:(BOOL)stringifyIDs
-                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable identifiers, NSError * __nullable error))completion;
+                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorIdentifiers, NSError * __nullable error))completion;
 
 /**
  *  GET friends/list
@@ -686,7 +686,7 @@ NS_ASSUME_NONNULL_BEGIN
                                              cursor:(int64_t)cursor
                                          skipStatus:(BOOL)skipStatus
                                 includeUserEntities:(BOOL)includeUserEntities
-                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 #pragma mark - Followers
 
@@ -700,7 +700,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                count:(NSUInteger)count
                                               cursor:(int64_t)cursor
                                         stringifyIDs:(BOOL)stringifyIDs
-                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable identifiers, NSError * __nullable error))completion;
+                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorIdentifiers, NSError * __nullable error))completion;
 
 /**
  *  GET followers/list
@@ -713,7 +713,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                cursor:(int64_t)cursor
                                            skipStatus:(BOOL)skipStatus
                                   includeUserEntities:(BOOL)includeUserEntities
-                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 #pragma mark - Lists
 
@@ -1052,7 +1052,7 @@ NS_ASSUME_NONNULL_BEGIN
                                            orScreenName:(NSString * __nullable)screenName
                                                   count:(NSUInteger)count
                                                  cursor:(int64_t)cursor
-                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion;
+                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorLists, NSError * __nullable error))completion;
 
 /**
  *  GET lists/subscriptions
