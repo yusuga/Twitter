@@ -3,7 +3,7 @@
 
 "Error 88 format with screenName" = "Rate limit exceeded(@%@). Limit is reset after %@.";
 "Error 88 format" = "Rate limit exceeded. Limit is reset after %@.";
-"Error 1001" = "Tweets are protected.";
+"Error 1001" = "Protected User.";
 
 "Authentication failed format with screenName" = "Could not authenticate @%@.";
 "Authentication failed" = "Could not authenticate you.";

@@ -452,8 +452,21 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
     NSString *error = responseObject[@"error"];
     NSString *request = responseObject[@"request"];
     
+    BOOL (^containsProtectedUserRequest)(NSString *request) = ^BOOL(NSString *request) {
+        NSArray *endPoints = @[@"/1.1/statuses/user_timeline.json",
+                               @"/1.1/friends/list.json",
+                               @"/1.1/followers/list.json"];
+        
+        for (NSString *endPoint in endPoints) {
+            if ([request isEqualToString:endPoint]) {
+                return YES;
+            }
+        }
+        return NO;
+    };
+    
     if ([error isEqualToString:@"Not authorized."] &&
-        [request isEqualToString:@"/1.1/statuses/user_timeline.json"])
+        containsProtectedUserRequest(request))
     {
         return [self tw_apiErrorWithCode:TWAPIErrorCodeProtectedUserTimeLine
                              description:TWLocalizedString(@"Error 1001")

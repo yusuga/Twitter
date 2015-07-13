@@ -5,7 +5,7 @@
 
 "Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
 "Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
-"Error 1001" = "ツイートは非公開です";
+"Error 1001" = "非公開アカウントです";
 
 "Authentication failed format with screenName" = "@%@の認証情報を確認できませんでした";
 "Authentication failed" = "認証エラー";
