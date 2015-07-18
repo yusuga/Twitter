@@ -224,6 +224,13 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      *  }
      */
     TWAPIErrorCodeAccessToProtectedUser = 1001,
+    
+    /**
+     *  Authentication error.
+     *
+     *  - /oauth/access_token
+     */
+    TWAPIErrorCodeAuthenticationInvalidUserNameOrPassword = 1002,
 };
 
 typedef NS_ENUM(NSInteger, TWOperationErrorCode) {

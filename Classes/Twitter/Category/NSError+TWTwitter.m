@@ -28,7 +28,18 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
                                               underlyingError:(NSError *)underlyingError
                                                    screenName:(NSString * __nullable)screenName
 {
-    if (!operation || !operation.request || !underlyingError) return nil;
+    if ((!operation || !operation.request)) return nil;
+    
+    if ([operation.request.URL.path isEqualToString:@"/oauth/access_token"]) {
+        if (!operation.responseObject && operation.response.statusCode == 401 && !underlyingError && operation.responseString) {
+            return [self tw_apiErrorWithCode:TWAPIErrorCodeAuthenticationInvalidUserNameOrPassword
+                                 description:operation.responseString
+                               failureReason:nil
+                           appendingUserInfo:nil];
+        }
+    }
+    
+    if (!underlyingError) return nil;
     
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithDictionary:underlyingError.userInfo];
     info[NSUnderlyingErrorKey] = underlyingError;
