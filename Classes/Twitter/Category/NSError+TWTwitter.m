@@ -468,7 +468,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
     if ([error isEqualToString:@"Not authorized."] &&
         containsProtectedUserRequest(request))
     {
-        return [self tw_apiErrorWithCode:TWAPIErrorCodeProtectedUserTimeLine
+        return [self tw_apiErrorWithCode:TWAPIErrorCodeAccessToProtectedUser
                              description:TWLocalizedString(@"Error 1001")
                            failureReason:nil
                        appendingUserInfo:nil];

@@ -208,8 +208,13 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      */
     TWAPIErrorCodeTooManyRequests = 429,
     
+    
+    ///-------------------------------
+    /// Undefined Error in the Twitter
+    ///-------------------------------
+    
     /**
-     *  Undefined Error in the Twitter.
+     *  Access to protected user.
      *
      *  HTTP Status: 401
      *  Respons JSON
@@ -218,7 +223,7 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      *      request: "/1.1/statuses/user_timeline.json"
      *  }
      */
-    TWAPIErrorCodeProtectedUserTimeLine = 1001,
+    TWAPIErrorCodeAccessToProtectedUser = 1001,
 };
 
 typedef NS_ENUM(NSInteger, TWOperationErrorCode) {
