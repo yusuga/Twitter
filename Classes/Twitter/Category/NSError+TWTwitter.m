@@ -203,7 +203,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
 + (NSError *)tw_parseFailedErrorWithUnderlyingString:(NSString * __nonnull)underlyingString
 {
     return [self tw_operationErrorWithCode:TWOperationErrorCodeParseFailed
-                               description:@"Parse filed"
+                               description:@"Parse failed"
                              failureReason:nil
                          appendingUserInfo:underlyingString ? @{TWErrorUnderlyingStringKey : underlyingString} : nil];
 }
