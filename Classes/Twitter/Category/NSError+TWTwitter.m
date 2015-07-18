@@ -134,7 +134,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
                            userInfo:[NSDictionary dictionaryWithDictionary:info]];
 }
 
-- (BOOL)isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code
+- (BOOL)tw_isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code
 {
     return [self.domain isEqualToString:TWAPIErrorDomain] && self.code == code;
 }

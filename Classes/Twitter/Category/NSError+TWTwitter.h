@@ -245,7 +245,7 @@ typedef NS_ENUM(NSInteger, TWAccountErrorCode) {
                                               underlyingError:(NSError *)underlyingError
                                                    screenName:(NSString * __nullable)screenName;
 + (NSError * __nullable)tw_errorFromErrors:(NSArray *)errors;
-- (BOOL)isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code;
+- (BOOL)tw_isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code;
 
 - (NSURL * __nullable)tw_failingURL;
 - (NSHTTPURLResponse * __nullable)tw_failingURLResponse;
