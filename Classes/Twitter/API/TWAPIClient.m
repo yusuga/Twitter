@@ -1160,8 +1160,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (TWAPIRequestOperation *)postFriendshipsUpdateWithUserID:(int64_t)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                                    device:(BOOL)device
-                                                  retweets:(BOOL)retweets
+                                                    device:(NSNumber * __nullable)deviceBoolNum
+                                                  retweets:(NSNumber * __nullable)retweetsBoolNum
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable relationship, NSError * __nullable error))completion
 {
     NSParameterAssert(userID || screenName);
@@ -1169,8 +1169,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = tw_int64Str(userID);
     if (screenName) params[@"screen_name"] = screenName;
-    if (device) params[@"device"] = tw_boolStr(device);
-    if (retweets) params[@"retweets"] = tw_boolStr(retweets);
+    if (deviceBoolNum) params[@"device"] = deviceBoolNum.stringValue;
+    if (retweetsBoolNum) params[@"retweets"] = retweetsBoolNum.stringValue;
     
     return [self POST:@"friendships/update"
            parameters:[NSDictionary dictionaryWithDictionary:params]

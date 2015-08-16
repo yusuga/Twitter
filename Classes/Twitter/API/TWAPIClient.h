@@ -624,8 +624,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (TWAPIRequestOperation *)postFriendshipsUpdateWithUserID:(int64_t)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                                    device:(BOOL)device
-                                                  retweets:(BOOL)retweets
+                                                    device:(NSNumber * __nullable)deviceBoolNum
+                                                  retweets:(NSNumber * __nullable)retweetsBoolNum
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable relationship, NSError * __nullable error))completion;
 
 /**
