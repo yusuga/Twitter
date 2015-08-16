@@ -28,7 +28,7 @@ static inline NSString *tw_uintegerStr(NSUInteger i)
 
 static inline NSString *tw_boolStr(BOOL b)
 {
-    return b ? @"1" : @"0";
+    return b ? @"true" : @"false";
 }
 
 NS_ASSUME_NONNULL_BEGIN
