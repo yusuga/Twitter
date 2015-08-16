@@ -1169,10 +1169,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = tw_int64Str(userID);
     if (screenName) params[@"screen_name"] = screenName;
-    if (deviceBoolNum) params[@"device"] = deviceBoolNum.stringValue;
-    if (retweetsBoolNum) params[@"retweets"] = retweetsBoolNum.stringValue;
+    if (deviceBoolNum) params[@"device"] = tw_boolStr(deviceBoolNum.boolValue);
+    if (retweetsBoolNum) params[@"retweets"] = tw_boolStr(retweetsBoolNum.boolValue);
     
-    return [self POST:@"friendships/update"
+    return [self POST:@"friendships/update.json"
            parameters:[NSDictionary dictionaryWithDictionary:params]
            completion:completion];
 }
