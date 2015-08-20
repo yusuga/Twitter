@@ -1308,621 +1308,807 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Lists
 
-- (TWAPIRequestOperation *)getListsStatusesWithListID:(int64_t)listID
-                                                count:(NSUInteger)count
-                                              sinceID:(int64_t)sinceID
-                                                maxID:(int64_t)maxID
-                                      includeEntities:(BOOL)includeEntities
-                                           includeRTs:(BOOL)includeRTs
+- (TWAPIRequestOperation *)getListsStatusesWithListID:(NSNumber *)listID
+                                                count:(NSNumber * __nullable)count
+                                              sinceID:(NSNumber * __nullable)sinceID
+                                                maxID:(NSNumber * __nullable)maxID
+                                      includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                           includeRTs:(NSNumber * __nullable)includeRTsBoolNum
                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (sinceID) params[@"since_id"] = tw_int64Str(sinceID);
-    if (maxID) params[@"max_id"] = tw_int64Str(maxID);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (includeRTs) params[@"include_rts"] = tw_boolStr(includeRTs);
-    
-    return [self GET:@"lists/statuses.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
+    return [self getListsStatusesWithListID:listID
+                                       slug:nil
+                                    ownerID:nil
+                          orOwnerScreenName:nil
+                                      count:count
+                                    sinceID:sinceID
+                                      maxID:maxID
+                            includeEntities:includeEntitiesBoolNum
+                                 includeRTs:includeRTsBoolNum
+                                 completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsStatusesWithSlug:(NSString *)slug
-                                            ownerID:(int64_t)ownerID
+                                            ownerID:(NSNumber * __nullable)ownerID
                                   orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                              count:(NSUInteger)count
-                                            sinceID:(int64_t)sinceID
-                                              maxID:(int64_t)maxID
-                                    includeEntities:(BOOL)includeEntities
-                                         includeRTs:(BOOL)includeRTs
+                                              count:(NSNumber * __nullable)count
+                                            sinceID:(NSNumber * __nullable)sinceID
+                                              maxID:(NSNumber * __nullable)maxID
+                                    includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                         includeRTs:(NSNumber * __nullable)includeRTsBoolNum
                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self getListsStatusesWithListID:nil
+                                       slug:slug
+                                    ownerID:ownerID
+                          orOwnerScreenName:ownerScreenName
+                                      count:count
+                                    sinceID:sinceID
+                                      maxID:maxID
+                            includeEntities:includeEntitiesBoolNum
+                                 includeRTs:includeRTsBoolNum
+                                 completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsStatusesWithListID:(NSNumber * __nullable)listID
+                                                 slug:(NSString * __nullable)slug
+                                              ownerID:(NSNumber * __nullable)ownerID
+                                    orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                count:(NSNumber * __nullable)count
+                                              sinceID:(NSNumber * __nullable)sinceID
+                                                maxID:(NSNumber * __nullable)maxID
+                                      includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                           includeRTs:(NSNumber * __nullable)includeRTsBoolNum
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (sinceID) params[@"since_id"] = tw_int64Str(sinceID);
-    if (maxID) params[@"max_id"] = tw_int64Str(maxID);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (includeRTs) params[@"include_rts"] = tw_boolStr(includeRTs);
+    if (count) params[@"count"] = count.stringValue;
+    if (sinceID) params[@"since_id"] = sinceID.stringValue;
+    if (maxID) params[@"max_id"] = maxID.stringValue;
+    if (includeEntitiesBoolNum) params[@"include_entities"] = tw_boolStr(includeEntitiesBoolNum.boolValue);
+    if (includeRTsBoolNum) params[@"include_rts"] = tw_boolStr(includeRTsBoolNum.boolValue);
     
     return [self GET:@"lists/statuses.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
 
 #pragma mark -
 
-- (TWAPIRequestOperation *)getListsShowWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)getListsShowWithListID:(NSNumber *)listID
                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    
-    return [self GET:@"lists/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
+    return [self getListsShowWithListID:listID
+                                   slug:nil
+                                ownerID:nil
+                      orOwnerScreenName:nil
+                             completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsShowWithSlug:(NSString *)slug
-                                        ownerID:(int64_t)ownerID
+                                        ownerID:(NSNumber * __nullable)ownerID
                               orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self getListsShowWithListID:nil
+                                   slug:slug
+                                ownerID:ownerID
+                      orOwnerScreenName:ownerScreenName
+                             completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsShowWithListID:(NSNumber * __nullable)listID
+                                             slug:(NSString * __nullable)slug
+                                          ownerID:(NSNumber * __nullable)ownerID
+                                orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                       completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
     
     return [self GET:@"lists/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
+
+#pragma mark -
 
 - (TWAPIRequestOperation *)postListsCreateWithName:(NSString *)name
                                               mode:(NSString * __nullable)mode
                                        description:(NSString * __nullable)description
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
 {
-    NSParameterAssert(name);
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (name) params[@"name"] = name;
     if (mode) params[@"mode"] = mode;
     if (description) params[@"description"] = description;
     
     return [self POST:@"lists/create.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsUpdateWithListID:(int64_t)listID
+#pragma mark -
+
+- (TWAPIRequestOperation *)postListsUpdateWithListID:(NSNumber *)listID
                                                 name:(NSString * __nullable)name
                                                 mode:(NSString * __nullable)mode
                                          description:(NSString * __nullable)description
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (name) params[@"name"] = name;
-    if (mode) params[@"mode"] = mode;
-    if (description) params[@"description"] = description;
-    
-    return [self POST:@"lists/update.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsUpdateWithListID:listID
+                                      slug:nil
+                                   ownerID:nil
+                         orOwnerScreenName:nil
+                                      name:name
+                                      mode:mode
+                               description:description
+                                completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsUpdateWithSlug:(NSString *)slug
-                                           ownerID:(int64_t)ownerID
+                                           ownerID:(NSNumber * __nullable)ownerID
                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                               name:(NSString * __nullable)name
                                               mode:(NSString * __nullable)mode
                                        description:(NSString * __nullable)description
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self postListsUpdateWithListID:nil
+                                      slug:slug
+                                   ownerID:ownerID
+                         orOwnerScreenName:ownerScreenName
+                                      name:name
+                                      mode:mode
+                               description:description
+                                completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsUpdateWithListID:(NSNumber * __nullable)listID
+                                                slug:(NSString * __nullable)slug
+                                           ownerID:(NSNumber * __nullable)ownerID
+                                 orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                              name:(NSString * __nullable)name
+                                              mode:(NSString * __nullable)mode
+                                       description:(NSString * __nullable)description
+                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
     if (name) params[@"name"] = name;
     if (mode) params[@"mode"] = mode;
     if (description) params[@"description"] = description;
     
     return [self POST:@"lists/update.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
-}
-
-- (TWAPIRequestOperation *)postListsDestroyWithListID:(int64_t)listID
-                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
-{
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    
-    return [self POST:@"lists/destroy.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
-    
-}
-
-- (TWAPIRequestOperation *)postListsDestroyWithSlug:(NSString *)slug
-                                            ownerID:(int64_t)ownerID
-                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
-{
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
-    if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    
-    return [self POST:@"lists/destroy.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
 #pragma mark -
 
-- (TWAPIRequestOperation *)getListsMembersWithListID:(int64_t)listID
-                                               count:(NSUInteger)count
-                                              cursor:(int64_t)cursor
-                                     includeEntities:(BOOL)includeEntities
-                                          skipStatus:(BOOL)skipStatus
+- (TWAPIRequestOperation *)postListsDestroyWithListID:(NSNumber *)listID
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
+    return [self postListsDestroyWithListID:listID
+                                       slug:nil
+                                    ownerID:nil
+                          orOwnerScreenName:nil
+                                 completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsDestroyWithSlug:(NSString *)slug
+                                            ownerID:(NSNumber * __nullable)ownerID
+                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self postListsDestroyWithListID:nil
+                                       slug:slug
+                                    ownerID:ownerID
+                          orOwnerScreenName:ownerScreenName
+                                 completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsDestroyWithListID:(NSNumber * __nullable)listID
+                                                 slug:(NSString * __nullable)slug
+                                            ownerID:(NSNumber * __nullable)ownerID
+                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
+    if (slug) params[@"slug"] = slug;
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
+    if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
+    
+    return [self POST:@"lists/destroy.json"
+           parameters:[params copy]
+           completion:completion];
+}
+
+#pragma mark -
+
+- (TWAPIRequestOperation *)getListsMembersWithListID:(NSNumber *)listID
+                                               count:(NSNumber * __nullable)count
+                                              cursor:(NSNumber * __nullable)cursor
+                                     includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                          skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
-    
-    return [self GET:@"lists/members.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
-    
+    return [self getListsMembersWithListID:listID
+                                      slug:nil
+                                   ownerID:nil
+                         orOwnerScreenName:nil
+                                     count:count
+                                    cursor:cursor
+                           includeEntities:includeEntitiesBoolNum
+                                skipStatus:skipStatusBoolNum
+                                completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsMembersWithSlug:(NSString *)slug
-                                           ownerID:(int64_t)ownerID
+                                           ownerID:(NSNumber * __nullable)ownerID
                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                             count:(NSUInteger)count
-                                            cursor:(int64_t)cursor
-                                   includeEntities:(BOOL)includeEntities
-                                        skipStatus:(BOOL)skipStatus
+                                             count:(NSNumber * __nullable)count
+                                            cursor:(NSNumber * __nullable)cursor
+                                   includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                        skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self getListsMembersWithListID:nil
+                                      slug:slug
+                                   ownerID:ownerID
+                         orOwnerScreenName:ownerScreenName
+                                     count:count
+                                    cursor:cursor
+                           includeEntities:includeEntitiesBoolNum
+                                skipStatus:skipStatusBoolNum
+                                completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsMembersWithListID:(NSNumber * __nullable)listID
+                                                slug:(NSString * __nullable)slug
+                                           ownerID:(NSNumber * __nullable)ownerID
+                                 orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                             count:(NSNumber * __nullable)count
+                                            cursor:(NSNumber * __nullable)cursor
+                                   includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                        skipStatus:(NSNumber * __nullable)skipStatusBoolNum
+                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
+    if (count) params[@"count"] = count.stringValue;
+    if (cursor) params[@"cursor"] = cursor.stringValue;
+    if (includeEntitiesBoolNum) params[@"include_entities"] = tw_boolStr(includeEntitiesBoolNum.boolValue);
+    if (skipStatusBoolNum) params[@"skip_status"] = tw_boolStr(skipStatusBoolNum.boolValue);
     
     return [self GET:@"lists/members.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)getListsMembersShowWithListID:(int64_t)listID
-                                                  userID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsMembersShowWithListID:(NSNumber *)listID
+                                                  userID:(NSNumber * __nullable)userID
                                             orScreenName:(NSString * __nullable)screenName
-                                         includeEntities:(BOOL)includeEntities
-                                              skipStatus:(BOOL)skipStatus
+                                         includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                              skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
-    
-    return [self GET:@"lists/members/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
+    return [self getListsMembersShowWithListID:listID
+                                          slug:nil
+                                       ownerID:nil
+                             orOwnerScreenName:nil
+                                        userID:userID
+                                  orScreenName:screenName
+                               includeEntities:includeEntitiesBoolNum
+                                    skipStatus:skipStatusBoolNum
+                                    completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsMembersShowWithSlug:(NSString *)slug
-                                               ownerID:(int64_t)ownerID
+                                               ownerID:(NSNumber * __nullable)ownerID
                                      orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                userID:(int64_t)userID
+                                                userID:(NSNumber * __nullable)userID
                                           orScreenName:(NSString * __nullable)screenName
-                                       includeEntities:(BOOL)includeEntities
-                                            skipStatus:(BOOL)skipStatus
+                                       includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                            skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self getListsMembersShowWithListID:nil
+                                          slug:slug
+                                       ownerID:ownerID
+                             orOwnerScreenName:ownerScreenName
+                                        userID:userID
+                                  orScreenName:screenName
+                               includeEntities:includeEntitiesBoolNum
+                                    skipStatus:skipStatusBoolNum
+                                    completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsMembersShowWithListID:(NSNumber * __nullable)listID
+                                                    slug:(NSString * __nullable)slug
+                                               ownerID:(NSNumber * __nullable)ownerID
+                                     orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                userID:(NSNumber * __nullable)userID
+                                          orScreenName:(NSString * __nullable)screenName
+                                         includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                              skipStatus:(NSNumber * __nullable)skipStatusBoolNum
+                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
+{
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
+    if (includeEntitiesBoolNum) params[@"include_entities"] = tw_boolStr(includeEntitiesBoolNum.boolValue);
+    if (skipStatusBoolNum) params[@"skip_status"] = tw_boolStr(skipStatusBoolNum.boolValue);
     
     return [self GET:@"lists/members/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsMembersCreateWithListID:(int64_t)listID
-                                                     userID:(int64_t)userID
+- (TWAPIRequestOperation *)postListsMembersCreateWithListID:(NSNumber *)listID
+                                                     userID:(NSNumber * __nullable)userID
                                                orScreenName:(NSString * __nullable)screenName
                                                  completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    
-    return [self POST:@"lists/members/create.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsMembersCreateWithListID:listID
+                                             slug:nil
+                                          ownerID:nil
+                                orOwnerScreenName:nil
+                                           userID:userID
+                                     orScreenName:screenName
+                                       completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsMembersCreateWithSlug:(NSString *)slug
-                                                  ownerID:(int64_t)ownerID
+                                                  ownerID:(NSNumber * __nullable)ownerID
                                         orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                   userID:(int64_t)userID
+                                                   userID:(NSNumber * __nullable)userID
                                              orScreenName:(NSString * __nullable)screenName
                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self postListsMembersCreateWithListID:nil
+                                             slug:slug
+                                          ownerID:ownerID
+                                orOwnerScreenName:ownerScreenName
+                                           userID:userID
+                                     orScreenName:screenName
+                                       completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsMembersCreateWithListID:(NSNumber * __nullable)listID
+                                                       slug:(NSString * __nullable)slug
+                                                    ownerID:(NSNumber * __nullable)ownerID
+                                          orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                     userID:(NSNumber * __nullable)userID
+                                               orScreenName:(NSString * __nullable)screenName
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
     
     return [self POST:@"lists/members/create.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsMembersCreateAllWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)postListsMembersCreateAllWithListID:(NSNumber *)listID
                                                        userIDs:(NSArray * __nullable)userIDs
                                                  orScreenNames:(NSArray * __nullable)screenNames
                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userIDs || screenNames);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userIDs) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
-    if (screenNames) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
-    
-    return [self POST:@"lists/members/create_all.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
-    
+    return [self postListsMembersCreateAllWithListID:listID
+                                                slug:nil
+                                             ownerID:nil
+                                   orOwnerScreenName:nil
+                                             userIDs:userIDs
+                                       orScreenNames:screenNames
+                                          completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsMembersCreateAllWithSlug:(NSString *)slug
-                                                     ownerID:(int64_t)ownerID
+                                                     ownerID:(NSNumber * __nullable)ownerID
                                            orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                                      userIDs:(NSArray * __nullable)userIDs
                                                orScreenNames:(NSArray * __nullable)screenNames
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userIDs || screenNames);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self postListsMembersCreateAllWithListID:nil
+                                                slug:slug
+                                             ownerID:ownerID
+                                   orOwnerScreenName:ownerScreenName
+                                             userIDs:userIDs
+                                       orScreenNames:screenNames
+                                          completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsMembersCreateAllWithListID:(NSNumber * __nullable)listID
+                                                          slug:(NSString * __nullable)slug
+                                                       ownerID:(NSNumber * __nullable)ownerID
+                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                       userIDs:(NSArray * __nullable)userIDs
+                                                 orScreenNames:(NSArray * __nullable)screenNames
+                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
+    NSAssert([userIDs count] || [screenNames count], @"userIDs or screenNames is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userIDs) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
-    if (screenNames) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
+    if ([userIDs count]) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
+    if ([screenNames count]) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
     
     return [self POST:@"lists/members/create_all.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsMembersDestroyWithListID:(int64_t)listID
-                                                      userID:(int64_t)userID
+- (TWAPIRequestOperation *)postListsMembersDestroyWithListID:(NSNumber *)listID
+                                                      userID:(NSNumber * __nullable)userID
                                                 orScreenName:(NSString * __nullable)screenName
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    
-    return [self POST:@"lists/members/destroy.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsMembersDestroyWithListID:listID
+                                              slug:nil
+                                           ownerID:nil
+                                 orOwnerScreenName:nil
+                                            userID:userID
+                                      orScreenName:screenName
+                                        completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsMembersDestroyWithSlug:(NSString *)slug
-                                                   ownerID:(int64_t)ownerID
+                                                   ownerID:(NSNumber * __nullable)ownerID
                                          orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                    userID:(int64_t)userID
+                                                    userID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self postListsMembersDestroyWithListID:nil
+                                              slug:slug
+                                           ownerID:ownerID
+                                 orOwnerScreenName:ownerScreenName
+                                            userID:userID
+                                      orScreenName:screenName
+                                        completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsMembersDestroyWithListID:(NSNumber * __nullable)listID
+                                                        slug:(NSString * __nullable)slug
+                                                     ownerID:(NSNumber * __nullable)ownerID
+                                           orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                      userID:(NSNumber * __nullable)userID
+                                                orScreenName:(NSString * __nullable)screenName
+                                                  completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
     
     return [self POST:@"lists/members/destroy.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsMembersDestroyAllWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)postListsMembersDestroyAllWithListID:(NSNumber *)listID
                                                         userIDs:(NSArray * __nullable)userIDs
                                                   orScreenNames:(NSArray * __nullable)screenNames
                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userIDs || screenNames);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userIDs) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
-    if (screenNames) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
-    
-    return [self POST:@"lists/members/destroy_all.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsMembersDestroyAllWithListID:listID
+                                                 slug:nil
+                                              ownerID:nil
+                                    orOwnerScreenName:nil
+                                              userIDs:userIDs
+                                        orScreenNames:screenNames
+                                           completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsMembersDestroyAllWithSlug:(NSString *)slug
-                                                      ownerID:(int64_t)ownerID
+                                                      ownerID:(NSNumber * __nullable)ownerID
                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                                       userIDs:(NSArray * __nullable)userIDs
                                                 orScreenNames:(NSArray * __nullable)screenNames
                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userIDs || screenNames);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self postListsMembersDestroyAllWithListID:nil
+                                                 slug:slug
+                                              ownerID:ownerID
+                                    orOwnerScreenName:ownerScreenName
+                                              userIDs:userIDs
+                                        orScreenNames:screenNames
+                                           completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsMembersDestroyAllWithListID:(NSNumber * __nullable)listID
+                                                           slug:(NSString * __nullable)slug
+                                                      ownerID:(NSNumber * __nullable)ownerID
+                                            orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                      userIDs:(NSArray * __nullable)userIDs
+                                                orScreenNames:(NSArray * __nullable)screenNames
+                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
+    NSAssert([userIDs count] || [screenNames count], @"userIDs or screenNames is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userIDs) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
-    if (screenNames) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
+    if ([userIDs count]) params[@"user_id"] = [userIDs componentsJoinedByString:@","];
+    if ([screenNames count]) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
     
     return [self POST:@"lists/members/destroy_all.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
 #pragma mark -
 
-- (TWAPIRequestOperation *)getListsSubscribersWithListID:(int64_t)listID
-                                                   count:(NSUInteger)count
-                                                  cursor:(int64_t)cursor
-                                         includeEntities:(BOOL)includeEntities
-                                              skipStatus:(BOOL)skipStatus
+- (TWAPIRequestOperation *)getListsSubscribersWithListID:(NSNumber *)listID
+                                                   count:(NSNumber * __nullable)count
+                                                  cursor:(NSNumber * __nullable)cursor
+                                         includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                              skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
-    
-    return [self GET:@"lists/subscribers.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
-    
+    return [self getListsSubscribersWithListID:listID
+                                          slug:nil
+                                       ownerID:nil
+                             orOwnerScreenName:nil
+                                         count:count
+                                        cursor:cursor
+                               includeEntities:includeEntitiesBoolNum
+                                    skipStatus:skipStatusBoolNum
+                                    completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsSubscribersWithSlug:(NSString *)slug
-                                               ownerID:(int64_t)ownerID
+                                               ownerID:(NSNumber * __nullable)ownerID
                                      orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                 count:(NSUInteger)count
-                                                cursor:(int64_t)cursor
-                                       includeEntities:(BOOL)includeEntities
-                                            skipStatus:(BOOL)skipStatus
+                                                 count:(NSNumber * __nullable)count
+                                                cursor:(NSNumber * __nullable)cursor
+                                       includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                            skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self getListsSubscribersWithListID:nil
+                                          slug:slug
+                                       ownerID:ownerID
+                             orOwnerScreenName:ownerScreenName
+                                         count:count
+                                        cursor:cursor
+                               includeEntities:includeEntitiesBoolNum
+                                    skipStatus:skipStatusBoolNum
+                                    completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsSubscribersWithListID:(NSNumber * __nullable)listID
+                                                    slug:(NSString * __nullable)slug
+                                               ownerID:(NSNumber * __nullable)ownerID
+                                     orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                 count:(NSNumber * __nullable)count
+                                                cursor:(NSNumber * __nullable)cursor
+                                       includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                            skipStatus:(NSNumber * __nullable)skipStatusBoolNum
+                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
+    if (count) params[@"count"] = count.stringValue;
+    if (cursor) params[@"cursor"] = cursor.stringValue;
+    if (includeEntitiesBoolNum) params[@"include_entities"] = tw_boolStr(includeEntitiesBoolNum.boolValue);
+    if (skipStatusBoolNum) params[@"skip_status"] = tw_boolStr(skipStatusBoolNum.boolValue);
     
     return [self GET:@"lists/subscribers.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)getListsSubscribersShowWithListID:(int64_t)listID
-                                                      userID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsSubscribersShowWithListID:(NSNumber *)listID
+                                                      userID:(NSNumber * __nullable)userID
                                                 orScreenName:(NSString * __nullable)screenName
-                                             includeEntities:(BOOL)includeEntities
-                                                  skipStatus:(BOOL)skipStatus
+                                             includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                                  skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
-    
-    return [self GET:@"lists/subscribers/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
+    return [self getListsSubscribersShowWithListID:listID
+                                              slug:nil
+                                           ownerID:nil
+                                 orOwnerScreenName:nil
+                                            userID:userID
+                                      orScreenName:screenName
+                                   includeEntities:includeEntitiesBoolNum
+                                        skipStatus:skipStatusBoolNum
+                                        completion:completion];
 }
 
 - (TWAPIRequestOperation *)getListsSubscribersShowWithSlug:(NSString *)slug
-                                                   ownerID:(int64_t)ownerID
+                                                   ownerID:(NSNumber * __nullable)ownerID
                                          orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                    userID:(int64_t)userID
+                                                    userID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                           includeEntities:(BOOL)includeEntities
-                                                skipStatus:(BOOL)skipStatus
+                                           includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                                skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
+    
+    return [self getListsSubscribersShowWithListID:nil
+                                              slug:slug
+                                           ownerID:ownerID
+                                 orOwnerScreenName:ownerScreenName
+                                            userID:userID
+                                      orScreenName:screenName
+                                   includeEntities:includeEntitiesBoolNum
+                                        skipStatus:skipStatusBoolNum
+                                        completion:completion];
+}
+
+- (TWAPIRequestOperation *)getListsSubscribersShowWithListID:(NSNumber * __nullable)listID
+                                                        slug:(NSString * __nullable)slug
+                                                   ownerID:(NSNumber * __nullable)ownerID
+                                         orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                    userID:(NSNumber * __nullable)userID
+                                              orScreenName:(NSString * __nullable)screenName
+                                           includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                                skipStatus:(NSNumber * __nullable)skipStatusBoolNum
+                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion
+{
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
-    if (skipStatus) params[@"skip_status"] = tw_boolStr(skipStatus);
+    if (includeEntitiesBoolNum) params[@"include_entities"] = tw_boolStr(includeEntitiesBoolNum.boolValue);
+    if (skipStatusBoolNum) params[@"skip_status"] = tw_boolStr(skipStatusBoolNum.boolValue);
     
     return [self GET:@"lists/subscribers/show.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
+          parameters:[params copy]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsSubscribersCreateWithListID:(int64_t)listID
-                                                         userID:(int64_t)userID
-                                                   orScreenName:(NSString * __nullable)screenName
+- (TWAPIRequestOperation *)postListsSubscribersCreateWithListID:(NSNumber *)listID
                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    
-    return [self POST:@"lists/subscribers/create.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsSubscribersCreateWithListID:listID
+                                                 slug:nil
+                                              ownerID:nil
+                                    orOwnerScreenName:nil
+                                           completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsSubscribersCreateWithSlug:(NSString *)slug
-                                                      ownerID:(int64_t)ownerID
+                                                      ownerID:(NSNumber * __nullable)ownerID
                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                       userID:(int64_t)userID
-                                                 orScreenName:(NSString * __nullable)screenName
                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self postListsSubscribersCreateWithListID:nil
+                                                 slug:slug
+                                              ownerID:ownerID
+                                    orOwnerScreenName:ownerScreenName
+                                           completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsSubscribersCreateWithListID:(NSNumber * __nullable)listID
+                                                           slug:(NSString * __nullable)slug
+                                                      ownerID:(NSNumber * __nullable)ownerID
+                                            orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
     
     return [self POST:@"lists/subscribers/create.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
+           parameters:[params copy]
            completion:completion];
 }
 
-- (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(int64_t)listID
-                                                          userID:(int64_t)userID
+- (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(NSNumber *)listID
+                                                          userID:(NSNumber * __nullable)userID
                                                     orScreenName:(NSString * __nullable)screenName
                                                       completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(listID);
-    NSParameterAssert(userID || screenName);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (listID) params[@"list_id"] = tw_int64Str(listID);
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
-    
-    return [self POST:@"lists/subscribers/destroy.json"
-           parameters:[NSDictionary dictionaryWithDictionary:params]
-           completion:completion];
+    return [self postListsSubscribersDestroyWithListID:listID
+                                                  slug:nil
+                                               ownerID:nil
+                                     orOwnerScreenName:nil
+                                            completion:completion];
 }
 
 - (TWAPIRequestOperation *)postListsSubscribersDestroyWithSlug:(NSString *)slug
-                                                       ownerID:(int64_t)ownerID
+                                                       ownerID:(NSNumber * __nullable)ownerID
                                              orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                        userID:(int64_t)userID
-                                                  orScreenName:(NSString * __nullable)screenName
                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
-    NSParameterAssert(slug);
-    NSParameterAssert(ownerID || ownerScreenName);
-    NSParameterAssert(userID || screenName);
+    NSAssert(ownerID || ownerScreenName, @"ownerID or ownerScreenName is a required argument.");
     
+    return [self postListsSubscribersDestroyWithListID:nil
+                                                  slug:slug
+                                               ownerID:ownerID
+                                     orOwnerScreenName:ownerScreenName
+                                            completion:completion];
+}
+
+- (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(NSNumber * __nullable)listID
+                                                            slug:(NSString * __nullable)slug
+                                                       ownerID:(NSNumber * __nullable)ownerID
+                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (listID) params[@"list_id"] = listID.stringValue;
     if (slug) params[@"slug"] = slug;
-    if (ownerID) params[@"owner_id"] = tw_int64Str(ownerID);
+    if (ownerID) params[@"owner_id"] = ownerID.stringValue;
     if (ownerScreenName) params[@"owner_screen_name"] = ownerScreenName;
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
-    if (screenName) params[@"screen_name"] = screenName;
     
     return [self POST:@"lists/subscribers/destroy.json"
            parameters:[NSDictionary dictionaryWithDictionary:params]
@@ -1931,76 +2117,76 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
-- (TWAPIRequestOperation *)getListsListWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsListWithUserID:(NSNumber * __nullable)userID
                                      orScreenName:(NSString * __nullable)screenName
-                                          reverse:(BOOL)reverse
+                                          reverse:(NSNumber * __nullable)reverseBoolNum
                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable lists, NSError * __nullable error))completion
 {
-    NSParameterAssert(userID || screenName);
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (reverse) params[@"reverse"] = tw_boolStr(reverse);
+    if (reverseBoolNum) params[@"reverse"] = tw_boolStr(reverseBoolNum.boolValue);
     
     return [self GET:@"lists/list.json"
           parameters:[NSDictionary dictionaryWithDictionary:params]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)getListsOwnershipsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsOwnershipsWithUserID:(NSNumber * __nullable)userID
                                            orScreenName:(NSString * __nullable)screenName
-                                                  count:(NSUInteger)count
-                                                 cursor:(int64_t)cursor
-                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion
+                                                  count:(NSNumber * __nullable)count
+                                                 cursor:(NSNumber * __nullable)cursor
+                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorLists, NSError * __nullable error))completion
 {
-    NSParameterAssert(userID || screenName);
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
+    if (count) params[@"count"] = count.stringValue;
+    if (cursor) params[@"cursor"] = cursor.stringValue;
     
     return [self GET:@"lists/ownerships.json"
           parameters:[NSDictionary dictionaryWithDictionary:params]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)getListsSubscriptionsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsSubscriptionsWithUserID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                                     count:(NSUInteger)count
-                                                    cursor:(int64_t)cursor
+                                                     count:(NSNumber * __nullable)count
+                                                    cursor:(NSNumber * __nullable)cursor
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion
 {
-    NSParameterAssert(userID || screenName);
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
+    if (count) params[@"count"] = count.stringValue;
+    if (cursor) params[@"cursor"] = cursor.stringValue;
     
     return [self GET:@"lists/subscriptions.json"
           parameters:[NSDictionary dictionaryWithDictionary:params]
           completion:completion];
 }
 
-- (TWAPIRequestOperation *)getListsMembershipsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsMembershipsWithUserID:(NSNumber * __nullable)userID
                                             orScreenName:(NSString * __nullable)screenName
-                                                   count:(NSUInteger)count
-                                                  cursor:(int64_t)cursor
-                                      filterToOwnedLists:(BOOL)filterToOwnedLists
+                                                   count:(NSNumber * __nullable)count
+                                                  cursor:(NSNumber * __nullable)cursor
+                                      filterToOwnedLists:(NSNumber * __nullable)filterToOwnedListsBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion
 {
-    NSParameterAssert(userID || screenName);
+    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (userID) params[@"user_id"] = tw_int64Str(userID);
+    if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
-    if (count) params[@"count"] = tw_uintegerStr(count);
-    if (cursor) params[@"cursor"] = tw_int64Str(cursor);
-    if (filterToOwnedLists) params[@"filter_to_owned_lists"] = tw_boolStr(filterToOwnedLists);
+    if (count) params[@"count"] = count.stringValue;
+    if (cursor) params[@"cursor"] = cursor.stringValue;
+    if (filterToOwnedListsBoolNum) params[@"filter_to_owned_lists"] = tw_boolStr(filterToOwnedListsBoolNum.boolValue);
     
     return [self GET:@"lists/memberships.json"
           parameters:[NSDictionary dictionaryWithDictionary:params]

@@ -8,6 +8,11 @@
 #import "TWAPIClient+Convenience.h"
 #import "NSError+TWTwitter.h"
 
+static inline NSString *tw_modeStr(NSNumber *privateBoolNum)
+{
+    return privateBoolNum.boolValue ? @"private" : nil;
+}
+
 NS_ASSUME_NONNULL_BEGIN
 @implementation TWAPIClient (Convenience)
 
@@ -194,6 +199,50 @@ NS_ASSUME_NONNULL_BEGIN
     });
     
     return multipleOpe;
+}
+
+#pragma mark - List
+
+- (TWAPIRequestOperation *)tw_postListsCreateWithName:(NSString *)name
+                                              private:(NSNumber * __nullable)privateBoolNum
+                                          description:(NSString * __nullable)description
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+{
+    return [self postListsCreateWithName:name
+                                    mode:tw_modeStr(privateBoolNum)
+                             description:description
+                              completion:completion];
+}
+
+- (TWAPIRequestOperation *)tw_postListsUpdateWithListID:(NSNumber *)listID
+                                                   name:(NSString * __nullable)name
+                                                private:(NSNumber * __nullable)privateBoolNum
+                                            description:(NSString * __nullable)description
+                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
+    return [self postListsUpdateWithListID:listID
+                                      name:name
+                                      mode:tw_modeStr(privateBoolNum)
+                               description:description
+                                completion:completion];
+}
+
+- (TWAPIRequestOperation *)tw_postListsUpdateWithSlug:(NSString *)slug
+                                              ownerID:(NSNumber * __nullable)ownerID
+                                    orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                 name:(NSString * __nullable)name
+                                              private:(NSNumber * __nullable)privateBoolNum
+                                          description:(NSString * __nullable)description
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion
+{
+    return [self postListsUpdateWithSlug:slug
+                                 ownerID:ownerID
+                       orOwnerScreenName:ownerScreenName
+                                    name:name
+                                    mode:tw_modeStr(privateBoolNum)
+                             description:description
+                              completion:completion];
+
 }
 
 @end

@@ -494,7 +494,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getUsersSuggestionsSlugWithSlug:kSlug
-                                           lang:@"en"
+                                           lang:nil
                                      completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable suggestedUsers, NSError * __nullable error) {
                                          validateAPICompletionAndFulfill(operation, NSDictionary, suggestedUsers, error);
                                      }];
@@ -857,12 +857,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsStatusesWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsStatusesWithListID:kListID
-                                     count:100
-                                   sinceID:kSinceID
-                                     maxID:kMaxID
-                           includeEntities:YES
-                                includeRTs:YES
+        [client getListsStatusesWithListID:@(kListID)
+                                     count:@(100)
+                                   sinceID:@(kSinceID)
+                                     maxID:@(kMaxID)
+                           includeEntities:@YES
+                                includeRTs:@YES
                                 completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error) {
                                     validateAPICompletionAndFulfill(operation, NSArray, tweets, error);
                                 }];
@@ -873,13 +873,13 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsStatusesWithSlug:kListSlug
-                                 ownerID:kListOwnerID
+                                 ownerID:@(kListOwnerID)
                        orOwnerScreenName:nil
-                                   count:100
-                                 sinceID:kSinceID
-                                   maxID:kMaxID
-                         includeEntities:YES
-                              includeRTs:YES
+                                   count:@(100)
+                                 sinceID:@(kSinceID)
+                                   maxID:@(kMaxID)
+                         includeEntities:@YES
+                              includeRTs:@YES
                               completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error) {
                                   validateAPICompletionAndFulfill(operation, NSArray, tweets, error);
                               }];
@@ -889,7 +889,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsShowWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsShowWithListID:kListID
+        [client getListsShowWithListID:@(kListID)
                             completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error) {
                                 validateAPICompletionAndFulfill(operation, NSDictionary, list, error);
                             }];
@@ -900,7 +900,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsShowWithSlug:kListSlug
-                             ownerID:kListOwnerID
+                             ownerID:@(kListOwnerID)
                    orOwnerScreenName:nil
                           completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error) {
                               validateAPICompletionAndFulfill(operation, NSDictionary, list, error);
@@ -936,11 +936,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsMembersWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsMembersWithListID:kListID
-                                    count:100
-                                   cursor:0
-                          includeEntities:YES
-                               skipStatus:YES
+        [client getListsMembersWithListID:@(kListID)
+                                    count:@(100)
+                                   cursor:nil
+                          includeEntities:@YES
+                               skipStatus:@YES
                                completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error) {
                                    validateAPICompletionAndFulfill(operation, NSDictionary, users, error);
                                }];
@@ -951,12 +951,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsMembersWithSlug:kListSlug
-                                ownerID:kListOwnerID
+                                ownerID:@(kListOwnerID)
                       orOwnerScreenName:nil
-                                  count:100
-                                 cursor:0
-                        includeEntities:YES
-                             skipStatus:YES
+                                  count:@(100)
+                                 cursor:nil
+                        includeEntities:@YES
+                             skipStatus:@YES
                              completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error) {
                                  validateAPICompletionAndFulfill(operation, NSDictionary, users, error);
                              }];
@@ -966,11 +966,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsMembersShowWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsMembersShowWithListID:kListID
-                                       userID:kListUserID
+        [client getListsMembersShowWithListID:@(kListID)
+                                       userID:@(kListUserID)
                                  orScreenName:nil
-                              includeEntities:YES
-                                   skipStatus:YES
+                              includeEntities:@YES
+                                   skipStatus:@YES
                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
                                        validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
                                    }];
@@ -981,12 +981,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsMembersShowWithSlug:kListSlug
-                                    ownerID:kListOwnerID
+                                    ownerID:@(kListOwnerID)
                           orOwnerScreenName:nil
-                                     userID:kListUserID
+                                     userID:@(kListUserID)
                                orScreenName:nil
-                            includeEntities:YES
-                                 skipStatus:YES
+                            includeEntities:@YES
+                                 skipStatus:@YES
                                  completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
                                      validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
                                  }];
@@ -1036,11 +1036,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsSubscribersWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsSubscribersWithListID:kListID
-                                        count:100
-                                       cursor:0
-                              includeEntities:YES
-                                   skipStatus:YES
+        [client getListsSubscribersWithListID:@(kListID)
+                                        count:@(100)
+                                       cursor:nil
+                              includeEntities:@YES
+                                   skipStatus:@YES
                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error) {
                                        validateAPICompletionAndFulfill(operation, NSDictionary, users, error);
                                    }];
@@ -1051,12 +1051,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsSubscribersWithSlug:kListSlug
-                                    ownerID:kListOwnerID
+                                    ownerID:@(kListOwnerID)
                           orOwnerScreenName:nil
-                                      count:100
+                                      count:@(100)
                                      cursor:0
-                            includeEntities:YES
-                                 skipStatus:YES
+                            includeEntities:@YES
+                                 skipStatus:@YES
                                  completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error) {
                                      validateAPICompletionAndFulfill(operation, NSDictionary, users, error);
                                  }];
@@ -1066,11 +1066,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsSubscribersShowWithListID
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsSubscribersShowWithListID:kListID
-                                           userID:kListUserID
+        [client getListsSubscribersShowWithListID:@(kListID)
+                                           userID:@(kListUserID)
                                      orScreenName:nil
-                                  includeEntities:YES
-                                       skipStatus:YES
+                                  includeEntities:nil
+                                       skipStatus:nil
                                        completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
                                            validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
                                        }];
@@ -1081,12 +1081,12 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsSubscribersShowWithSlug:kListSlug
-                                        ownerID:kListOwnerID
+                                        ownerID:@(kListOwnerID)
                               orOwnerScreenName:nil
-                                         userID:kListUserID
+                                         userID:@(kListUserID)
                                    orScreenName:nil
-                                includeEntities:YES
-                                     skipStatus:YES
+                                includeEntities:nil
+                                     skipStatus:nil
                                      completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
                                          validateAPICompletionAndFulfill(operation, NSDictionary, user, error);
                                      }];
@@ -1116,9 +1116,9 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsList
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsListWithUserID:kTargetUserID
+        [client getListsListWithUserID:@(kTargetUserID)
                           orScreenName:nil
-                               reverse:NO
+                               reverse:nil
                             completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable lists, NSError * __nullable error) {
                                 validateAPICompletionAndFulfill(operation, NSArray, lists, error);
                             }];
@@ -1128,10 +1128,10 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsOwnerships
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsOwnershipsWithUserID:kTargetUserID
+        [client getListsOwnershipsWithUserID:@(kTargetUserID)
                                 orScreenName:nil
-                                       count:100
-                                      cursor:0
+                                       count:nil
+                                      cursor:nil
                                   completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error) {
                                       validateAPICompletionAndFulfill(operation, NSDictionary, lists, error);
                                   }];
@@ -1141,10 +1141,10 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsSubscriptions
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsSubscriptionsWithUserID:kTargetUserID
+        [client getListsSubscriptionsWithUserID:@(kTargetUserID)
                                    orScreenName:nil
-                                          count:100
-                                         cursor:0
+                                          count:nil
+                                         cursor:nil
                                      completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error) {
                                          validateAPICompletionAndFulfill(operation, NSDictionary, lists, error);
                                      }];
@@ -1154,11 +1154,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testGetListsMemberships
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getListsMembershipsWithUserID:kTargetUserID
+        [client getListsMembershipsWithUserID:@(kTargetUserID)
                                  orScreenName:nil
-                                        count:100
-                                       cursor:0
-                           filterToOwnedLists:YES
+                                        count:nil
+                                       cursor:nil
+                           filterToOwnedLists:nil
                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error) {
                                        validateAPICompletionAndFulfill(operation, NSDictionary, lists, error);
                                    }];

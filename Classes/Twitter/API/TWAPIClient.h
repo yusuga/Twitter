@@ -717,223 +717,482 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Lists
 
-/**
- *  GET lists/statuses
- *  https://dev.twitter.com/rest/reference/get/lists/statuses
- *
- *  Returns a timeline of tweets authored by members of the specified list. Retweets are included by default. Use the include_rts=false parameter to omit retweets.
- *  指定リストに追加されているユーザのツイートを返します(デフォルトはリツートを含む)。includeRTs=NOでリツイートを省略できます。
- */
+///------------
+/// @name lists
+///------------
 
-- (TWAPIRequestOperation *)getListsStatusesWithListID:(int64_t)listID
-                                                count:(NSUInteger)count
-                                              sinceID:(int64_t)sinceID
-                                                maxID:(int64_t)maxID
-                                      includeEntities:(BOOL)includeEntities
-                                           includeRTs:(BOOL)includeRTs
+/**
+ GET lists/statuses
+ Returns a timeline of tweets authored by members of the specified list. Retweets are included by default. Use the include_rts=false parameter to omit retweets.
+ 指定リストに追加されているユーザのツイートを返します(デフォルトはリツートを含む)。includeRTs=NOでリツイートを省略できます。
+ 
+ @param listID The numerical id of the list.
+ @param count Specifies the number of results to retrieve per “page.”
+ @param sinceID Returns results with an ID greater than (that is, more recent than) the specified ID.
+ @param maxID Returns results with an ID less than (that is, older than) or equal to the specified ID.
+ @param includeEntities Entities are ON by default in API 1.1, each tweet includes a node called “entities”.
+ @param includeRTs When set to either true, t or 1, the list timeline will contain native retweets (if they exist) in addition to the standard stream of tweets.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  180/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/statuses
+ */
+- (TWAPIRequestOperation *)getListsStatusesWithListID:(NSNumber *)listID
+                                                count:(NSNumber * __nullable)count
+                                              sinceID:(NSNumber * __nullable)sinceID
+                                                maxID:(NSNumber * __nullable)maxID
+                                      includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                           includeRTs:(NSNumber * __nullable)includeRTsBoolNum
                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion;
 
+/**
+ GET lists/statuses
+ Returns a timeline of tweets authored by members of the specified list. Retweets are included by default. Use the include_rts=false parameter to omit retweets.
+ 指定リストに追加されているユーザのツイートを返します(デフォルトはリツートを含む)。includeRTs=NOでリツイートを省略できます。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param count Specifies the number of results to retrieve per “page.”
+ @param sinceID Returns results with an ID greater than (that is, more recent than) the specified ID.
+ @param maxID Returns results with an ID less than (that is, older than) or equal to the specified ID.
+ @param includeEntities Entities are ON by default in API 1.1, each tweet includes a node called “entities”.
+ @param includeRTs When set to either true, t or 1, the list timeline will contain native retweets (if they exist) in addition to the standard stream of tweets.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  180/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/statuses
+ */
 - (TWAPIRequestOperation *)getListsStatusesWithSlug:(NSString *)slug
-                                            ownerID:(int64_t)ownerID
+                                            ownerID:(NSNumber * __nullable)ownerID
                                   orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                              count:(NSUInteger)count
-                                            sinceID:(int64_t)sinceID
-                                              maxID:(int64_t)maxID
-                                    includeEntities:(BOOL)includeEntities
-                                         includeRTs:(BOOL)includeRTs
+                                              count:(NSNumber * __nullable)count
+                                            sinceID:(NSNumber * __nullable)sinceID
+                                              maxID:(NSNumber * __nullable)maxID
+                                    includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                         includeRTs:(NSNumber * __nullable)includeRTsBoolNum
                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion;
 
 #pragma mark -
 
 /**
- *  GET lists/show
- *  https://dev.twitter.com/rest/reference/get/lists/show
- *
- *  Returns the specified list. Private lists will only be shown if the authenticated user owns the specified list.
- *  指定のリストを返します(認証ユーザの場合のみプライベートリストを指定できます)。
+ GET lists/show
+ Returns the specified list. Private lists will only be shown if the authenticated user owns the specified list.
+ 指定のリストを返します(認証ユーザの場合のみプライベートリストを指定できます)。
+ 
+ @param listID The numerical id of the list.
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/show
  */
-
-- (TWAPIRequestOperation *)getListsShowWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)getListsShowWithListID:(NSNumber *)listID
                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
+/**
+ GET lists/show
+ Returns the specified list. Private lists will only be shown if the authenticated user owns the specified list.
+ 指定のリストを返します(認証ユーザの場合のみプライベートリストを指定できます)。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/show
+ */
 - (TWAPIRequestOperation *)getListsShowWithSlug:(NSString *)slug
-                                        ownerID:(int64_t)ownerID
+                                        ownerID:(NSNumber * __nullable)ownerID
                               orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
-/**
- *  POST lists/create
- *  https://dev.twitter.com/rest/reference/post/lists/create
- *
- *  Creates a new list for the authenticated user. Note that you can’t create more than 20 lists per account.
- *  新しいリストを作成します(最大20件)。
- */
+#pragma mark -
 
+/**
+ POST lists/create
+ Creates a new list for the authenticated user. Note that you can’t create more than 20 lists per account.
+ 新しいリストを作成します(最大20件)。
+ 
+ @param name The name for the list. A list’s name must start with a letter and can consist only of 25 or fewer letters, numbers, “-“, or “_” characters.
+ @param mode Whether your list is public or private. Values can be public or private. If no mode is specified the list will be public.
+ @param description The description to give the list.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/create
+ */
 - (TWAPIRequestOperation *)postListsCreateWithName:(NSString *)name
                                               mode:(NSString * __nullable)mode
                                        description:(NSString * __nullable)description
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
-/**
- *  POST lists/update
- *  https://dev.twitter.com/rest/reference/post/lists/update
- *
- *  Updates the specified list. The authenticated user must own the list to be able to update it.
- *  指定のリストを更新します(認証ユーザが作成したリストのみ可能)。
- */
+#pragma mark -
 
-- (TWAPIRequestOperation *)postListsUpdateWithListID:(int64_t)listID
+/**
+ POST lists/update
+ Updates the specified list. The authenticated user must own the list to be able to update it.
+ 指定のリストを更新します(認証ユーザが作成したリストのみ可能)。
+ 
+ @param listID The numerical id of the list.
+ @param name The name for the list. A list’s name must start with a letter and can consist only of 25 or fewer letters, numbers, “-“, or “_” characters.
+ @param mode Whether your list is public or private. Values can be public or private. If no mode is specified the list will be public.
+ @param description The description to give the list.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/update
+ */
+- (TWAPIRequestOperation *)postListsUpdateWithListID:(NSNumber *)listID
                                                 name:(NSString * __nullable)name
                                                 mode:(NSString * __nullable)mode
                                          description:(NSString * __nullable)description
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
+/**
+ POST lists/update
+ Updates the specified list. The authenticated user must own the list to be able to update it.
+ 指定のリストを更新します(認証ユーザが作成したリストのみ可能)。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param name The name for the list. A list’s name must start with a letter and can consist only of 25 or fewer letters, numbers, “-“, or “_” characters.
+ @param privateBoolNum Whether your list is public or private.
+ @param description The description to give the list.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/update
+ */
 - (TWAPIRequestOperation *)postListsUpdateWithSlug:(NSString *)slug
-                                           ownerID:(int64_t)ownerID
+                                           ownerID:(NSNumber * __nullable)ownerID
                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                               name:(NSString * __nullable)name
                                               mode:(NSString * __nullable)mode
                                        description:(NSString * __nullable)description
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
-/**
- *  POST lists/destroy
- *  https://dev.twitter.com/rest/reference/post/lists/destroy
- *
- *  Deletes the specified list. The authenticated user must own the list to be able to destroy it.
- *  指定のリストを削除します(認証ユーザが作成したリストのみ可能)。
- */
+#pragma mark -
 
-- (TWAPIRequestOperation *)postListsDestroyWithListID:(int64_t)listID
+/**
+ POST lists/destroy
+ Deletes the specified list. The authenticated user must own the list to be able to destroy it.
+ 指定のリストを削除します(認証ユーザが作成したリストのみ可能)。
+ 
+ @param listID The numerical id of the list.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/destroy
+ */
+- (TWAPIRequestOperation *)postListsDestroyWithListID:(NSNumber *)listID
                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
+/**
+ POST lists/destroy
+ Deletes the specified list. The authenticated user must own the list to be able to destroy it.
+ 指定のリストを削除します(認証ユーザが作成したリストのみ可能)。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/destroy
+ */
 - (TWAPIRequestOperation *)postListsDestroyWithSlug:(NSString *)slug
-                                            ownerID:(int64_t)ownerID
+                                            ownerID:(NSNumber * __nullable)ownerID
                                   orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
 
 #pragma mark -
 
 /**
- *  GET lists/members
- *  https://dev.twitter.com/rest/reference/get/lists/members
- *
- *  Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list.
- *  指定リストのメンバーを返します。
+ GET lists/members
+ Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list.
+ 指定リストのメンバーを返します。
+ 
+ @param listID The numerical id of the list.
+ @param count Specifies the number of results to return per page (see cursor below). The default is 20, with a maximum of 5,000.
+ @param cursor Causes the collection of list members to be broken into “pages” of consistent sizes (specified by the count parameter). If no cursor is provided, a value of -1 will be assumed, which is the first “page.”
+ @param includeEntities The entities node will be disincluded when set to false.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/members
  */
-
-- (TWAPIRequestOperation *)getListsMembersWithListID:(int64_t)listID
-                                               count:(NSUInteger)count
-                                              cursor:(int64_t)cursor
-                                     includeEntities:(BOOL)includeEntities
-                                          skipStatus:(BOOL)skipStatus
+- (TWAPIRequestOperation *)getListsMembersWithListID:(NSNumber *)listID
+                                               count:(NSNumber * __nullable)count
+                                              cursor:(NSNumber * __nullable)cursor
+                                     includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                          skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
 
+/**
+ GET lists/members
+ Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list.
+ 指定リストのメンバーを返します。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param count Specifies the number of results to return per page (see cursor below). The default is 20, with a maximum of 5,000.
+ @param cursor Causes the collection of list members to be broken into “pages” of consistent sizes (specified by the count parameter). If no cursor is provided, a value of -1 will be assumed, which is the first “page.”
+ @param includeEntities The entities node will be disincluded when set to false.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/members
+ */
 - (TWAPIRequestOperation *)getListsMembersWithSlug:(NSString *)slug
-                                           ownerID:(int64_t)ownerID
+                                           ownerID:(NSNumber * __nullable)ownerID
                                  orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                             count:(NSUInteger)count
-                                            cursor:(int64_t)cursor
-                                   includeEntities:(BOOL)includeEntities
-                                        skipStatus:(BOOL)skipStatus
+                                             count:(NSNumber * __nullable)count
+                                            cursor:(NSNumber * __nullable)cursor
+                                   includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                        skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
 
 /**
- *  GET lists/members/show
- *  https://dev.twitter.com/rest/reference/get/lists/members/show
- *
- *  Check if the specified user is a member of the specified list.
- *  指定ユーザが指定リストのメンバーかを返します。
+ GET lists/members/show
+ Check if the specified user is a member of the specified list.
+ 指定ユーザが指定リストのメンバーかを返します。
+ 
+ @param listID The numerical id of the list.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/members/show
  */
-
-- (TWAPIRequestOperation *)getListsMembersShowWithListID:(int64_t)listID
-                                                  userID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsMembersShowWithListID:(NSNumber *)listID
+                                                  userID:(NSNumber * __nullable)userID
                                             orScreenName:(NSString * __nullable)screenName
-                                         includeEntities:(BOOL)includeEntities
-                                              skipStatus:(BOOL)skipStatus
+                                         includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                              skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion;
 
+/**
+ GET lists/members/show
+ Check if the specified user is a member of the specified list.
+ 指定ユーザが指定リストのメンバーかを返します。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/members/show
+ */
 - (TWAPIRequestOperation *)getListsMembersShowWithSlug:(NSString *)slug
-                                               ownerID:(int64_t)ownerID
+                                               ownerID:(NSNumber * __nullable)ownerID
                                      orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                userID:(int64_t)userID
+                                                userID:(NSNumber * __nullable)userID
                                           orScreenName:(NSString * __nullable)screenName
-                                       includeEntities:(BOOL)includeEntities
-                                            skipStatus:(BOOL)skipStatus
+                                       includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                            skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion;
 
 /**
- *  POST lists/members/create
- *  https://dev.twitter.com/rest/reference/post/lists/members/create
- *
- *  Add a member to a list. The authenticated user must own the list to be able to add members to it. Note that lists cannot have more than 5,000 members.
- *  指定リストのメンバーに指定ユーザを追加する(最大5000人)。
+ POST lists/members/create
+ Add a member to a list. The authenticated user must own the list to be able to add members to it. Note that lists cannot have more than 5,000 members.
+ 指定リストのメンバーに指定ユーザを追加する(最大5000人)。
+ 
+ @param listID The numerical id of the list.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/create
  */
-
-- (TWAPIRequestOperation *)postListsMembersCreateWithListID:(int64_t)listID
-                                                     userID:(int64_t)userID
+- (TWAPIRequestOperation *)postListsMembersCreateWithListID:(NSNumber *)listID
+                                                     userID:(NSNumber * __nullable)userID
                                                orScreenName:(NSString * __nullable)screenName
                                                  completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/members/create
+ Add a member to a list. The authenticated user must own the list to be able to add members to it. Note that lists cannot have more than 5,000 members.
+ 指定リストのメンバーに指定ユーザを追加する(最大5000人)。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/create
+ */
 - (TWAPIRequestOperation *)postListsMembersCreateWithSlug:(NSString *)slug
-                                                  ownerID:(int64_t)ownerID
+                                                  ownerID:(NSNumber * __nullable)ownerID
                                         orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                   userID:(int64_t)userID
+                                                   userID:(NSNumber * __nullable)userID
                                              orScreenName:(NSString * __nullable)screenName
                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
 /**
- *  POST lists/members/create_all
- *  https://dev.twitter.com/rest/reference/post/lists/members/create_all
- *
- *  Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Note that lists can’t have more than 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
- *  指定リストのメンバーに指定ユーザを複数人追加する。(一度に100人まで追加可能。最大5000人)
+ POST lists/members/create_all
+ Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Note that lists can’t have more than 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
+ 指定リストのメンバーに指定ユーザを複数人追加する。(一度に100人まで追加可能。最大5000人)
+ 
+ @param listID The numerical id of the list.
+ @param userIDs A comma separated list of user IDs, up to 100 are allowed in a single request.
+ @param screenNames A comma separated list of screen names, up to 100 are allowed in a single request.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/create_all
  */
-
-- (TWAPIRequestOperation *)postListsMembersCreateAllWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)postListsMembersCreateAllWithListID:(NSNumber *)listID
                                                        userIDs:(NSArray * __nullable)userIDs
                                                  orScreenNames:(NSArray * __nullable)screenNames
                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/members/create_all
+ Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Note that lists can’t have more than 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
+ 指定リストのメンバーに指定ユーザを複数人追加する。(一度に100人まで追加可能。最大5000人)
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userIDs A comma separated list of user IDs, up to 100 are allowed in a single request.
+ @param screenNames A comma separated list of screen names, up to 100 are allowed in a single request.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/create_all
+ */
 - (TWAPIRequestOperation *)postListsMembersCreateAllWithSlug:(NSString *)slug
-                                                     ownerID:(int64_t)ownerID
+                                                     ownerID:(NSNumber * __nullable)ownerID
                                            orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                                      userIDs:(NSArray * __nullable)userIDs
                                                orScreenNames:(NSArray * __nullable)screenNames
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
 /**
- *  POST lists/members/destroy
- *  https://dev.twitter.com/rest/reference/post/lists/members/destroy
- *
- *  Removes the specified member from the list. The authenticated user must be the list’s owner to remove members from the list.
- *  指定リストのメンバーから指定ユーザを削除する。
+ POST lists/members/destroy
+ Removes the specified member from the list. The authenticated user must be the list’s owner to remove members from the list.
+ 指定リストのメンバーから指定ユーザを削除する。
+ 
+ @param listID The numerical id of the list.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/destroy
  */
-
-- (TWAPIRequestOperation *)postListsMembersDestroyWithListID:(int64_t)listID
-                                                      userID:(int64_t)userID
+- (TWAPIRequestOperation *)postListsMembersDestroyWithListID:(NSNumber *)listID
+                                                      userID:(NSNumber * __nullable)userID
                                                 orScreenName:(NSString * __nullable)screenName
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/members/destroy
+ Removes the specified member from the list. The authenticated user must be the list’s owner to remove members from the list.
+ 指定リストのメンバーから指定ユーザを削除する。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/create_allhttps://dev.twitter.com/rest/reference/post/lists/members/destroy
+ */
 - (TWAPIRequestOperation *)postListsMembersDestroyWithSlug:(NSString *)slug
-                                                   ownerID:(int64_t)ownerID
+                                                   ownerID:(NSNumber * __nullable)ownerID
                                          orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                    userID:(int64_t)userID
+                                                    userID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
 /**
- *  POST lists/members/destroy_all
- *  https://dev.twitter.com/rest/reference/post/lists/members/destroy_all
+ POST lists/members/destroy_all
+ Removes multiple members from a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to remove members from it. Note that lists can’t have more than 500 members, and you are limited to removing up to 100 members to a list at a time with this method.
+ 指定リストの指定ユーザを複数人削除する。(一度に100人まで削除可能。最大5000人)
+ 
+ Note: typos? `500 members` -> `5,000 members`. (see https://dev.twitter.com/rest/reference/post/lists/members/create )
+ 
+ @param listID The numerical id of the list.
+ @param userIDs A comma separated list of user IDs, up to 100 are allowed in a single request.
+ @param screenNames A comma separated list of screen names, up to 100 are allowed in a single request.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/destroy_all
  */
-
-- (TWAPIRequestOperation *)postListsMembersDestroyAllWithListID:(int64_t)listID
+- (TWAPIRequestOperation *)postListsMembersDestroyAllWithListID:(NSNumber *)listID
                                                         userIDs:(NSArray * __nullable)userIDs
                                                   orScreenNames:(NSArray * __nullable)screenNames
                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/members/destroy_all
+ Removes multiple members from a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to remove members from it. Note that lists can’t have more than 500 members, and you are limited to removing up to 100 members to a list at a time with this method.
+ 指定リストの指定ユーザを複数人削除する。(一度に100人まで削除可能。最大5000人)
+ 
+ Note: typos? `500 members` -> `5,000 members`. (see https://dev.twitter.com/rest/reference/post/lists/members/create )
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userIDs A comma separated list of user IDs, up to 100 are allowed in a single request.
+ @param screenNames A comma separated list of screen names, up to 100 are allowed in a single request.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/members/destroy_all
+ */
 - (TWAPIRequestOperation *)postListsMembersDestroyAllWithSlug:(NSString *)slug
-                                                      ownerID:(int64_t)ownerID
+                                                      ownerID:(NSNumber * __nullable)ownerID
                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
                                                       userIDs:(NSArray * __nullable)userIDs
                                                 orScreenNames:(NSArray * __nullable)screenNames
@@ -942,145 +1201,268 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 
 /**
- *  GET lists/subscribers
- *  https://dev.twitter.com/rest/reference/get/lists/subscribers
- *
- *  Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list.
- *  指定リストの加入者を返します。
+ GET lists/subscribers
+ Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list.
+ 指定リストの購読者を返します。
+ 
+ @param listID The numerical id of the list.
+ @param count Specifies the number of results to return per page (see cursor below). The default is 20, with a maximum of 5,000.
+ @param cursor Breaks the results into pages. A single page contains 20 lists. Provide a value of -1 to begin paging.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/subscribers
  */
-
-- (TWAPIRequestOperation *)getListsSubscribersWithListID:(int64_t)listID
-                                                   count:(NSUInteger)count
-                                                  cursor:(int64_t)cursor
-                                         includeEntities:(BOOL)includeEntities
-                                              skipStatus:(BOOL)skipStatus
+- (TWAPIRequestOperation *)getListsSubscribersWithListID:(NSNumber *)listID
+                                                   count:(NSNumber * __nullable)count
+                                                  cursor:(NSNumber * __nullable)cursor
+                                         includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                              skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
 
+/**
+ GET lists/subscribers
+ Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list.
+ 指定リストの購読者を返します。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param count Specifies the number of results to return per page (see cursor below). The default is 20, with a maximum of 5,000.
+ @param cursor Breaks the results into pages. A single page contains 20 lists. Provide a value of -1 to begin paging.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 180/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/subscribers
+ */
 - (TWAPIRequestOperation *)getListsSubscribersWithSlug:(NSString *)slug
-                                               ownerID:(int64_t)ownerID
+                                               ownerID:(NSNumber * __nullable)ownerID
                                      orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                 count:(NSUInteger)count
-                                                cursor:(int64_t)cursor
-                                       includeEntities:(BOOL)includeEntities
-                                            skipStatus:(BOOL)skipStatus
+                                                 count:(NSNumber * __nullable)count
+                                                cursor:(NSNumber * __nullable)cursor
+                                       includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                            skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
 
 /**
- *  GET lists/subscribers/show
- *  https://dev.twitter.com/rest/reference/get/lists/subscribers/show
- *
- *  Check if the specified user is a subscriber of the specified list. Returns the user if they are subscriber.
- *  指定ユーザが指定リストの購読者かを返します。
- */
+ GET lists/subscribers/show
+ Check if the specified user is a subscriber of the specified list. Returns the user if they are subscriber.
+ 指定ユーザが指定リストの購読者かを返します。
+ 
+ @param listID The numerical id of the list.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
 
-- (TWAPIRequestOperation *)getListsSubscribersShowWithListID:(int64_t)listID
-                                                      userID:(int64_t)userID
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/subscribers/show
+ */
+- (TWAPIRequestOperation *)getListsSubscribersShowWithListID:(NSNumber *)listID
+                                                      userID:(NSNumber * __nullable)userID
                                                 orScreenName:(NSString * __nullable)screenName
-                                             includeEntities:(BOOL)includeEntities
-                                                  skipStatus:(BOOL)skipStatus
+                                             includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                                  skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion;
 
+/**
+ GET lists/subscribers/show
+ Check if the specified user is a subscriber of the specified list. Returns the user if they are subscriber.
+ 指定ユーザが指定リストの購読者かを返します。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param includeEntities When set to either true, t or 1, each tweet will include a node called “entities”.
+ @param skipStatus When set to either true, t or 1 statuses will not be included in the returned user objects.
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/subscribers/show
+ */
 - (TWAPIRequestOperation *)getListsSubscribersShowWithSlug:(NSString *)slug
-                                                   ownerID:(int64_t)ownerID
+                                                   ownerID:(NSNumber * __nullable)ownerID
                                          orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                    userID:(int64_t)userID
+                                                    userID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                           includeEntities:(BOOL)includeEntities
-                                                skipStatus:(BOOL)skipStatus
+                                           includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
+                                                skipStatus:(NSNumber * __nullable)skipStatusBoolNum
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error))completion;
 
 /**
- *  POST lists/subscribers/create
- *  https://dev.twitter.com/rest/reference/post/lists/subscribers/create
- *
- *  Subscribes the authenticated user to the specified list.
- *  指定リストを購読する。
+ POST lists/subscribers/create
+ Subscribes the authenticated user to the specified list.
+ 指定リストを購読する。
+ 
+ @param listID The numerical id of the list.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/subscribers/create
  */
-
-- (TWAPIRequestOperation *)postListsSubscribersCreateWithListID:(int64_t)listID
-                                                         userID:(int64_t)userID
-                                                   orScreenName:(NSString * __nullable)screenName
+- (TWAPIRequestOperation *)postListsSubscribersCreateWithListID:(NSNumber *)listID
                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/subscribers/create
+ Subscribes the authenticated user to the specified list.
+ 指定リストを購読する。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/subscribers/create
+ */
 - (TWAPIRequestOperation *)postListsSubscribersCreateWithSlug:(NSString *)slug
-                                                      ownerID:(int64_t)ownerID
+                                                      ownerID:(NSNumber * __nullable)ownerID
                                             orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                       userID:(int64_t)userID
-                                                 orScreenName:(NSString * __nullable)screenName
                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
 /**
- *  POST lists/subscribers/destroy
- *  https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
- */
+ POST lists/subscribers/destroy
+ Unsubscribes the authenticated user from the specified list.
+ 指定リストの購読をやめる。
+ 
+ @param listID The numerical id of the list.
+ 
+ Rate limits
+ - Undocumented
 
-- (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(int64_t)listID
-                                                          userID:(int64_t)userID
+ https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
+ */
+- (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(NSNumber *)listID
+                                                          userID:(NSNumber * __nullable)userID
                                                     orScreenName:(NSString * __nullable)screenName
                                                       completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
+/**
+ POST lists/subscribers/destroy
+ Unsubscribes the authenticated user from the specified list.
+ 指定リストの購読をやめる。
+ 
+ @param slug You can identify a list by its slug instead of its numerical id.
+ @param ownerID The user ID of the user who owns the list being requested by a slug.
+ @param ownerScreenName The screen name of the user who owns the list being requested by a slug.
+ 
+ Rate limits
+ - Undocumented
+ 
+ https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
+ */
 - (TWAPIRequestOperation *)postListsSubscribersDestroyWithSlug:(NSString *)slug
-                                                       ownerID:(int64_t)ownerID
+                                                       ownerID:(NSNumber * __nullable)ownerID
                                              orOwnerScreenName:(NSString * __nullable)ownerScreenName
-                                                        userID:(int64_t)userID
-                                                  orScreenName:(NSString * __nullable)screenName
                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
+
 #pragma mark -
 
 /**
- *  GET lists/list
- *  https://dev.twitter.com/rest/reference/get/lists/list
- *
- *  Returns all lists the authenticating or specified user subscribes to, including their own. The user is specified using the user_id or screen_name parameters. If no user is given, the authenticating user is used.
- *  指定ユーザのリストと購読している全てのリストを返します。user_idまたはscreen_nameを指定しなければ認証ユーザのリストを返します。
+ GET lists/list
+ Returns all lists the authenticating or specified user subscribes to, including their own. The user is specified using the user_id or screen_name parameters. If no user is given, the authenticating user is used.
+ 指定ユーザのリストと購読している全てのリストを返します。user_idまたはscreen_nameを指定しなければ認証ユーザのリストを返します。
+ 
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param reverse Set this to true if you would like owned lists to be returned first. A maximum of 100 results will be returned by this call. Subscribed lists are returned first, followed by owned lists. This means that if a user subscribes to 90 lists and owns 20 lists, this method returns 90 subscriptions and 10 owned lists. The reverse method returns owned lists first, so with reverse=true, 20 owned lists and 80 subscriptions would be returned. If your goal is to obtain every list a user owns or subscribes to, use GET lists / ownerships and/or GET lists / subscriptions instead.
+ 
+ Rate limits
+ - UserAuth  15/15-min
+ - AppAuth   15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/list
  */
-
-- (TWAPIRequestOperation *)getListsListWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsListWithUserID:(NSNumber * __nullable)userID
                                      orScreenName:(NSString * __nullable)screenName
-                                          reverse:(BOOL)reverse
+                                          reverse:(NSNumber * __nullable)reverseBoolNum
                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable lists, NSError * __nullable error))completion;
 
 /**
- *  GET lists/ownerships
- *  https://dev.twitter.com/rest/reference/get/lists/ownerships
- *
- *  Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists.
- *  指定ユーザのリストを返します(認証ユーザの場合はプライベートリストも含む)。
+ GET lists/ownerships
+ Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists.
+ 指定ユーザのリストを返します(認証ユーザの場合はプライベートリストも含む)。
+ 
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
+ @param cursor Breaks the results into pages. Provide a value of -1 to begin paging.
+ 
+ Rate limits
+ - UserAuth  15/15-min
+ - AppAuth   15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/ownerships
  */
-
-- (TWAPIRequestOperation *)getListsOwnershipsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsOwnershipsWithUserID:(NSNumber * __nullable)userID
                                            orScreenName:(NSString * __nullable)screenName
-                                                  count:(NSUInteger)count
-                                                 cursor:(int64_t)cursor
+                                                  count:(NSNumber * __nullable)count
+                                                 cursor:(NSNumber * __nullable)cursor
                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorLists, NSError * __nullable error))completion;
 
 /**
- *  GET lists/subscriptions
- *  https://dev.twitter.com/rest/reference/get/lists/subscriptions
- *
- *  Obtain a collection of the lists the specified user is subscribed to, 20 lists per page by default. Does not include the user’s own lists.
- *  指定ユーザが購読しているリストを返します(自身のリストは含まれない)。
+ GET lists/subscriptions
+ Obtain a collection of the lists the specified user is subscribed to, 20 lists per page by default. Does not include the user’s own lists.
+ 指定ユーザが購読しているリストを返します(自身のリストは含まれない)。
+ 
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
+ @param cursor Breaks the results into pages. Provide a value of -1 to begin paging.
+ 
+ Rate limits
+ - UserAuth  15/15-min
+ - AppAuth   15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/subscriptions
  */
-
-- (TWAPIRequestOperation *)getListsSubscriptionsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsSubscriptionsWithUserID:(NSNumber * __nullable)userID
                                               orScreenName:(NSString * __nullable)screenName
-                                                     count:(NSUInteger)count
-                                                    cursor:(int64_t)cursor
+                                                     count:(NSNumber * __nullable)count
+                                                    cursor:(NSNumber * __nullable)cursor
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion;
 
 /**
- *  GET lists/memberships
- *  https://dev.twitter.com/rest/reference/get/lists/memberships
- *
- *  Returns the lists the specified user has been added to. If user_id or screen_name are not provided the memberships for the authenticating user are returned.
- *  指定ユーザが追加されているリストを返します。user_idまたはscreen_nameを指定しなければ認証ユーザのリストを返します。
+ GET lists/memberships
+ Returns the lists the specified user has been added to. If user_id or screen_name are not provided the memberships for the authenticating user are returned.
+ 指定ユーザが追加されているリストを返します。user_idまたはscreen_nameを指定しなければ認証ユーザのリストを返します。
+ 
+ @param userID The ID of the user for whom to return results for.
+ @param screenName The screen name of the user for whom to return results for.
+ @param count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
+ @param cursor Breaks the results into pages. Provide a value of -1 to begin paging.
+ @param filterToOwnedLists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
+ 
+ Rate limits
+ - UserAuth  15/15-min
+ - AppAuth   15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/lists/memberships
  */
 
-- (TWAPIRequestOperation *)getListsMembershipsWithUserID:(int64_t)userID
+- (TWAPIRequestOperation *)getListsMembershipsWithUserID:(NSNumber * __nullable)userID
                                             orScreenName:(NSString * __nullable)screenName
-                                                   count:(NSUInteger)count
-                                                  cursor:(int64_t)cursor
-                                      filterToOwnedLists:(BOOL)filterToOwnedLists
+                                                   count:(NSNumber * __nullable)count
+                                                  cursor:(NSNumber * __nullable)cursor
+                                      filterToOwnedLists:(NSNumber * __nullable)filterToOwnedListsBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion;
 
 #pragma mark - Blocks

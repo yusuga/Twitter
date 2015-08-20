@@ -44,5 +44,30 @@ NS_ASSUME_NONNULL_BEGIN
                                                     uploadProgress:(void (^ __nullable)(CGFloat progress))uploadProgress
                                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
 
+#pragma mark - List
+
+///-----------
+/// @name list
+///-----------
+
+- (TWAPIRequestOperation *)tw_postListsCreateWithName:(NSString *)name
+                                              private:(NSNumber * __nullable)privateBoolNum
+                                          description:(NSString * __nullable)description
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+
+- (TWAPIRequestOperation *)tw_postListsUpdateWithListID:(NSNumber *)listID
+                                                   name:(NSString * __nullable)name
+                                                private:(NSNumber * __nullable)privateBoolNum
+                                            description:(NSString * __nullable)description
+                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+
+- (TWAPIRequestOperation *)tw_postListsUpdateWithSlug:(NSString *)slug
+                                              ownerID:(NSNumber * __nullable)ownerID
+                                    orOwnerScreenName:(NSString * __nullable)ownerScreenName
+                                                 name:(NSString * __nullable)name
+                                              private:(NSNumber * __nullable)privateBoolNum
+                                          description:(NSString * __nullable)description
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+
 @end
 NS_ASSUME_NONNULL_END
