@@ -2119,9 +2119,7 @@ NS_ASSUME_NONNULL_BEGIN
                                      orScreenName:(NSString * __nullable)screenName
                                           reverse:(NSNumber * __nullable)reverseBoolNum
                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable lists, NSError * __nullable error))completion
-{
-    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
-    
+{    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
@@ -2137,9 +2135,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                   count:(NSNumber * __nullable)count
                                                  cursor:(NSNumber * __nullable)cursor
                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorLists, NSError * __nullable error))completion
-{
-    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
-    
+{    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
@@ -2156,9 +2152,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                      count:(NSNumber * __nullable)count
                                                     cursor:(NSNumber * __nullable)cursor
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion
-{
-    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
-    
+{    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
@@ -2177,8 +2171,6 @@ NS_ASSUME_NONNULL_BEGIN
                                       filterToOwnedLists:(NSNumber * __nullable)filterToOwnedListsBoolNum
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable lists, NSError * __nullable error))completion
 {
-    NSAssert(userID || screenName, @"userID or screenName is a required argument.");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (userID) params[@"user_id"] = userID.stringValue;
     if (screenName) params[@"screen_name"] = screenName;
