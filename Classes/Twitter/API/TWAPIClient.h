@@ -1351,8 +1351,6 @@ NS_ASSUME_NONNULL_BEGIN
  https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
  */
 - (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(NSNumber *)listID
-                                                          userID:(NSNumber * __nullable)userID
-                                                    orScreenName:(NSString * __nullable)screenName
                                                       completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion;
 
 /**

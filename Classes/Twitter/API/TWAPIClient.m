@@ -2073,8 +2073,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (TWAPIRequestOperation *)postListsSubscribersDestroyWithListID:(NSNumber *)listID
-                                                          userID:(NSNumber * __nullable)userID
-                                                    orScreenName:(NSString * __nullable)screenName
                                                       completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
     return [self postListsSubscribersDestroyWithListID:listID
