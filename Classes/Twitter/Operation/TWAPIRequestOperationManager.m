@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @implementation TWAPIRequestOperationManager
 
-- (instancetype)initWithBaseURL:(NSURL *)url
+- (instancetype)initWithBaseURL:(nullable NSURL *)url
 {
     if (self = [super initWithBaseURL:url]) {
         self.streamKeepAliveTime = 60.;

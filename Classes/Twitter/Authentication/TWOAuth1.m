@@ -6,6 +6,7 @@
 //
 
 #import "TWOAuth1.h"
+#import <UIKit/UIKit.h>
 #import "TWAuthModels.h"
 #import "TWConstants.h"
 #import "NSError+TWTwitter.h"

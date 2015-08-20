@@ -32,9 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error
+- (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
+                                    data:(nullable NSData *)data
+                                   error:(NSError *__autoreleasing  __nullable * __nullable)error
 {
     if ([[response MIMEType] isEqualToString:@"text/html"]) {
         return nil;
