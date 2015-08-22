@@ -365,6 +365,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
             break;
         }
         case TWAPIErrorCodePageNotExist: // 34
+            desc = TWLocalizedString(message);
             break;
         case TWAPIErrorCodeNotAuthorizedForEndpoint: // 37
             break;
