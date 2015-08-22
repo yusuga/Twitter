@@ -819,8 +819,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  POST lists/create
- Creates a new list for the authenticated user. Note that you can’t create more than 20 lists per account.
- 新しいリストを作成します(最大20件)。
+Creates a new list for the authenticated user. Note that you can create up to 1000 lists per account.
+ 新しいリストを作成します(最大1000件)。
  
  @param name The name for the list. A list’s name must start with a letter and can consist only of 25 or fewer letters, numbers, “-“, or “_” characters.
  @param mode Whether your list is public or private. Values can be public or private. If no mode is specified the list will be public.
