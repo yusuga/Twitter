@@ -368,6 +368,9 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
             break;
         case TWAPIErrorCodeNotAuthorizedForEndpoint: // 37
             break;
+        case TWAPIErrorCodeUserNotFound: // 50
+            desc = TWLocalizedString(message);
+            break;
         case TWAPIErrorCodeAccountSuspended: // 64
             break;
         case TWAPIErrorCodeAPIVersionRetired: // 68

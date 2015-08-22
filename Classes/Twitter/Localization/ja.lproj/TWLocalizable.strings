@@ -3,6 +3,7 @@
 
 "Multiple Errors" = "複数のエラー";
 
+"User not found." = "ユーザーが存在しません。"; // Error code: 50
 "Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
 "Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
 "Error 1001" = "非公開アカウントです";

@@ -44,6 +44,11 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodePageNotExist = 34,
     
     /**
+     *  User not found.
+     */
+    TWAPIErrorCodeUserNotFound = 50,
+    
+    /**
      *  Not authorized to use this endpoint.
      */
     TWAPIErrorCodeNotAuthorizedForEndpoint = 37,
