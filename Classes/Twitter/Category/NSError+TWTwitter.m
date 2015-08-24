@@ -344,7 +344,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
     
     NSHTTPURLResponse *response = operation.response;
     
-    NSString *desc = message;
+    NSString *desc = TWLocalizedString(message);
     NSString *failureReason, *recoverySuggestion;
     NSMutableDictionary *userInfo = appendingUserInfo ? appendingUserInfo.mutableCopy : [NSMutableDictionary dictionary];
     
@@ -365,12 +365,12 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
             break;
         }
         case TWAPIErrorCodePageNotExist: // 34
-            desc = TWLocalizedString(message);
+            // OK
             break;
         case TWAPIErrorCodeNotAuthorizedForEndpoint: // 37
             break;
         case TWAPIErrorCodeUserNotFound: // 50
-            desc = TWLocalizedString(message);
+            // OK
             break;
         case TWAPIErrorCodeAccountSuspended: // 64
             break;
@@ -400,6 +400,7 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
         case TWAPIErrorCodeUnableToVerifyYourCredentials: // 99
             break;
         case TWAPIErrorCodeOverCapacity: // 130
+            // OK
             break;
         case TWAPIErrorCodeInternalError: // 131
             break;

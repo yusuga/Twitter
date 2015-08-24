@@ -5,6 +5,7 @@
 
 "Sorry, that page does not exist." = "ページが存在しません。"; // Error code: 34
 "User not found." = "ユーザーが存在しません。"; // Error code: 50
+"Over capacity" = "キャパシティを超えています"; // Error code: 130
 
 "Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
 "Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
