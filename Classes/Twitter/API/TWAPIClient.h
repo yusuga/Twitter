@@ -1449,13 +1449,17 @@ Creates a new list for the authenticated user. Note that you can create up to 10
  @param cursor Breaks the results into pages. Provide a value of -1 to begin paging.
  @param filterToOwnedLists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
  
+ Note
+ Bug?
+ - Error({"message":"Over capacity","code":130}) is easy to occur when filterToOwnedLists is `NO`. When it is count 1000, occurs 100% ...? (8/24/15)
+ - filterToOwnedListsが`NO`の場合はエラー({"message":"Over capacity","code":130})の頻度が多い気がする。countが1000だと100%発生している...？999だとエラーになったりならなかったりした。 (15/8/24)
+ 
  Rate limits
  - UserAuth  15/15-min
  - AppAuth   15/15-min
  
  https://dev.twitter.com/rest/reference/get/lists/memberships
  */
-
 - (TWAPIRequestOperation *)getListsMembershipsWithUserID:(NSNumber * __nullable)userID
                                             orScreenName:(NSString * __nullable)screenName
                                                    count:(NSNumber * __nullable)count
