@@ -10,7 +10,7 @@
 
 static inline NSString *tw_modeStr(NSNumber *privateBoolNum)
 {
-    return privateBoolNum.boolValue ? @"private" : nil;
+    return privateBoolNum.boolValue ? @"private" : @"public";
 }
 
 NS_ASSUME_NONNULL_BEGIN
