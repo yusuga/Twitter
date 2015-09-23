@@ -944,7 +944,7 @@ Creates a new list for the authenticated user. Note that you can create up to 10
                                               cursor:(NSNumber * __nullable)cursor
                                      includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
                                           skipStatus:(NSNumber * __nullable)skipStatusBoolNum
-                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                          completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 /**
  GET lists/members
@@ -972,7 +972,7 @@ Creates a new list for the authenticated user. Note that you can create up to 10
                                             cursor:(NSNumber * __nullable)cursor
                                    includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
                                         skipStatus:(NSNumber * __nullable)skipStatusBoolNum
-                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                        completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 /**
  GET lists/members/show
@@ -1222,7 +1222,7 @@ Creates a new list for the authenticated user. Note that you can create up to 10
                                                   cursor:(NSNumber * __nullable)cursor
                                          includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
                                               skipStatus:(NSNumber * __nullable)skipStatusBoolNum
-                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 /**
  GET lists/subscribers
@@ -1250,7 +1250,7 @@ Creates a new list for the authenticated user. Note that you can create up to 10
                                                 cursor:(NSNumber * __nullable)cursor
                                        includeEntities:(NSNumber * __nullable)includeEntitiesBoolNum
                                             skipStatus:(NSNumber * __nullable)skipStatusBoolNum
-                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable users, NSError * __nullable error))completion;
+                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable cursorUsers, NSError * __nullable error))completion;
 
 /**
  GET lists/subscribers/show
