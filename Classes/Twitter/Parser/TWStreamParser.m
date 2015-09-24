@@ -209,7 +209,7 @@ static inline BOOL isDigitsOnlyString(NSString *str) {
     return YES;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super init]) {
         self.receivedMessage = [aDecoder decodeObjectOfClass:[NSMutableString class] forKey:NSStringFromSelector(@selector(receivedMessage))];
@@ -226,7 +226,7 @@ static inline BOOL isDigitsOnlyString(NSString *str) {
 
 #pragma mark - NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(nullable NSZone *)zone
 {
     typeof(self) obj = [[[self class] allocWithZone:zone] init];
     if (obj) {

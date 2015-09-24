@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [Constants consumerSecret];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(nullable id)sender
 {
     OAuth1WebViewController *vc = segue.destinationViewController;
     if ([vc isKindOfClass:[OAuth1WebViewController class]]) {
@@ -67,10 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
     UIColor *color;
     if ([self.successes containsObject:indexPath]) {
         text = @"OK";
-        color = [UIColor greenColor];
+        color = [UIColor colorWithRed: 0 green: 0.478 blue: 1 alpha: 1];
     } else if ([self.failures containsObject:indexPath]) {
         text = @"Error";
-        color = [UIColor redColor];
+        color = [UIColor colorWithRed: 1 green: 0.231 blue: 0.188 alpha: 1];
     } else {
         text = @"-";
         color = [UIColor lightGrayColor];

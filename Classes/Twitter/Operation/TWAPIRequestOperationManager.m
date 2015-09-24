@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - NSSecureCoding
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (nullable instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(nullable NSZone *)zone
 {
     TWAPIRequestOperationManager *HTTPClient = [super copyWithZone:zone];
     

@@ -59,7 +59,7 @@
         
         /* Authorize */
         
-        XCTestExpectation *expectation = [self expectationWithDescription:nil];
+        XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Authorize %s", __func__]];
         [auth authorizeWithCompletion:^(TWAuth * __nullable auth, NSError * __nullable error) {
             XCTAssertNotNil(auth);
             XCTAssertNil(error, @"error = %@", error);
@@ -78,7 +78,7 @@
         
         /* Validate authorized */
         
-        expectation = [self expectationWithDescription:nil];
+        expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Validate authorized %s", __func__]];
         [self requestForValidationWithAuth:auth completion:^(TWAPIRequestOperation * __nullable operation, id  __nullable responseObject, NSError * __nullable error) {
             XCTAssertNotNil(operation);
             XCTAssertNotNil(responseObject);
@@ -110,7 +110,7 @@
     
     /* Authorize */
     
-    XCTestExpectation *expectation = [self expectationWithDescription:nil];
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Authorize %s", __func__]];
     [auth authorizeWithCompletion:^(TWAuth * __nullable auth, NSError * __nullable error) {
         XCTAssertNotNil(auth);
         XCTAssertNil(error, @"error = %@", error);
@@ -129,7 +129,7 @@
     
     /* Validate Authorized */
     
-    expectation = [self expectationWithDescription:nil];
+    expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Validate authorized %s", __func__]];
     [self requestForValidationWithAuth:auth completion:^(TWAPIRequestOperation * __nullable operation, id  __nullable responseObject, NSError * __nullable error) {
         XCTAssertNotNil(operation);
         XCTAssertNotNil(responseObject);

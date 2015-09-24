@@ -1485,7 +1485,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                 [expectation fulfill];
             }
         } failure:^(TWAPIRequestOperation * __nonnull operation, NSError * __nonnull error) {
-            NSLog(@"error = %@", error);
+            XCTFail(@"errro = %@", error);
             [expectation fulfill];
         }];
     } timeout:120.];
@@ -1506,7 +1506,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                  [expectation fulfill];
              }
          } failure:^(TWAPIRequestOperation * __nonnull operation, NSError * __nonnull error) {
-             NSLog(@"error = %@", error);
+             XCTFail(@"errro = %@", error);
              [expectation fulfill];
          }];
     } timeout:120.];
@@ -1524,10 +1524,18 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                              stream:^(TWAPIRequestOperation * __nonnull operation, NSDictionary * __nonnull json, TWStreamJSONType type)
          {
              NSLog(@"type = %@", NSStringFromTWStreamJSONType(type));
+#if 0
              [operation cancel];
              [expectation fulfill];
+#else
+             static NSUInteger __count;
+             if (__count++ == 2) {
+                 [operation cancel];
+                 [expectation fulfill];
+             }
+#endif
          } failure:^(TWAPIRequestOperation * __nonnull operation, NSError * __nonnull error) {
-             NSLog(@"error = %@", error);
+             XCTFail(@"errro = %@", error);
              [expectation fulfill];
          }];
     } timeout:120.];
@@ -1548,7 +1556,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                      timeout:(NSTimeInterval)timeout
 {
     if (__apiClient) {
-        XCTestExpectation *expectation = [self expectationWithDescription:nil];
+        XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
         block(__apiClient, expectation);
         [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
             XCTAssertNil(error, @"error: %@", error);

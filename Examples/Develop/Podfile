@@ -1,5 +1,5 @@
 platform :ios, '7.0'
-pod 'AFNetworking'
-pod 'OAuthCore'
+pod 'AFNetworking', '~> 2.5.4'
+pod 'OAuthCore', '~> 0.0.1'
 
 pod 'RMUniversalAlert'

@@ -18,12 +18,12 @@
 #define kTargetTweetID2 440322224407314432 // https://twitter.com/theellenshow/status/440322224407314432
 #define kTargetTweetID2Str @"440322224407314432"
 
-#define kSlug @"twitter"
+#define kSlug @"news"
 
 #define kListUserID 12 // https://twitter.com/jack
-#define kListOwnerID 26642006 // https://twitter.com/Alyssa_Milano
-#define kListID 21294 // https://twitter.com/Alyssa_Milano/lists/happy-tweeting
-#define kListSlug @"happy-tweeting" // https://twitter.com/Alyssa_Milano/lists/happy-tweeting
+#define kListOwnerID 93017945 // https://twitter.com/Square
+#define kListID 4048045 // https://twitter.com/Square/lists/team
+#define kListSlug @"team" // https://twitter.com/Square/lists/team
 
 #define kWOEID 1
 #define kPlaceID @"df51dec6f4ee2b2c"
@@ -37,7 +37,7 @@
 
 #define validateAPICompletion(operation, jsonClassName, json, error) XCTAssertTrue([NSThread isMainThread]);\
 XCTAssertNotNil(operation);\
-XCTAssertTrue([json isKindOfClass:[jsonClassName class]]);\
+XCTAssertTrue([json isKindOfClass:[jsonClassName class]], @"class = %@, json = %@", NSStringFromClass([json class]), json);\
 if (error) {\
 if ([error.domain isEqualToString:TWAPIErrorDomain] && error.code == TWAPIErrorCodeRateLimitExceeded) {\
 NSLog(@"RateLimitExceeded; %s", __func__);\

@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - NSSecureCoding
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
         self.userID = [aDecoder decodeObjectOfClass:[NSString class] forKey:NSStringFromSelector(@selector(userID))];
@@ -144,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(nullable NSZone *)zone
 {
     return [[[self class] allocWithZone:zone] initWithConsumerKey:self.consumerKey
                                                    consumerSecret:self.consumerSecret

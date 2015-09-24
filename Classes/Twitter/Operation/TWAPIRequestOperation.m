@@ -94,7 +94,7 @@ typedef void(^STTwitterOperationStreamBlock)(TWAPIRequestOperation *operation, N
 
 #pragma mark - NSSecureCoding
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (nullable instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     
@@ -114,7 +114,7 @@ typedef void(^STTwitterOperationStreamBlock)(TWAPIRequestOperation *operation, N
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(nullable NSZone *)zone
 {
     TWAPIRequestOperation *operation = [super copyWithZone:zone];
     

@@ -435,10 +435,19 @@ NS_ASSUME_NONNULL_BEGIN
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable suggestions, NSError * __nullable error))completion;
 
 /**
- *  GET users/suggestions/:slug
- *  https://dev.twitter.com/rest/reference/get/users/suggestions/%3Aslug
+ GET users/suggestions/:slug
+ Access the users in a given category of the Twitter suggested user list.
+ 指定のカテゴリからおすすめのユーザを返します。
+ 
+ @param slug The short name of list or a category. (Required)
+ @param lang Restricts the suggested categories to the requested language. (Optional)
+ 
+ Rate limits
+ - UserAuth: 15/15-min
+ - AppAuth:  15/15-min
+ 
+ https://dev.twitter.com/rest/reference/get/users/suggestions/%3Aslug
  */
-
 - (TWAPIRequestOperation *)getUsersSuggestionsSlugWithSlug:(NSString *)slug
                                                       lang:(NSString * __nullable)lang
                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable suggestedUsers, NSError * __nullable error))completion;

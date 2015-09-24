@@ -155,7 +155,7 @@ static TWAPIClient *__apiClient;
     
     TWAPIClient *client = [[TWAPIClient alloc] initWithAuth:invalidAuth];
     
-    XCTestExpectation *expectation = [self expectationWithDescription:nil];
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
     
     [client getUsersShowWithUserID:kTargetUserID
                                 orScreenName:nil
@@ -247,7 +247,7 @@ static TWAPIClient *__apiClient;
                      timeout:(NSTimeInterval)timeout
 {
     if (__apiClient) {
-        XCTestExpectation *expectation = [self expectationWithDescription:nil];
+        XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
         block(__apiClient, expectation);
         [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
             XCTAssertNil(error, @"error: %@", error);

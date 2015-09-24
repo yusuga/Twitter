@@ -82,7 +82,7 @@ typedef void(^OAuth1WebViewControllerCompletion)(TWAuth * __nullable auth, NSErr
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
 {
     [self popViewControllerWithAuth:nil error:error];
 }
