@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Twitter'
-  s.version = '0.1.5'
+  s.version = '0.2.0'
   s.summary = 'Twitter API1.1 Client.'
   s.homepage = 'https://github.com/yusuga/Twitter'
   s.license = 'MIT'
@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.compiler_flags = '-fmodules'
   
-  s.dependency 'AFNetworking'
-  s.dependency 'OAuthCore'
+  s.dependency 'AFNetworking', '~> 2.5.4'
+  s.dependency 'OAuthCore', '~> 0.0.1'
 end
