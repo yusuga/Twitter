@@ -1,4 +1,4 @@
-# Twitter for Objective-C# Twitter for Objective-C
+# Twitter for Objective-C
 
 ## ATS
 

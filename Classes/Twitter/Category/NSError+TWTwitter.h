@@ -25,7 +25,6 @@ extern NSString * const TWErrorRateLimit;
 /**
  *  https://dev.twitter.com/overview/api/response-codes
  */
-
 typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeUnknown = 0,
     TWAPIErrorCodeMultipleErrors = 1,
@@ -206,6 +205,11 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      *  You have already retweeted this tweet.
      */
     TWAPIErrorCodeAlreadyRetweeted = 327,
+    
+    /**
+     *  Error processing your OAuth request: invalid signature or token
+     */
+    TWAPIErrorCodeErrorProcessingYourOAuthRequestInvalidSignatureOrToken = 350,
     
     /**
      *  HTTP Status Code

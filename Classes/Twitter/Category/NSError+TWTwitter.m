@@ -6,6 +6,7 @@
 //
 
 #import "NSError+TWTwitter.h"
+#import "TWXMLParser.h"
 #import "TWLocalization.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,6 +20,9 @@ NSString * const TWErrorIsCancelledKey = @"TWErrorIsCancelledKey";
 NSString * const TWErrorUnderlyingStringKey = @"TWErrorUnderlyingStringKey";
 NSString * const TWErrorInvalidAuthorizationString = @"TWErrorInvalidAuthorizationString";
 NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
+
+static NSString *kMessage = @"message";
+static NSString *kCode = @"code";
 
 @implementation NSError (TWTwitter)
 
@@ -88,6 +92,23 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
                                  description:(NSString *)errors
                                failureReason:nil
                            appendingUserInfo:[NSDictionary dictionaryWithDictionary:info]];
+        }
+    } else if (!json && operation.responseString) {
+#warning current
+        NSNumber *code;
+        NSString *message;
+        
+        [TWXMLParser parseErrorXML:operation.responseString
+                              code:&code
+                           message:&message];
+        
+        if (code.integerValue && message.length) {
+            NSError *error = [self tw_localizedAPIErrorWithOperation:operation
+                                                     errorDictionary:@{kCode : code,
+                                                                       kMessage : message}
+                                                          screenName:screenName
+                                                   appendingUserInfo:nil];
+            if (error) return error;
         }
     }
     
@@ -333,13 +354,13 @@ NSString * const TWErrorRateLimit = @"TWErrorRateLimit";
 + (NSError * __nullable)tw_localizedAPIErrorWithOperation:(AFHTTPRequestOperation *)operation
                                           errorDictionary:(NSDictionary *)errorDectionary
                                                screenName:(NSString *)screenName
-                                        appendingUserInfo:(NSDictionary *)appendingUserInfo
+                                        appendingUserInfo:(nullable NSDictionary *)appendingUserInfo
 {
     /**
      *  {"message":"Sorry, that page does not exist","code":34}
      */
-    NSString *message = errorDectionary[@"message"];
-    NSInteger code = [errorDectionary[@"code"] integerValue];
+    NSString *message = errorDectionary[kMessage];
+    NSInteger code = [errorDectionary[kCode] integerValue];
     if (!message || !code) return nil;
     
     NSHTTPURLResponse *response = operation.response;

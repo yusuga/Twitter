@@ -35,6 +35,8 @@
 		B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382301AD846E3003AA0B4 /* TWPostData.m */; };
 		B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */; };
 		B873823B1AD860DC003AA0B4 /* NSError+TWTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */; };
+		B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14801BB9300000A43904 /* TWXMLParser.m */; settings = {ASSET_TAGS = (); }; };
+		B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14821BB9380800A43904 /* XMLParserTests.m */; settings = {ASSET_TAGS = (); }; };
 		B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */; };
 		B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */; };
 		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
@@ -113,6 +115,9 @@
 		B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuth1Token.m; sourceTree = "<group>"; };
 		B87382391AD860DC003AA0B4 /* NSError+TWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+TWTwitter.h"; sourceTree = "<group>"; };
 		B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+TWTwitter.m"; sourceTree = "<group>"; };
+		B87F147F1BB9300000A43904 /* TWXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWXMLParser.h; sourceTree = "<group>"; };
+		B87F14801BB9300000A43904 /* TWXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWXMLParser.m; sourceTree = "<group>"; };
+		B87F14821BB9380800A43904 /* XMLParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserTests.m; sourceTree = "<group>"; };
 		B886C2C91AD8F27A00C53095 /* TWAuthObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthObject.h; sourceTree = "<group>"; };
 		B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthObject.m; sourceTree = "<group>"; };
 		B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationManager.h; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 				B8BAC8781ADC6BF400C59FA4 /* APITests.m */,
 				B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */,
 				B810F7611ADF835E006A7100 /* ErrorTests.m */,
+				B87F14821BB9380800A43904 /* XMLParserTests.m */,
 				B87381FB1AD7A198003AA0B4 /* Supporting Files */,
 			);
 			path = DevelopTests;
@@ -326,6 +332,8 @@
 			children = (
 				B873821A1AD7A1C0003AA0B4 /* TWStreamParser.h */,
 				B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */,
+				B87F147F1BB9300000A43904 /* TWXMLParser.h */,
+				B87F14801BB9300000A43904 /* TWXMLParser.m */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -540,6 +548,7 @@
 				B87382221AD7A1C0003AA0B4 /* TWConstants.m in Sources */,
 				B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */,
 				B87381E71AD7A198003AA0B4 /* AppDelegate.m in Sources */,
+				B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */,
 				B87382201AD7A1C0003AA0B4 /* TWOAuth1.m in Sources */,
 				B87381E41AD7A198003AA0B4 /* main.m in Sources */,
 			);
@@ -553,6 +562,7 @@
 				B8F117C91ADA623D003B940B /* AuthTests.m in Sources */,
 				B80100FB1AE5405400EA9D5A /* ObjectTests.m in Sources */,
 				B85114621AE4E3DC00ECEEEA /* APIConvenienceTests.m in Sources */,
+				B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */,
 				B810F7621ADF835E006A7100 /* ErrorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
