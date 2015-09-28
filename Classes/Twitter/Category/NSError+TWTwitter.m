@@ -94,7 +94,6 @@ static NSString *kCode = @"code";
                            appendingUserInfo:[NSDictionary dictionaryWithDictionary:info]];
         }
     } else if (!json && operation.responseString) {
-#warning current
         NSNumber *code;
         NSString *message;
         
@@ -455,6 +454,9 @@ static NSString *kCode = @"code";
         case TWAPIErrorCodeCannotMuteSpecifiedUser: // 272
             break;
         case TWAPIErrorCodeAlreadyRetweeted: // 327
+            break;
+        case TWAPIErrorCodeErrorProcessingYourOAuthRequestInvalidSignatureOrToken: // 350
+            // OK
             break;
         default:
             NSLog(@"%s Unknown Twitter Error {\n\tTwitter error code = %zd\n\toperation = %@;\n\tresponseString = %@;\n}", __func__, code, operation, operation.responseString);
