@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "jpeg.jpeg"
+      "filename" : "jackal.jpeg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "jpeg-1.jpeg"
+      "filename" : "jackal@2x.jpeg",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "jpeg-2.jpeg"
+      "filename" : "jackal@3x.jpeg",
+      "scale" : "3x"
     }
   ],
   "info" : {

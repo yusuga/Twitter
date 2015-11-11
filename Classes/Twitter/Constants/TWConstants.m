@@ -33,17 +33,20 @@ NSString *kTWBaseURLString_API_1_1 = @"https://api.twitter.com/1.1/";
 
 /**
  Server Key and Certificate #1
+ Subject	upload.twitter.com
+ Fingerprint SHA1: 6bca8263f568d6df2edfe34ecd8e70e43664c361
+ Pin SHA256: I0HR2nKbG52OX/ZX+R7eXlZFKMNSJHbROzkHwjUFJps=
  Common names	upload.twitter.com
  Alternative names	upload.twitter.com
  Prefix handling	Not required for subdomains
- Valid from	Mon, 08 Apr 2013 00:00:00 UTC
- Valid until	Sat, 08 Apr 2017 23:59:59 UTC (expires in 1 year and 6 months)
- Key	RSA 2048 bits (e 65537)
+ Valid from	Fri, 18 Sep 2015 00:00:00 UTC
+ Valid until	Sun, 01 Apr 2018 12:00:00 UTC (expires in 2 years and 4 months)
+ Key	EC 256 bits
  Weak key (Debian)	No
- Issuer	VeriSign Class 3 Secure Server CA - G3
- Signature algorithm	SHA1withRSA   WEAK
+ Issuer	DigiCert SHA2 High Assurance Server CA
+ Signature algorithm	SHA256withRSA
  Extended Validation	No
- Certificate Transparency	No
+ Certificate Transparency	Yes (certificate)
  Revocation information	CRL, OCSP
  Revocation status	Good (not revoked)
  Trusted	Yes

@@ -35,8 +35,8 @@
 		B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382301AD846E3003AA0B4 /* TWPostData.m */; };
 		B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */; };
 		B873823B1AD860DC003AA0B4 /* NSError+TWTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = B873823A1AD860DC003AA0B4 /* NSError+TWTwitter.m */; };
-		B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14801BB9300000A43904 /* TWXMLParser.m */; settings = {ASSET_TAGS = (); }; };
-		B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14821BB9380800A43904 /* XMLParserTests.m */; settings = {ASSET_TAGS = (); }; };
+		B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14801BB9300000A43904 /* TWXMLParser.m */; };
+		B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14821BB9380800A43904 /* XMLParserTests.m */; };
 		B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */; };
 		B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */; };
 		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
@@ -397,6 +397,7 @@
 				B87381DB1AD7A198003AA0B4 /* Frameworks */,
 				B87381DC1AD7A198003AA0B4 /* Resources */,
 				B4F2B11143F86D2AD33CFF5B /* Copy Pods Resources */,
+				582755C86FF5E3DB9587C6A2 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -499,6 +500,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		582755C86FF5E3DB9587C6A2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4F2B11143F86D2AD33CFF5B /* Copy Pods Resources */ = {

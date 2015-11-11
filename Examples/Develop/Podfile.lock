@@ -47,4 +47,4 @@ SPEC CHECKSUMS:
   UIAlertController+Blocks: b48c673ff60726da468b32ab21bbc7683512d45b
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-COCOAPODS: 0.38.0
+COCOAPODS: 0.39.0

@@ -105,7 +105,7 @@ static NSDictionary *__keys;
 
 + (NSData *)imageData
 {
-    UIImage *image = [UIImage imageNamed:@"jpg"];
+    UIImage *image = [UIImage imageNamed:@"jackal.jpg"];
     NSAssert(image, nil);
     return UIImageJPEGRepresentation(image, 1.f);
 }
