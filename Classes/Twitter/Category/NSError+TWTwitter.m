@@ -448,7 +448,14 @@ static NSString *kCode = @"code";
         case TWAPIErrorCodeEndpointRetired: // 251
             break;
         case TWAPIErrorCodeApplicationCannotPerformWriteAction: // 261
+        {
+            NSString *key = @"Error 261";
+            NSString *localizedDesc = TWLocalizedString(key);
+            if (![localizedDesc isEqualToString:key]) {
+                desc = [localizedDesc stringByAppendingString:desc];
+            }
             break;
+        }
         case TWAPIErrorCodeCannotMuteSelf: // 271
             break;
         case TWAPIErrorCodeCannotMuteSpecifiedUser: // 272

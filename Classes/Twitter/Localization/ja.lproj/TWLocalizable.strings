@@ -10,6 +10,7 @@
 
 "Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
 "Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
+"Error 261" = "このアプリからの書き込み(ツイート/リツイート/いいね等)をTwitter社が制限しました。この制限はアプリの開発元がTwitter社に対して解決を求める必要があります。アプリの公式情報等を確認し復旧まで今しばらくお待ちください。";
 "Error 1001" = "非公開アカウントです";
 
 "Authentication failed format with screenName" = "@%@の認証情報を確認できませんでした";
