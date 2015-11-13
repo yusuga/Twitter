@@ -522,6 +522,13 @@ static NSString *kCode = @"code";
     return nil;
 }
 
++ (NSArray<NSNumber *> *)tw_authenticationFailedErrorCodes
+{
+    return @[@(TWAPIErrorCodeCouldNotAuthenticate),     // 32
+             @(TWAPIErrorCodeInvalidOrExpiredToken),    // 89
+             @(TWAPIErrorCodeBadAuthenticationData)];   // 215
+}
+
 @end
 
 @implementation TWRateLimit

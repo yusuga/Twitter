@@ -24,6 +24,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const TWApplicationLaunchedWithURLNotification;
+extern NSString * const TWAuthAuthenticationFailedErrorNotification;
 
 @interface TWAuth : NSObject
 

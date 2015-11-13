@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NSString * const TWApplicationLaunchedWithURLNotification = @"TWApplicationLaunchedWithURLNotification";
+NSString * const TWAuthAuthenticationFailedErrorNotification = @"TWAuthAuthenticationFailedErrorNotification";
 
 @interface TWAuth () <TWAuthProtocol>
 
@@ -184,9 +185,19 @@ NSString * const TWApplicationLaunchedWithURLNotification = @"TWApplicationLaunc
                           downloadProgress:downloadProgress
                                     stream:stream
                                 completion:^(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error) {
-                                    completion(operation, responseObject, [NSError tw_localizedAPIErrorWithHTTPOperation:operation
-                                                                                                         underlyingError:error
-                                                                                                              screenName:self.screenName]);
+                                    NSError *twitterError = [NSError tw_localizedAPIErrorWithHTTPOperation:operation
+                                                                                           underlyingError:error
+                                                                                                screenName:self.screenName];
+                                    
+                                    if ([twitterError.domain isEqualToString:TWAPIErrorDomain] &&
+                                        [[NSError tw_authenticationFailedErrorCodes] containsObject:@(twitterError.code)])
+                                    {
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:TWAuthAuthenticationFailedErrorNotification
+                                                                                            object:self
+                                                                                          userInfo:@{@"error" : twitterError}];
+                                    }
+                                    
+                                    completion(operation, responseObject, twitterError);
                                 }];
 }
 

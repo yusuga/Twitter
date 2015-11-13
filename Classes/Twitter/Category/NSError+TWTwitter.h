@@ -287,6 +287,10 @@ typedef NS_ENUM(NSInteger, TWAccountErrorCode) {
 + (NSError *)tw_twitterPrivacyAccessError;
 + (NSError *)tw_accountAuthenticationFailed;
 
+#pragma mark - Code
+
++ (NSArray<NSNumber *> *)tw_authenticationFailedErrorCodes;
+
 @end
 
 @interface TWRateLimit : NSObject
