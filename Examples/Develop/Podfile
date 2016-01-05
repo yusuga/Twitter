@@ -1,5 +1,4 @@
 platform :ios, '8.0'
-#pod 'AFNetworking', '~> 2.5.4'
 pod 'AFNetworking', '~> 2.0'
 pod 'OAuthCore', '~> 0.0.1'
 
