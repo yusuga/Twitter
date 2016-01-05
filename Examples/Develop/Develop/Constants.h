@@ -20,10 +20,10 @@
 
 #define kSlug @"news"
 
-#define kListUserID 12 // https://twitter.com/jack
-#define kListOwnerID 93017945 // https://twitter.com/Square
-#define kListID 4048045 // https://twitter.com/Square/lists/team
-#define kListSlug @"team" // https://twitter.com/Square/lists/team
+#define kListUserID 20 // https://twitter.com/ev
+#define kListOwnerID 40381496 // https://twitter.com/Favstar
+#define kListID 1534 // https://twitter.com/Favstar/lists/top-50-funny
+#define kListSlug @"top-50-funny" // https://twitter.com/Favstar/lists/top-50-funny
 
 #define kWOEID 1
 #define kPlaceID @"df51dec6f4ee2b2c"
