@@ -698,9 +698,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(media);
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
     if (media) params[kTWPostData] = [[TWPostData alloc] initWithData:media
                                                                  name:@"media"
-                                                             fileName:@"media.jpg"];
+                                                             fileName:@"media"];
     
     return [self sendRequestWithHTTPMethod:kTWHTTPMethodPOST
                              baseURLString:kTWBaseURLString_Upload_1_1

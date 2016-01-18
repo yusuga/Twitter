@@ -5,7 +5,7 @@
 //  Copyright (c) 2015 Yu Sugawara. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define kTargetUserID 783214 // https://twitter.com/twitter
 #define kTargetUserIDStr @"783214"
@@ -62,6 +62,14 @@ XCTFail();\
 + (NSString *)consumerSecretOfAllowedXAuth;
 + (NSString *)screenName;
 + (NSString *)password;
+
++ (UIImage *)imageOfPNGLandscape;
++ (UIImage *)imageOfPNGLandscapeWithMaxResolution:(CGFloat)maxResolution;
++ (UIImage *)imageOfJPEGLandscape;
++ (UIImage *)imageOfJPEGLandscapeWithMaxResolution:(CGFloat)maxResolution;
+
++ (UIImage *)resizeImage:(UIImage *)image
+       withMaxResolution:(CGFloat)maxResolution;
 
 + (NSData *)imageData;
 

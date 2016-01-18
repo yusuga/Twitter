@@ -15,23 +15,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Favorite
 
-- (TWAPIRequestOperation *)sendRequestFavoritesWithTweetID:(int64_t)tweetID
-                                                 favorited:(BOOL)favorited
-                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
+- (TWAPIRequestOperation *)tw_postFavoritesWithTweetID:(int64_t)tweetID
+                                             favorited:(BOOL)favorited
+                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
 #pragma mark - Retweet
 
-- (TWAPIRequestOperation *)sendRequestRetweetWithTweetID:(int64_t)tweetID
-                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
-
+- (TWAPIRequestOperation *)tw_postStatusesRetweetWithTweetID:(int64_t)tweetID
+                                                  completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
 #pragma mark - Tweet
 
-- (TWAPIRequestOperation *)sendRequestDestroyTweetWithTweetID:(int64_t)tweetID
-                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
+- (TWAPIRequestOperation *)tw_postStatusesDestroyWithTweetID:(int64_t)tweetID
+                                                  completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
-- (TWAPIMultipleRequestOperation *)sendRequestMediaTweetWithStatus:(NSString *)status
-                                                         mediaData:(NSArray *)mediaData
+- (TWAPIMultipleRequestOperation *)tw_postStatusesUpdateWithStatus:(NSString *)status
+                                                         mediaData:(NSArray<NSData *> *)mediaData
                                                  inReplyToStatusID:(int64_t)inReplyToStatusID
                                                  possiblySensitive:(BOOL)possiblySensitive
                                                           latitude:(NSString * __nullable)latitude

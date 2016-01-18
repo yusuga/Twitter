@@ -85,7 +85,7 @@ static TWAPIClient *__apiClient;
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         NSData *media = [Constants imageData];
         
-        TWAPIMultipleRequestOperation *ope = [client sendRequestMediaTweetWithStatus:kText
+        TWAPIMultipleRequestOperation *ope = [client tw_postStatusesUpdateWithStatus:kText
                                                                            mediaData:@[media, media, media, media]
                                                                    inReplyToStatusID:0
                                                                    possiblySensitive:NO
@@ -158,9 +158,9 @@ static TWAPIClient *__apiClient;
     XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
     
     [client getUsersShowWithUserID:kTargetUserID
-                                orScreenName:nil
-                             includeEntities:YES
-                                  completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
+                      orScreenName:nil
+                   includeEntities:YES
+                        completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
      {
          XCTAssertNotNil(error);
          XCTAssertEqualObjects(error.domain, TWAPIErrorDomain);

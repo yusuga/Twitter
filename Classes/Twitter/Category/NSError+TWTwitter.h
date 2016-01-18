@@ -43,6 +43,16 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodePageNotExist = 34,
     
     /**
+     *  Media parameter is missing.
+     */
+    TWAPIErrorCodeMediaParameterIsMissing = 38,
+    
+    /**
+     *  Media parameter is invalid.
+     */
+    TWAPIErrorCodeMediaParameterIsInvalid = 44,
+    
+    /**
      *  User not found.
      */
     TWAPIErrorCodeUserNotFound = 50,

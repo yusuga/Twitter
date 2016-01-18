@@ -220,10 +220,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 
 /**
- *  POST statuses/update_with_media
+ *  POST statuses/update_with_media (deprecated)
+ *
+ *  This endpoint has been DEPRECATED. Please use POST statuses/update for uploading one or more media entities.
+ *
  *  https://dev.twitter.com/rest/reference/post/statuses/update_with_media
  */
-
 - (TWAPIRequestOperation *)postStatusesUpdateWithMediaWithStatus:(NSString *)status
                                                            media:(NSData *)media
                                                possiblySensitive:(BOOL)possiblySensitive
@@ -233,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                          placeID:(NSString * __nullable)placeID
                                               displayCoordinates:(BOOL)displayCoordinates
                                                   uploadProgress:(void (^ __nullable)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)) uploadProgress
-                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion __attribute__((deprecated("This endpoint has been DEPRECATED. Please use POST statuses/update for uploading one or more media entities.")));
+                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion DEPRECATED_MSG_ATTRIBUTE("This endpoint has been DEPRECATED. Please use POST statuses/update for uploading one or more media entities.");
 
 #pragma mark -
 

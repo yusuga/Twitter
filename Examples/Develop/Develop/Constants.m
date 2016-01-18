@@ -6,7 +6,6 @@
 //
 
 #import "Constants.h"
-#import <UIKit/UIKit.h>
 
 static NSDictionary *__keys;
 
@@ -103,11 +102,71 @@ static NSDictionary *__keys;
 
 #pragma mark -
 
++ (UIImage *)imageOfPNGLandscape
+{
+    UIImage *image = [UIImage imageNamed:@"png_landscape.png"];
+    NSParameterAssert(image);
+    return image;
+}
+
++ (UIImage *)imageOfPNGLandscapeWithMaxResolution:(CGFloat)maxResolution
+{
+    return [Constants resizeImage:[self imageOfPNGLandscape] withMaxResolution:maxResolution];
+}
+
++ (UIImage *)imageOfJPEGLandscape
+{
+    UIImage *image = [UIImage imageNamed:@"jpeg_landscape.jpg"];
+    NSParameterAssert(image);
+    return image;
+}
+
++ (UIImage *)imageOfJPEGLandscapeWithMaxResolution:(CGFloat)maxResolution
+{
+    return [Constants resizeImage:[self imageOfJPEGLandscape] withMaxResolution:maxResolution];
+}
+
++ (UIImage *)resizeImage:(UIImage *)image
+       withMaxResolution:(CGFloat)maxResolution
+{
+    CGImageRef cgImage = image.CGImage;
+    
+    CGFloat width = CGImageGetWidth(cgImage);
+    CGFloat height = CGImageGetHeight(cgImage);
+    
+    if (MAX(width, height) < maxResolution) {
+        return image;
+    }
+    
+    CGFloat ratio = width/height;
+    if (ratio > 1.) {
+        width = maxResolution;
+        height = width / ratio;
+    } else {
+        height = maxResolution;
+        width = height * ratio;
+    }
+    
+    CGContextRef context = CGBitmapContextCreate(nil,
+                                                 width,
+                                                 height,
+                                                 CGImageGetBitsPerComponent(cgImage),
+                                                 CGImageGetBytesPerRow(cgImage),
+                                                 CGImageGetColorSpace(cgImage),
+                                                 CGImageGetBitmapInfo(cgImage));
+    
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGContextDrawImage(context, CGRectMake(0., 0., width, height), cgImage);
+    
+    UIImage *scaledImage = [UIImage imageWithCGImage:CGBitmapContextCreateImage(context)];
+    CFRelease(context);
+    
+    return scaledImage;
+}
+
 + (NSData *)imageData
 {
-    UIImage *image = [UIImage imageNamed:@"jackal.jpg"];
-    NSAssert(image, nil);
-    return UIImageJPEGRepresentation(image, 1.f);
+    return UIImageJPEGRepresentation([self resizeImage:[self imageOfJPEGLandscape] withMaxResolution:256.], 1.);
 }
 
 @end

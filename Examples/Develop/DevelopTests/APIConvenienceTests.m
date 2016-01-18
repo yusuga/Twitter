@@ -44,7 +44,7 @@ static TWAPIClient *__apiClient;
     int64_t tweetID = kTargetTweetID;
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         // Favorite
-        [client sendRequestFavoritesWithTweetID:tweetID
+        [client tw_postFavoritesWithTweetID:tweetID
                                       favorited:YES
                                      completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
          {
@@ -70,7 +70,7 @@ static TWAPIClient *__apiClient;
                   XCTAssertTrue([tweet[@"favorited"] boolValue]);
                   
                   // Duplicate Favorite
-                  [client sendRequestFavoritesWithTweetID:tweetID
+                  [client tw_postFavoritesWithTweetID:tweetID
                                                 favorited:YES
                                                completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
                    {
@@ -107,7 +107,7 @@ static TWAPIClient *__apiClient;
                                  XCTAssertFalse([tweet[@"favorited"] boolValue]);
                                  
                                  // Duplicate Unfavorite
-                                 [client sendRequestFavoritesWithTweetID:tweetID
+                                 [client tw_postFavoritesWithTweetID:tweetID
                                                                favorited:NO
                                                               completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
                                   {
@@ -128,8 +128,8 @@ static TWAPIClient *__apiClient;
     int64_t tweetID = kTargetTweetID;
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         // Retweet
-        [client sendRequestRetweetWithTweetID:tweetID
-                                   completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+        [client tw_postStatusesRetweetWithTweetID:tweetID
+                                       completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
          {
              validateAPICompletion(operation, NSNull, [NSNull null], error);
              if (error) {
@@ -188,8 +188,8 @@ static TWAPIClient *__apiClient;
                                  XCTAssertFalse([tweet[@"retweeted"] boolValue]);
                                  
                                  // Duplicate Unretweet
-                                 [client sendRequestDestroyRetweetWithOriginalTweetID:tweetID
-                                                                           completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+                                 [client postStatusesUnretweetWithTweetID:tweetID
+                                                               completion:^(TWAPIRequestOperation * _Nullable operation, NSDictionary * _Nullable tweet, NSError * _Nullable error)
                                   {
                                       validateAPICompletionAndFulfill(operation, NSNull, [NSNull null], error);
                                   }];
@@ -244,8 +244,8 @@ static TWAPIClient *__apiClient;
                        XCTAssertEqual(error.tw_HTTPStatusCode, 404);
                        
                        // Duplicate Destroy Tweet
-                       [client sendRequestDestroyTweetWithTweetID:tweetedID
-                                                       completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+                       [client tw_postStatusesDestroyWithTweetID:tweetedID
+                                                      completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
                         {
                             validateAPICompletionAndFulfill(operation, NSNull, [NSNull null], error);
                         }];
@@ -260,7 +260,7 @@ static TWAPIClient *__apiClient;
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         NSData *media = [Constants imageData];
         
-        [client sendRequestMediaTweetWithStatus:kText
+        [client tw_postStatusesUpdateWithStatus:kText
                                       mediaData:@[media, media, media, media]
                               inReplyToStatusID:0
                               possiblySensitive:NO
@@ -280,8 +280,8 @@ static TWAPIClient *__apiClient;
                  return ;
              }
              
-             [client sendRequestDestroyTweetWithTweetID:[tweet[@"id"] longLongValue]
-                                             completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+             [client tw_postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                            completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
               {
                   validateAPICompletionAndFulfill(operation, NSNull, [NSNull null], error);
               }];

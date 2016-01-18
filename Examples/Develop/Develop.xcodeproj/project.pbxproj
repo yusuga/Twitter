@@ -42,6 +42,8 @@
 		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
 		B88E3B3B1AE94C8E00881B39 /* TWLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */; };
 		B88E3B411AEA263F00881B39 /* TWAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B401AEA263F00881B39 /* TWAuthorization.m */; };
+		B8AC95B21C4CA5EF0020979E /* ManualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AC95B11C4CA5EF0020979E /* ManualTests.m */; };
+		B8AC95B61C4CA9540020979E /* TWUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AC95B51C4CA9540020979E /* TWUtil.m */; };
 		B8BAC8741ADC4D8E00C59FA4 /* OAuth1WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BAC8731ADC4D8E00C59FA4 /* OAuth1WebViewController.m */; };
 		B8BAC8791ADC6BF400C59FA4 /* APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BAC8781ADC6BF400C59FA4 /* APITests.m */; };
 		B8F1177A1AD93E51003B940B /* TWRequestToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F117791AD93E51003B940B /* TWRequestToken.m */; };
@@ -128,6 +130,9 @@
 		B88E3B3E1AE94CA200881B39 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/TWLocalizable.strings; sourceTree = "<group>"; };
 		B88E3B3F1AEA263F00881B39 /* TWAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthorization.h; sourceTree = "<group>"; };
 		B88E3B401AEA263F00881B39 /* TWAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthorization.m; sourceTree = "<group>"; };
+		B8AC95B11C4CA5EF0020979E /* ManualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManualTests.m; sourceTree = "<group>"; };
+		B8AC95B41C4CA9540020979E /* TWUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWUtil.h; sourceTree = "<group>"; };
+		B8AC95B51C4CA9540020979E /* TWUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWUtil.m; sourceTree = "<group>"; };
 		B8BAC8721ADC4D8E00C59FA4 /* OAuth1WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth1WebViewController.h; sourceTree = "<group>"; };
 		B8BAC8731ADC4D8E00C59FA4 /* OAuth1WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth1WebViewController.m; sourceTree = "<group>"; };
 		B8BAC8781ADC6BF400C59FA4 /* APITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITests.m; sourceTree = "<group>"; };
@@ -225,6 +230,7 @@
 				B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */,
 				B810F7611ADF835E006A7100 /* ErrorTests.m */,
 				B87F14821BB9380800A43904 /* XMLParserTests.m */,
+				B8AC95B11C4CA5EF0020979E /* ManualTests.m */,
 				B87381FB1AD7A198003AA0B4 /* Supporting Files */,
 			);
 			path = DevelopTests;
@@ -249,6 +255,7 @@
 				B87382271AD7BF0F003AA0B4 /* Serialization */,
 				B87382191AD7A1C0003AA0B4 /* Parser */,
 				B873822B1AD7C27D003AA0B4 /* Category */,
+				B8AC95B31C4CA9420020979E /* Util */,
 				B87382141AD7A1C0003AA0B4 /* Constants */,
 				B88E3B351AE94B0C00881B39 /* Localization */,
 			);
@@ -366,6 +373,15 @@
 				B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		B8AC95B31C4CA9420020979E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B8AC95B41C4CA9540020979E /* TWUtil.h */,
+				B8AC95B51C4CA9540020979E /* TWUtil.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		F7511FF295B0D54DAFB6769E /* Pods */ = {
@@ -561,6 +577,7 @@
 				B873821E1AD7A1C0003AA0B4 /* TWOAuth2.m in Sources */,
 				B87382211AD7A1C0003AA0B4 /* TWAuthOS.m in Sources */,
 				B88E3B411AEA263F00881B39 /* TWAuthorization.m in Sources */,
+				B8AC95B61C4CA9540020979E /* TWUtil.m in Sources */,
 				B87382221AD7A1C0003AA0B4 /* TWConstants.m in Sources */,
 				B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */,
 				B87381E71AD7A198003AA0B4 /* AppDelegate.m in Sources */,
@@ -574,6 +591,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8AC95B21C4CA5EF0020979E /* ManualTests.m in Sources */,
 				B8BAC8791ADC6BF400C59FA4 /* APITests.m in Sources */,
 				B8F117C91ADA623D003B940B /* AuthTests.m in Sources */,
 				B80100FB1AE5405400EA9D5A /* ObjectTests.m in Sources */,
