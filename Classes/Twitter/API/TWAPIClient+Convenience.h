@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (TWAPIRequestOperation *)sendRequestRetweetWithTweetID:(int64_t)tweetID
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
-- (TWAPIMultipleRequestOperation *)sendRequestDestroyRetweetWithOriginalTweetID:(int64_t)tweetID
-                                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
 #pragma mark - Tweet
 

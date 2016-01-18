@@ -153,8 +153,8 @@ static TWAPIClient *__apiClient;
                   XCTAssertTrue([tweet[@"retweeted"] boolValue]);
                   
                   // Duplicate Retweet
-                  [client sendRequestRetweetWithTweetID:tweetID
-                                             completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+                  [client tw_postStatusesRetweetWithTweetID:tweetID
+                                                 completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
                    {
                        validateAPICompletion(operation, NSNull, [NSNull null], error);
                        if (error) {
@@ -163,8 +163,8 @@ static TWAPIClient *__apiClient;
                        }
                        
                        // Unretweet
-                       [client sendRequestDestroyRetweetWithOriginalTweetID:tweetID
-                                                                 completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+                       [client postStatusesUnretweetWithTweetID:tweetID
+                                                     completion:^(TWAPIRequestOperation * _Nullable operation, NSDictionary * _Nullable tweet, NSError * _Nullable error)
                         {
                             validateAPICompletion(operation, NSNull, [NSNull null], error);
                             if (error) {
@@ -223,8 +223,8 @@ static TWAPIClient *__apiClient;
              XCTAssertGreaterThan(tweetedID, 0);
              
              // Destroy Tweet
-             [client sendRequestDestroyTweetWithTweetID:tweetedID
-                                             completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+             [client tw_postStatusesDestroyWithTweetID:tweetedID
+                                            completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
               {
                   validateAPICompletion(operation, NSDictionary, tweet, error);
                   if (error) {

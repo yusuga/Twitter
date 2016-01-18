@@ -71,40 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
                                      }];
 }
 
-- (TWAPIMultipleRequestOperation *)sendRequestDestroyRetweetWithOriginalTweetID:(int64_t)tweetID
-                                                                     completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion
-{
-    TWAPIMultipleRequestOperation *multipleOpe = [[TWAPIMultipleRequestOperation alloc] init];
-    
-    [multipleOpe addOperation:[self getStatusesShowWithTweetID:tweetID
-                                                      trimUser:NO
-                                              includeMyRetweet:YES
-                                               includeEntities:YES
-                                                    completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
-                               {
-                                   if (error) {
-                                       completion(operation, error);
-                                       return ;
-                                   }
-                                   
-                                   NSNumber *retweetedTweetID = [tweet valueForKeyPath:@"current_user_retweet.id"];
-                                   
-                                   if (retweetedTweetID) {
-                                       // Unretweet
-                                       [multipleOpe addOperation:[self postStatusesDestroyWithTweetID:retweetedTweetID.longLongValue
-                                                                                             trimUser:NO
-                                                                                           completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
-                                                                  {
-                                                                      completion(operation, error);
-                                                                  }]];
-                                   } else {
-                                       // Already Unretweeted
-                                       completion(operation, nil);
-                                   }
-                               }]];
-    return multipleOpe;
-}
-
 #pragma mark - Tweet
 
 - (TWAPIRequestOperation *)sendRequestDestroyTweetWithTweetID:(int64_t)tweetID

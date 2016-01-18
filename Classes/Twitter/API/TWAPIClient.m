@@ -547,6 +547,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
+- (TWAPIRequestOperation *)postStatusesUnretweetWithTweetID:(int64_t)tweetID
+                                                   trimUser:(BOOL)trimUser
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion
+{
+    NSParameterAssert(tweetID);
+    
+    NSString *tweetIDStr = tw_int64Str(tweetID);
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (tweetID) params[@"id"] = tweetIDStr;
+    if (trimUser) params[@"trim_user"] = tw_boolStr(trimUser);
+    
+    return [self POST:[NSString stringWithFormat:@"statuses/unretweet/%@.json", tweetIDStr]
+           parameters:[NSDictionary dictionaryWithDictionary:params]
+           completion:completion];
+}
+
+- (TWAPIRequestOperation *)postStatusesUnretweetWithTweetID:(int64_t)tweetID
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion
+{
+    return [self postStatusesUnretweetWithTweetID:tweetID
+                                         trimUser:NO
+                                       completion:completion];
+}
+
+#pragma mark -
+
 - (TWAPIRequestOperation *)postStatusesDestroyWithTweetID:(int64_t)tweetID
                                                  trimUser:(BOOL)trimUser
                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion

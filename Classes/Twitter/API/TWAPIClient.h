@@ -239,15 +239,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  POST statuses/retweet/:id
+ *
+ *  Retweets a tweet. Returns the original tweet with retweet details embedded.
+ *  指定のツイートをリツイートします。
+ *
  *  https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid
  */
-
 - (TWAPIRequestOperation *)postStatusesRetweetWithTweetID:(int64_t)tweetID
                                                  trimUser:(BOOL)trimUser
                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
 
 - (TWAPIRequestOperation *)postStatusesRetweetWithTweetID:(int64_t)tweetID
                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
+
+/**
+ *  POST statuses/unretweet/:id
+ *
+ *  Untweets a retweeted status. Returns the original Tweet with retweet details embedded.
+ *  指定のツイートをアンリツイートします。
+ *
+ *  https://dev.twitter.com/rest/reference/post/statuses/unretweet/%3Aid
+ *
+ *  Note:
+ *  - 指定するツイートIDはリツイート元でもリツイートしたツイートでもどちらでも有効。
+ */
+- (TWAPIRequestOperation *)postStatusesUnretweetWithTweetID:(int64_t)tweetID
+                                                   trimUser:(BOOL)trimUser
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
+
+- (TWAPIRequestOperation *)postStatusesUnretweetWithTweetID:(int64_t)tweetID
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
 
 #pragma mark -
 

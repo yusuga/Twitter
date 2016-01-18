@@ -213,10 +213,11 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
     } timeout:60.];
 }
 
-- (void)testPostStatusesRetweetAndPostStatusesDestroy
+- (void)testPostStatusesRetweetAndUnretweet
 {
     int64_t tweetID = kTargetTweetID;
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        // Retweet
         [client postStatusesRetweetWithTweetID:tweetID
                                     completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
          {
@@ -246,12 +247,29 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                       return ;
                   }
                   
-                  NSNumber *retweetedTweetID = [tweet valueForKeyPath:@"current_user_retweet.id"];
+                  XCTAssertTrue([tweet[@"retweeted"] boolValue]);
                   
-                  [client postStatusesDestroyWithTweetID:retweetedTweetID.longLongValue
-                                              completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+                  // Unretweet
+                  [client postStatusesUnretweetWithTweetID:tweetID
+                                                  trimUser:NO
+                                                completion:^(TWAPIRequestOperation * _Nullable operation, NSDictionary * _Nullable tweet, NSError * _Nullable error)
                    {
-                       validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+                       validateAPICompletion(operation, NSDictionary, tweet, error);
+                       if (error) {
+                           [expectation fulfill];
+                           return ;
+                       }
+                       
+                       // Check unretweeted
+                       [client getStatusesShowWithTweetID:tweetID
+                                                 trimUser:NO
+                                         includeMyRetweet:YES
+                                          includeEntities:YES
+                                               completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+                        {
+                            XCTAssertFalse([tweet[@"retweeted"] boolValue]);
+                            [expectation fulfill];
+                        }];
                    }];
               }];
          }];
