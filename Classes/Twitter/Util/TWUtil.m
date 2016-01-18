@@ -8,7 +8,7 @@
 
 #import "TWUtil.h"
 
-inline NSString *TWTweetURLString(NSString *screenName, NSNumber *tweetID)
+NSString *TWTweetURLString(NSString *screenName, NSNumber *tweetID)
 {
     return [NSString stringWithFormat:@"https://twitter.com/%@/status/%@", screenName, tweetID];
 }

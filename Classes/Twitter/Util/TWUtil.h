@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT inline NSString *TWTweetURLString(NSString *screenName, NSNumber *tweetID);
+FOUNDATION_EXPORT NSString *TWTweetURLString(NSString *screenName, NSNumber *tweetID);
 
 @interface TWUtil : NSObject
 

@@ -269,9 +269,9 @@ static TWAPIClient *__apiClient;
                                         placeID:nil
                              displayCoordinates:YES
                                        trimUser:NO
-                                 uploadProgress:^(CGFloat progress)
+                                 uploadProgress:^(TWRequestState state, CGFloat progress)
          {
-             NSLog(@"%s, progress %f", __func__, progress);
+             NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
          } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
          {
              validateAPICompletion(operation, NSDictionary, tweet, error);

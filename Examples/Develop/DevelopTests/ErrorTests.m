@@ -94,18 +94,19 @@ static TWAPIClient *__apiClient;
                                                                              placeID:nil
                                                                   displayCoordinates:YES
                                                                             trimUser:NO
-                                                                      uploadProgress:^(CGFloat progress) {
-                                                                          NSLog(@"%s, progress %f", __func__, progress);
-                                                                      } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
-                                                                          XCTAssertNil(tweet);
-                                                                          XCTAssertNotNil(error);
-                                                                          XCTAssertTrue([error.localizedDescription isKindOfClass:[NSString class]]);
-                                                                          XCTAssertTrue([error.tw_failingURL isKindOfClass:[NSURL class]]);
-                                                                          XCTAssertTrue([error.tw_underlyingError isKindOfClass:[NSError class]]);
-                                                                          XCTAssertEqual(error.tw_HTTPStatusCode, NSURLErrorCancelled);
-                                                                          XCTAssertTrue([error tw_isCancelled]);
-                                                                          [expectation fulfill];
-                                                                      }];
+                                                                      uploadProgress:^(TWRequestState state, CGFloat progress)
+                                              {
+                                                  NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
+                                              } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+                                                  XCTAssertNil(tweet);
+                                                  XCTAssertNotNil(error);
+                                                  XCTAssertTrue([error.localizedDescription isKindOfClass:[NSString class]]);
+                                                  XCTAssertTrue([error.tw_failingURL isKindOfClass:[NSURL class]]);
+                                                  XCTAssertTrue([error.tw_underlyingError isKindOfClass:[NSError class]]);
+                                                  XCTAssertEqual(error.tw_HTTPStatusCode, NSURLErrorCancelled);
+                                                  XCTAssertTrue([error tw_isCancelled]);
+                                                  [expectation fulfill];
+                                              }];
         XCTAssertNotNil(ope);
         [ope cancel];
     } timeout:30.];

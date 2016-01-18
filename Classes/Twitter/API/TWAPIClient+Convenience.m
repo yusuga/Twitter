@@ -99,17 +99,17 @@ NS_ASSUME_NONNULL_BEGIN
                                                            placeID:(NSString * __nullable)placeID
                                                 displayCoordinates:(BOOL)displayCoordinates
                                                           trimUser:(BOOL)trimUser
-                                                    uploadProgress:(void (^ __nullable)(CGFloat progress))uploadProgress
+                                                    uploadProgress:(void (^ __nullable)(TWRequestState state, CGFloat progress))uploadProgress
                                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion
 {
     TWAPIMultipleRequestOperation *multipleOpe = [[TWAPIMultipleRequestOperation alloc] init];
     
     NSMutableArray *mediaIDs = [NSMutableArray arrayWithCapacity:[mediaData count]];
-    __block CGFloat mediaProgress = 0.f;
+    __block CGFloat mediaProgress = 0.;
     NSMutableArray *errors = [NSMutableArray array];
     
     dispatch_group_t group = dispatch_group_create();
-    
+
     for (NSData *data in mediaData) {
         dispatch_group_enter(group);
         [multipleOpe addOperation:[self postMediaUploadWithMedia:data
@@ -118,16 +118,16 @@ NS_ASSUME_NONNULL_BEGIN
                                        if (uploadProgress) {
                                            CGFloat increment = (CGFloat)bytesWritten/totalBytesExpectedToWrite;
                                            mediaProgress += increment/[mediaData count];
-                                           uploadProgress(mediaProgress * 0.9f);
+                                           uploadProgress(TWRequestStateUploadMedia, mediaProgress * 0.9);
                                        }
-                                   } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable uploadMedia, NSError * __nullable error)
+                                   } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable mediaUpload, NSError * __nullable error)
                                    {
                                        if (error) {
                                            [errors addObject:[NSError tw_localizedAPIErrorWithHTTPOperation:operation
                                                                                             underlyingError:error
                                                                                                  screenName:nil]];
                                        } else {
-                                           [mediaIDs addObject:uploadMedia[@"media_id_string"]];
+                                           [mediaIDs addObject:mediaUpload[@"media_id_string"]];
                                        }
                                        dispatch_group_leave(group);
                                    }]];
@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                              mediaIDs:[NSArray arrayWithArray:mediaIDs]
                                                        uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
                                    {
-                                       if (uploadProgress) uploadProgress(0.9f + ((CGFloat)totalBytesWritten/totalBytesExpectedToWrite)*0.1f);
+                                       if (uploadProgress) uploadProgress(TWRequestStateUploadTweet, 0.9 + ((CGFloat)totalBytesWritten/totalBytesExpectedToWrite)*0.1);
                                    } completion:completion]];
     });
     
