@@ -12,4 +12,6 @@ FOUNDATION_EXPORT NSString *TWTweetURLString(NSString *screenName, NSNumber *twe
 
 @interface TWUtil : NSObject
 
++ (NSString *)percentEscapedURLQueryWithParameters:(NSDictionary<NSString *, NSString *> *)parameters;
+
 @end

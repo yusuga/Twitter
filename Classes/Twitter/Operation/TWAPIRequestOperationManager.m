@@ -6,6 +6,7 @@
 //
 
 #import "TWAPIRequestOperationManager.h"
+#import "TWUtil.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @implementation TWAPIRequestOperationManager
@@ -14,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (self = [super initWithBaseURL:url]) {
         self.streamKeepAliveTime = 60.;
+        
+        [self.requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error)
+         {
+             return [TWUtil percentEscapedURLQueryWithParameters:parameters];
+         }];
     }
     return self;
 }

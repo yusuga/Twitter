@@ -181,6 +181,30 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
     }];
 }
 
+- (void)testPostStatusesUpdateWithRFC2396ReservedString
+{    
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:[NSString stringWithFormat:@"%@ RFC2396 :#[]@!$&'()*+,;=?/", kText]
+                           inReplyToStatusID:0
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+             
+             [client postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+              }];
+         }];
+    }];
+}
+
 - (void)testPostStatusesUpdateWithMediaAndPostStatusesDestroy
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
@@ -985,7 +1009,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
         [client getListsMembersShowWithListID:@(kListID)
-                                       userID:@(kListUserID)
+                                       userID:@(kListMemberID)
                                  orScreenName:nil
                               includeEntities:@YES
                                    skipStatus:@YES
@@ -1001,7 +1025,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
         [client getListsMembersShowWithSlug:kListSlug
                                     ownerID:@(kListOwnerID)
                           orOwnerScreenName:nil
-                                     userID:@(kListUserID)
+                                     userID:@(kListMemberID)
                                orScreenName:nil
                             includeEntities:@YES
                                  skipStatus:@YES

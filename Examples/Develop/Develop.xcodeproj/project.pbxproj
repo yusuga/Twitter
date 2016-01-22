@@ -38,6 +38,7 @@
 		B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14801BB9300000A43904 /* TWXMLParser.m */; };
 		B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14821BB9380800A43904 /* XMLParserTests.m */; };
 		B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */; };
+		B88CACFD1C51569700ADF7C0 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B88CACFC1C51569700ADF7C0 /* UtilTests.m */; };
 		B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */; };
 		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
 		B88E3B3B1AE94C8E00881B39 /* TWLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */; };
@@ -122,6 +123,7 @@
 		B87F14821BB9380800A43904 /* XMLParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserTests.m; sourceTree = "<group>"; };
 		B886C2C91AD8F27A00C53095 /* TWAuthObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthObject.h; sourceTree = "<group>"; };
 		B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthObject.m; sourceTree = "<group>"; };
+		B88CACFC1C51569700ADF7C0 /* UtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilTests.m; sourceTree = "<group>"; };
 		B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationManager.h; sourceTree = "<group>"; };
 		B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperationManager.m; sourceTree = "<group>"; };
 		B88E3B361AE94BB900881B39 /* TWLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocalization.h; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */,
 				B810F7611ADF835E006A7100 /* ErrorTests.m */,
 				B87F14821BB9380800A43904 /* XMLParserTests.m */,
+				B88CACFC1C51569700ADF7C0 /* UtilTests.m */,
 				B8AC95B11C4CA5EF0020979E /* ManualTests.m */,
 				B87381FB1AD7A198003AA0B4 /* Supporting Files */,
 			);
@@ -598,6 +601,7 @@
 				B85114621AE4E3DC00ECEEEA /* APIConvenienceTests.m in Sources */,
 				B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */,
 				B810F7621ADF835E006A7100 /* ErrorTests.m in Sources */,
+				B88CACFD1C51569700ADF7C0 /* UtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
