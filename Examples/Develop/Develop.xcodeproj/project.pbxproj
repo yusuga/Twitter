@@ -13,9 +13,11 @@
 		B810F7521ADE68AC006A7100 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B810F7511ADE68AC006A7100 /* Constants.m */; };
 		B810F7541ADE6EB1006A7100 /* keys.txt in Resources */ = {isa = PBXBuildFile; fileRef = B810F7531ADE6EB1006A7100 /* keys.txt */; };
 		B810F7621ADF835E006A7100 /* ErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B810F7611ADF835E006A7100 /* ErrorTests.m */; };
+		B81D4C231C83142600F474E6 /* TWAPIMultipleRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B81D4C1E1C83142600F474E6 /* TWAPIMultipleRequestOperation.m */; };
+		B81D4C241C83142600F474E6 /* TWAPIRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B81D4C201C83142600F474E6 /* TWAPIRequestOperation.m */; };
+		B81D4C251C83142600F474E6 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B81D4C221C83142600F474E6 /* TWAPIRequestOperationManager.m */; };
 		B8412E381ADA7E40003742A8 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8412E371ADA7E40003742A8 /* AuthViewController.m */; };
 		B8412E3E1ADA87A4003742A8 /* TWOAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B8412E3D1ADA87A4003742A8 /* TWOAuthToken.m */; };
-		B851142B1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */; };
 		B85114601AE4BF9100ECEEEA /* TWAPIClient+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B851145F1AE4BF9100ECEEEA /* TWAPIClient+Convenience.m */; };
 		B85114621AE4E3DC00ECEEEA /* APIConvenienceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */; };
 		B87381E41AD7A198003AA0B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B87381E31AD7A198003AA0B4 /* main.m */; };
@@ -30,7 +32,6 @@
 		B87382211AD7A1C0003AA0B4 /* TWAuthOS.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382131AD7A1C0003AA0B4 /* TWAuthOS.m */; };
 		B87382221AD7A1C0003AA0B4 /* TWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382161AD7A1C0003AA0B4 /* TWConstants.m */; };
 		B87382231AD7A1C0003AA0B4 /* TWStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */; };
-		B87382261AD7BCCC003AA0B4 /* TWAPIRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */; };
 		B873822A1AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382291AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m */; };
 		B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382301AD846E3003AA0B4 /* TWPostData.m */; };
 		B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */ = {isa = PBXBuildFile; fileRef = B87382371AD85C50003AA0B4 /* TWOAuth1Token.m */; };
@@ -39,7 +40,6 @@
 		B87F14831BB9380800A43904 /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F14821BB9380800A43904 /* XMLParserTests.m */; };
 		B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */; };
 		B88CACFD1C51569700ADF7C0 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B88CACFC1C51569700ADF7C0 /* UtilTests.m */; };
-		B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */; };
 		B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B371AE94BB900881B39 /* TWLocalization.m */; };
 		B88E3B3B1AE94C8E00881B39 /* TWLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88E3B3D1AE94C8E00881B39 /* TWLocalizable.strings */; };
 		B88E3B411AEA263F00881B39 /* TWAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = B88E3B401AEA263F00881B39 /* TWAuthorization.m */; };
@@ -72,13 +72,18 @@
 		B810F7531ADE6EB1006A7100 /* keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.txt; sourceTree = "<group>"; };
 		B810F7611ADF835E006A7100 /* ErrorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTests.m; sourceTree = "<group>"; };
 		B816146B1ADBB0C200C1F724 /* TWAuthProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthProtocol.h; sourceTree = "<group>"; };
+		B81D4C1C1C8302E900F474E6 /* TWAPIRequestOperationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationProtocol.h; sourceTree = "<group>"; };
+		B81D4C1D1C83142600F474E6 /* TWAPIMultipleRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIMultipleRequestOperation.h; sourceTree = "<group>"; };
+		B81D4C1E1C83142600F474E6 /* TWAPIMultipleRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIMultipleRequestOperation.m; sourceTree = "<group>"; };
+		B81D4C1F1C83142600F474E6 /* TWAPIRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperation.h; sourceTree = "<group>"; };
+		B81D4C201C83142600F474E6 /* TWAPIRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperation.m; sourceTree = "<group>"; };
+		B81D4C211C83142600F474E6 /* TWAPIRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationManager.h; sourceTree = "<group>"; };
+		B81D4C221C83142600F474E6 /* TWAPIRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperationManager.m; sourceTree = "<group>"; };
 		B8412E361ADA7E40003742A8 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
 		B8412E371ADA7E40003742A8 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		B8412E3A1ADA7F3A003742A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B8412E3C1ADA87A4003742A8 /* TWOAuthToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOAuthToken.h; sourceTree = "<group>"; };
 		B8412E3D1ADA87A4003742A8 /* TWOAuthToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOAuthToken.m; sourceTree = "<group>"; };
-		B85114291AE4923800ECEEEA /* TWAPIMultipleRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIMultipleRequestOperation.h; sourceTree = "<group>"; };
-		B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIMultipleRequestOperation.m; sourceTree = "<group>"; };
 		B851145E1AE4BF9100ECEEEA /* TWAPIClient+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWAPIClient+Convenience.h"; sourceTree = "<group>"; };
 		B851145F1AE4BF9100ECEEEA /* TWAPIClient+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWAPIClient+Convenience.m"; sourceTree = "<group>"; };
 		B85114611AE4E3DC00ECEEEA /* APIConvenienceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIConvenienceTests.m; sourceTree = "<group>"; };
@@ -107,8 +112,6 @@
 		B873821A1AD7A1C0003AA0B4 /* TWStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStreamParser.h; sourceTree = "<group>"; };
 		B873821B1AD7A1C0003AA0B4 /* TWStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWStreamParser.m; sourceTree = "<group>"; };
 		B873821C1AD7A1C0003AA0B4 /* Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Twitter.h; sourceTree = "<group>"; };
-		B87382241AD7BCCC003AA0B4 /* TWAPIRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperation.h; sourceTree = "<group>"; };
-		B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperation.m; sourceTree = "<group>"; };
 		B87382281AD7BF3E003AA0B4 /* TWAPIResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIResponseSerializer.h; sourceTree = "<group>"; };
 		B87382291AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIResponseSerializer.m; sourceTree = "<group>"; };
 		B873822F1AD846E3003AA0B4 /* TWPostData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPostData.h; sourceTree = "<group>"; };
@@ -124,8 +127,6 @@
 		B886C2C91AD8F27A00C53095 /* TWAuthObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthObject.h; sourceTree = "<group>"; };
 		B886C2CA1AD8F27A00C53095 /* TWAuthObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAuthObject.m; sourceTree = "<group>"; };
 		B88CACFC1C51569700ADF7C0 /* UtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilTests.m; sourceTree = "<group>"; };
-		B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationManager.h; sourceTree = "<group>"; };
-		B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIRequestOperationManager.m; sourceTree = "<group>"; };
 		B88E3B361AE94BB900881B39 /* TWLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocalization.h; sourceTree = "<group>"; };
 		B88E3B371AE94BB900881B39 /* TWLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocalization.m; sourceTree = "<group>"; };
 		B88E3B3C1AE94C8E00881B39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/TWLocalizable.strings; sourceTree = "<group>"; };
@@ -327,12 +328,13 @@
 		B87382181AD7A1C0003AA0B4 /* Operation */ = {
 			isa = PBXGroup;
 			children = (
-				B88E3B321AE8C9BE00881B39 /* TWAPIRequestOperationManager.h */,
-				B88E3B331AE8C9BE00881B39 /* TWAPIRequestOperationManager.m */,
-				B87382241AD7BCCC003AA0B4 /* TWAPIRequestOperation.h */,
-				B87382251AD7BCCC003AA0B4 /* TWAPIRequestOperation.m */,
-				B85114291AE4923800ECEEEA /* TWAPIMultipleRequestOperation.h */,
-				B851142A1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m */,
+				B81D4C211C83142600F474E6 /* TWAPIRequestOperationManager.h */,
+				B81D4C221C83142600F474E6 /* TWAPIRequestOperationManager.m */,
+				B81D4C1C1C8302E900F474E6 /* TWAPIRequestOperationProtocol.h */,
+				B81D4C1F1C83142600F474E6 /* TWAPIRequestOperation.h */,
+				B81D4C201C83142600F474E6 /* TWAPIRequestOperation.m */,
+				B81D4C1D1C83142600F474E6 /* TWAPIMultipleRequestOperation.h */,
+				B81D4C1E1C83142600F474E6 /* TWAPIMultipleRequestOperation.m */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -558,21 +560,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B87382261AD7BCCC003AA0B4 /* TWAPIRequestOperation.m in Sources */,
-				B851142B1AE4923800ECEEEA /* TWAPIMultipleRequestOperation.m in Sources */,
 				B886C2CB1AD8F27A00C53095 /* TWAuthObject.m in Sources */,
 				B810F7521ADE68AC006A7100 /* Constants.m in Sources */,
 				B87382381AD85C50003AA0B4 /* TWOAuth1Token.m in Sources */,
 				B88E3B381AE94BB900881B39 /* TWLocalization.m in Sources */,
 				B873823B1AD860DC003AA0B4 /* NSError+TWTwitter.m in Sources */,
 				B8F1177A1AD93E51003B940B /* TWRequestToken.m in Sources */,
+				B81D4C251C83142600F474E6 /* TWAPIRequestOperationManager.m in Sources */,
 				B8BAC8741ADC4D8E00C59FA4 /* OAuth1WebViewController.m in Sources */,
 				B85114601AE4BF9100ECEEEA /* TWAPIClient+Convenience.m in Sources */,
 				B873821D1AD7A1C0003AA0B4 /* TWAPIClient.m in Sources */,
+				B81D4C231C83142600F474E6 /* TWAPIMultipleRequestOperation.m in Sources */,
 				B8412E3E1ADA87A4003742A8 /* TWOAuthToken.m in Sources */,
 				B873821F1AD7A1C0003AA0B4 /* TWAuth.m in Sources */,
 				B873822A1AD7BF3E003AA0B4 /* TWAPIResponseSerializer.m in Sources */,
-				B88E3B341AE8C9BE00881B39 /* TWAPIRequestOperationManager.m in Sources */,
 				B87382231AD7A1C0003AA0B4 /* TWStreamParser.m in Sources */,
 				B8F117BE1ADA3E39003B940B /* TWOAuth2Token.m in Sources */,
 				B8412E381ADA7E40003742A8 /* AuthViewController.m in Sources */,
@@ -585,6 +586,7 @@
 				B87382311AD846E3003AA0B4 /* TWPostData.m in Sources */,
 				B87381E71AD7A198003AA0B4 /* AppDelegate.m in Sources */,
 				B87F14811BB9300000A43904 /* TWXMLParser.m in Sources */,
+				B81D4C241C83142600F474E6 /* TWAPIRequestOperation.m in Sources */,
 				B87382201AD7A1C0003AA0B4 /* TWOAuth1.m in Sources */,
 				B87381E41AD7A198003AA0B4 /* main.m in Sources */,
 			);

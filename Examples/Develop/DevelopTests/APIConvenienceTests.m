@@ -289,6 +289,88 @@ static TWAPIClient *__apiClient;
     } timeout:60.];
 }
 
+#pragma mark - Friends
+
+- (void)testGetAllFriendsIDs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_getAllFriendsIDsWithUserID:[[client.auth retrieveUserIDFromAccessToken] longLongValue]
+                                 orScreenName:nil
+                                   completion:^(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error)
+         {
+#if 1
+             XCTAssertNil(error);
+             XCTAssertGreaterThan([userIDs count], 0);
+             NSLog(@"count: %zd", [userIDs count]);
+#else
+             /* Test rate limit */
+             
+             XCTAssertNotNil(error);
+             TWRateLimit *rateLimit = [error tw_rateLimit];
+             XCTAssertNotNil(rateLimit);
+             NSLog(@"rateLimit: %@", rateLimit);
+             
+             XCTAssertGreaterThan([userIDs count], 0);
+             
+             NSLog(@"userIDs:%@ count: %zd", userIDs, [userIDs count]);
+#endif
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testGetAllFollowersIDs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_getAllFollowersIDsWithUserID:[[client.auth retrieveUserIDFromAccessToken] longLongValue]
+                                   orScreenName:nil
+                                     completion:^(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error)
+         {
+             XCTAssertNil(error);
+             XCTAssertGreaterThan([userIDs count], 0);
+             
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testGetAllFriendshipsNoRetweetsIDs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_getAllFriendshipsNoRetweetsIDsWithCompletion:^(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error)
+         {
+             XCTAssertNil(error);
+             XCTAssertGreaterThan([userIDs count], 0);
+             
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testGetAllMutesUserIDs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_getAllMutesUsersIDsWithCompletion:^(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error)
+         {
+             XCTAssertNil(error);
+             XCTAssertGreaterThan([userIDs count], 0);
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testGetAllBlocksUserIDs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_getAllBlocksIDsWithCompletion:^(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error)
+         {
+             XCTAssertNil(error);
+             XCTAssertGreaterThan([userIDs count], 0);
+             [expectation fulfill];
+         }];
+    }];
+}
+
 #pragma mark - Utility
 
 - (void)clientAsyncTestBlock:(void(^)(TWAPIClient *client, XCTestExpectation *expectation))block

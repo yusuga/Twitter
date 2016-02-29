@@ -71,6 +71,39 @@ NS_ASSUME_NONNULL_BEGIN
                                               private:(NSNumber * __nullable)privateBoolNum
                                           description:(NSString * __nullable)description
                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+///--------------
+/// @name Friends
+///--------------
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFriendsIDsWithUserID:(int64_t)userID
+                                                    orScreenName:(NSString * __nullable)screenName
+                                                      completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion;
+
+///----------------
+/// @name Followers
+///----------------
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFollowersIDsWithUserID:(int64_t)userID
+                                                      orScreenName:(NSString * __nullable)screenName
+                                                        completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error))completion;
+
+///------------------
+/// @name Friendships
+///------------------
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFriendshipsNoRetweetsIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error))completion;
+
+///------------
+/// @name Mutes
+///------------
+
+- (TWAPIMultipleRequestOperation *)tw_getAllMutesUsersIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error))completion;
+
+///-------------
+/// @name Blocks
+///-------------
+
+- (TWAPIMultipleRequestOperation *)tw_getAllBlocksIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * _Nullable userIDs, NSError * _Nullable error))completion;
 
 @end
 NS_ASSUME_NONNULL_END

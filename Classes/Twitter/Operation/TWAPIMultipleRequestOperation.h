@@ -7,9 +7,10 @@
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
+#import "TWAPIRequestOperationProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface TWAPIMultipleRequestOperation : NSObject
+@interface TWAPIMultipleRequestOperation : NSObject <TWAPIRequestOperationProtocol>
 
 - (void)addOperation:(AFHTTPRequestOperation *)operation;
 

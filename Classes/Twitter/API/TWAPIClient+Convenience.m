@@ -8,6 +8,13 @@
 #import "TWAPIClient+Convenience.h"
 #import "NSError+TWTwitter.h"
 
+static uint64_t const kFirstPageCursor = -1;
+static uint64_t const kLastPageCursor = 0;
+static NSUInteger const kUserIDsRequestCountMax = 5000;
+
+typedef void (^TWAPIClientGetAllUserIDsRequestCompletion)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error);
+typedef TWAPIRequestOperation *(^TWAPIClientGetAllUserIDsCreateRequest)(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion);
+
 static inline NSString *tw_modeStr(NSNumber *privateBoolNum)
 {
     return privateBoolNum.boolValue ? @"private" : @"public";
@@ -19,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Favorite
 
 - (TWAPIRequestOperation *)tw_postFavoritesWithTweetID:(int64_t)tweetID
-                                                 favorited:(BOOL)favorited
-                                                completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion
+                                             favorited:(BOOL)favorited
+                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion
 {
     if (favorited) {
         return [self postFavoritesCreateWithTweetID:tweetID
@@ -109,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *errors = [NSMutableArray array];
     
     dispatch_group_t group = dispatch_group_create();
-
+    
     for (NSData *data in mediaData) {
         dispatch_group_enter(group);
         [multipleOpe addOperation:[self postMediaUploadWithMedia:data
@@ -208,7 +215,145 @@ NS_ASSUME_NONNULL_BEGIN
                                     mode:tw_modeStr(privateBoolNum)
                              description:description
                               completion:completion];
+}
 
+#pragma mark - Friends
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFriendsIDsWithUserID:(int64_t)userID
+                                                    orScreenName:(NSString * __nullable)screenName
+                                                      completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    __weak typeof(self) wself = self;
+    return [self tw_getAllUserIDsWithCreateRequest:^TWAPIRequestOperation *(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion) {
+        return [wself getFriendsIDsWithUserID:userID
+                                 orScreenName:nil
+                                        count:kUserIDsRequestCountMax
+                                       cursor:cursor
+                                 stringifyIDs:NO
+                                   completion:requestCompletion];
+    } completion:completion];
+}
+
+#pragma mark - Followers
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFollowersIDsWithUserID:(int64_t)userID
+                                                      orScreenName:(NSString * __nullable)screenName
+                                                        completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    __weak typeof(self) wself = self;
+    return [self tw_getAllUserIDsWithCreateRequest:^TWAPIRequestOperation *(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion) {
+        return [wself getFollowersIDsWithUserID:userID
+                                   orScreenName:nil
+                                          count:kUserIDsRequestCountMax
+                                         cursor:cursor
+                                   stringifyIDs:NO
+                                     completion:requestCompletion];
+    } completion:completion];
+}
+
+#pragma mark - Friendships
+
+- (TWAPIMultipleRequestOperation *)tw_getAllFriendshipsNoRetweetsIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    __weak typeof(self) wself = self;
+    return [self tw_getAllUserIDsWithCreateRequest:^TWAPIRequestOperation *(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion) {
+        return [wself getFriendshipsNoRetweetsIDsWithStringifyIDs:NO
+                                                       completion:requestCompletion];
+    } completion:completion];
+}
+
+#pragma mark - Mutes
+
+- (TWAPIMultipleRequestOperation *)tw_getAllMutesUsersIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    __weak typeof(self) wself = self;
+    return [self tw_getAllUserIDsWithCreateRequest:^TWAPIRequestOperation *(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion) {
+        return [wself getMutesUsersIDsWithCursor:cursor
+                                    stringifyIDs:NO
+                                      completion:requestCompletion];
+    } completion:completion];
+}
+
+#pragma mark - Blocks
+
+- (TWAPIMultipleRequestOperation *)tw_getAllBlocksIDsWithCompletion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    __weak typeof(self) wself = self;
+    return [self tw_getAllUserIDsWithCreateRequest:^TWAPIRequestOperation *(uint64_t cursor, TWAPIClientGetAllUserIDsRequestCompletion requestCompletion) {
+        return [wself getBlocksIDsWithCursor:cursor
+                                stringifyIDs:NO
+                                  completion:requestCompletion];
+    } completion:completion];
+}
+
+#pragma mark - Private
+
+- (TWAPIMultipleRequestOperation *)tw_getAllUserIDsWithCreateRequest:(TWAPIClientGetAllUserIDsCreateRequest)createRequest
+                                                          completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    TWAPIMultipleRequestOperation *multipleRequest = [[TWAPIMultipleRequestOperation alloc] init];
+    NSMutableArray *allUserIDs = [NSMutableArray array];
+    
+    [self tw_getAllUserIDsWithCreateRequest:createRequest
+                            multipleRequest:multipleRequest
+                                 allUserIDs:allUserIDs
+                                     cursor:kFirstPageCursor
+                                 completion:completion];
+    
+    return multipleRequest;
+}
+
+- (void)tw_getAllUserIDsWithCreateRequest:(TWAPIClientGetAllUserIDsCreateRequest)createRequest
+                          multipleRequest:(TWAPIMultipleRequestOperation *)multipleRequest
+                               allUserIDs:(NSMutableArray *)allUserIDs
+                                   cursor:(uint64_t)cursor
+                               completion:(void (^)(TWAPIMultipleRequestOperation * __nullable operation, NSArray<NSNumber *> * __nullable userIDs, NSError * __nullable error))completion
+{
+    if (cursor == kLastPageCursor) {
+        if (completion) completion(multipleRequest, [allUserIDs copy], nil);
+        return;
+    }
+    
+    __weak typeof(self) wself = self;
+    [multipleRequest addOperation:createRequest(cursor, ^(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error) {
+        NSLog(@"GET: netCursor: %llu", cursor);
+        
+        /*
+         *  # Response object pattern
+         *  1. NSDictionary
+         *  https://dev.twitter.com/overview/api/cursoring
+         *
+         *  2. NSArray of NSNumber
+         */
+        NSArray<NSNumber *> *userIDs;
+        uint64_t nextCursor = kLastPageCursor;
+        
+        if (responseObject) {
+            
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                userIDs = responseObject[@"ids"];
+                nextCursor = [responseObject[@"next_cursor"] unsignedLongLongValue];
+            } else if ([responseObject isKindOfClass:[NSArray class]]) {
+                userIDs = responseObject;
+            } else {
+                if (completion) completion(multipleRequest, nil, [NSError tw_parseFailedErrorWithUnderlyingString:[NSString stringWithFormat:@"Unsupported responseObject: %@", NSStringFromClass([responseObject class])]]);
+                return;
+            }
+        }
+        
+        [allUserIDs addObjectsFromArray:userIDs];
+        
+        if (error || operation.isCancelled) {
+            if (completion) completion(multipleRequest, [allUserIDs copy], error);
+            return ;
+        }
+        
+        [wself tw_getAllUserIDsWithCreateRequest:createRequest
+                                 multipleRequest:multipleRequest
+                                      allUserIDs:allUserIDs
+                                          cursor:nextCursor
+                                      completion:completion];
+    })];
 }
 
 @end
