@@ -493,6 +493,20 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
                             orScreenNames:nil
                           includeEntities:YES
                                completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error) {
+                                   NSLog(@"%@", users);
+                                   validateAPICompletionAndFulfill(operation, NSArray, users, error);
+                               }];
+    }];
+}
+
+- (void)testPostUsersLookup
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postUsersLookupWithUserIDs:@[kTargetUserIDStr]
+                            orScreenNames:nil
+                          includeEntities:YES
+                               completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error) {
+                                   NSLog(@"%@", users);
                                    validateAPICompletionAndFulfill(operation, NSArray, users, error);
                                }];
     }];

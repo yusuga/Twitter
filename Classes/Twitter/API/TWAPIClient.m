@@ -859,6 +859,32 @@ NS_ASSUME_NONNULL_BEGIN
                                      includeEntities:(BOOL)includeEntities
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error))completion
 {
+    return [self requestUsersLookupWithHTTPMethod:kTWHTTPMethodGET
+                                          userIDs:userIDs
+                                    orScreenNames:screenNames
+                                  includeEntities:includeEntities
+                                       completion:completion];
+}
+
+- (TWAPIRequestOperation *)postUsersLookupWithUserIDs:(NSArray * __nullable)userIDs
+                                        orScreenNames:(NSArray * __nullable)screenNames
+                                      includeEntities:(BOOL)includeEntities
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error))completion
+{
+    return [self requestUsersLookupWithHTTPMethod:kTWHTTPMethodPOST
+                                          userIDs:userIDs
+                                    orScreenNames:screenNames
+                                  includeEntities:includeEntities
+                                       completion:completion];
+}
+
+- (TWAPIRequestOperation *)requestUsersLookupWithHTTPMethod:(NSString *)HTTPMethod
+                                                    userIDs:(NSArray * __nullable)userIDs
+                                              orScreenNames:(NSArray * __nullable)screenNames
+                                            includeEntities:(BOOL)includeEntities
+                                                 completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error))completion
+{
+    NSParameterAssert(HTTPMethod);
     NSParameterAssert(userIDs || screenNames);
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -866,9 +892,20 @@ NS_ASSUME_NONNULL_BEGIN
     if (screenNames) params[@"screen_name"] = [screenNames componentsJoinedByString:@","];
     if (includeEntities) params[@"include_entities"] = tw_boolStr(includeEntities);
     
-    return [self GET:@"users/lookup.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
+    NSString *endPoint = @"users/lookup.json";
+    NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:params];
+    
+    if ([HTTPMethod isEqualToString:kTWHTTPMethodGET]) {
+        return [self GET:endPoint
+              parameters:parameters
+              completion:completion];
+    } else if ([HTTPMethod isEqualToString:kTWHTTPMethodPOST]) {
+        return [self POST:endPoint
+               parameters:parameters
+               completion:completion];
+    } else {
+        @throw [NSString stringWithFormat:@"%s, Unsupported HTTPMethod: %@", __func__, HTTPMethod];
+    }
 }
 
 - (TWAPIRequestOperation *)getUsersSearchWithQuery:(NSString *)query

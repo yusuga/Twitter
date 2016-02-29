@@ -422,12 +422,21 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  GET users/lookup
  *  https://dev.twitter.com/rest/reference/get/users/lookup
+ *
+ *  # Note
+ *  - You are strongly encouraged to use a POST for larger requests.
+ *  - ユーザIDまたはスクリーンネームの要求数が多い場合はPOSTの使用を推奨しています。
  */
 
 - (TWAPIRequestOperation *)getUsersLookupWithUserIDs:(NSArray * __nullable)userIDs
                                        orScreenNames:(NSArray * __nullable)screenNames
                                      includeEntities:(BOOL)includeEntities
                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error))completion;
+
+- (TWAPIRequestOperation *)postUsersLookupWithUserIDs:(NSArray * __nullable)userIDs
+                                        orScreenNames:(NSArray * __nullable)screenNames
+                                      includeEntities:(BOOL)includeEntities
+                                           completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable users, NSError * __nullable error))completion;
 
 /**
  *  GET users/search
