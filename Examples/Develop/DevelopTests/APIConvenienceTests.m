@@ -289,6 +289,41 @@ static TWAPIClient *__apiClient;
     } timeout:60.];
 }
 
+#pragma mark - User
+
+- (void)testPostUsersLookup
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        NSArray *userIDs = @[@(kTargetUserID), @(kTargetUserID2)];
+        [client tw_postUsersLookupWithUserIDs:userIDs
+                                orScreenNames:nil
+                              includeEntities:NO
+                                   completion:^(TWAPIRequestOperation * _Nullable operation, NSArray * _Nullable users, NSError * _Nullable error)
+         {
+             XCTAssertNil(error);
+             XCTAssertEqual([users count], [userIDs count]);
+             
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testPostUsersLookupWithNotExistUsers
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client tw_postUsersLookupWithUserIDs:@[@(1), @(2)]
+                                orScreenNames:nil
+                              includeEntities:NO
+                                   completion:^(TWAPIRequestOperation * _Nullable operation, NSArray * _Nullable users, NSError * _Nullable error)
+         {
+             XCTAssertNil(users);
+             XCTAssertNil(error);
+             
+             [expectation fulfill];
+         }];
+    }];
+}
+
 #pragma mark - Friends
 
 - (void)testGetAllFriendsIDs

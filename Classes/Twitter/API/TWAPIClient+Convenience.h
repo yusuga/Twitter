@@ -19,18 +19,24 @@ typedef NS_ENUM(NSInteger, TWRequestState)
 NS_ASSUME_NONNULL_BEGIN
 @interface TWAPIClient (Convenience)
 
-#pragma mark - Favorite
+///---------------
+/// @name Favorite
+///---------------
 
 - (TWAPIRequestOperation *)tw_postFavoritesWithTweetID:(int64_t)tweetID
                                              favorited:(BOOL)favorited
                                             completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
-#pragma mark - Retweet
+///--------------
+/// @name Retweet
+///--------------
 
 - (TWAPIRequestOperation *)tw_postStatusesRetweetWithTweetID:(int64_t)tweetID
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
 
-#pragma mark - Tweet
+///------------
+/// @name Tweet
+///------------
 
 - (TWAPIRequestOperation *)tw_postStatusesDestroyWithTweetID:(int64_t)tweetID
                                                   completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSError * __nullable error))completion;
@@ -46,8 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                           trimUser:(BOOL)trimUser
                                                     uploadProgress:(void (^ __nullable)(TWRequestState state, CGFloat progress))uploadProgress
                                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
-
-#pragma mark - List
 
 ///-----------
 /// @name list
@@ -71,6 +75,16 @@ NS_ASSUME_NONNULL_BEGIN
                                               private:(NSNumber * __nullable)privateBoolNum
                                           description:(NSString * __nullable)description
                                            completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable list, NSError * __nullable error))completion;
+
+///-----------
+/// @name User
+///-----------
+
+- (TWAPIRequestOperation *)tw_postUsersLookupWithUserIDs:(NSArray *)userIDs
+                                           orScreenNames:(NSArray * _Nullable)screenNames
+                                         includeEntities:(BOOL)includeEntities
+                                              completion:(void (^)(TWAPIRequestOperation * _Nullable, NSArray * _Nullable, NSError * _Nullable))completion;
+
 ///--------------
 /// @name Friends
 ///--------------

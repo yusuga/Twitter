@@ -30,6 +30,14 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeMultipleErrors = 1,
     
     /**
+     *  No user matches for specified terms.
+     *  
+     *  # ex
+     *  - users/lookup
+     */
+    TWAPIErrorCodeNoUserMatchesForSpecifiedTerms = 17,
+    
+    /**
      *  Your call could not be completed as dialed.
      *
      *  ex:

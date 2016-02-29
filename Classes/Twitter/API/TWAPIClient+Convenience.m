@@ -217,6 +217,29 @@ NS_ASSUME_NONNULL_BEGIN
                               completion:completion];
 }
 
+#pragma mark - User
+
+- (TWAPIRequestOperation *)tw_postUsersLookupWithUserIDs:(NSArray *)userIDs
+                                           orScreenNames:(NSArray * _Nullable)screenNames
+                                         includeEntities:(BOOL)includeEntities
+                                              completion:(void (^)(TWAPIRequestOperation * _Nullable, NSArray * _Nullable, NSError * _Nullable))completion
+{
+    return [self postUsersLookupWithUserIDs:userIDs
+                              orScreenNames:screenNames
+                            includeEntities:includeEntities
+                                 completion:^(TWAPIRequestOperation * _Nullable operation, NSArray * _Nullable users, NSError * _Nullable error)
+            {
+                if (error) {
+                    // Ignore error
+                    if (![error.domain isEqualToString:TWAPIErrorDomain] || error.code != TWAPIErrorCodeNoUserMatchesForSpecifiedTerms) {
+                        completion(operation, nil, error);
+                        return ;
+                    }
+                }
+                completion(operation, users, nil);
+            }];
+}
+
 #pragma mark - Friends
 
 - (TWAPIMultipleRequestOperation *)tw_getAllFriendsIDsWithUserID:(int64_t)userID
