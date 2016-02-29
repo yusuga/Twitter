@@ -371,7 +371,7 @@ static NSString *kCode = @"code";
     // TODO: Localize
     
     switch (code) {
-        case TWAPIErrorCodeNoUserMatchesForSpecifiedTerms:
+        case TWAPIErrorCodeNoUserMatchesForSpecifiedTerms: // 17
             break;
         case TWAPIErrorCodeCouldNotAuthenticate: // 32
         case TWAPIErrorCodeInvalidOrExpiredToken: // 89
@@ -393,6 +393,8 @@ static NSString *kCode = @"code";
             break;
         case TWAPIErrorCodeUserNotFound: // 50
             // OK
+            break;
+        case TWAPIErrorCodeUserHasBeenSuspended: // 63
             break;
         case TWAPIErrorCodeAccountSuspended: // 64
             break;

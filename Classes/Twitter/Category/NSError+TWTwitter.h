@@ -71,6 +71,11 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeNotAuthorizedForEndpoint = 37,
     
     /**
+     *  User has been suspended.
+     */
+    TWAPIErrorCodeUserHasBeenSuspended = 63,
+    
+    /**
      *  Corresponds with an HTTP 403 — the access token being used belongs to a suspended user and they can't complete the action you're trying to take
      */
     TWAPIErrorCodeAccountSuspended = 64,
