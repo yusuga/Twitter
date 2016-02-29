@@ -117,6 +117,12 @@ extern NSString * const TWAuthAuthenticationFailedErrorNotification;
 @property (copy, nonatomic) NSString *userID;
 @property (copy, nonatomic) NSString *screenName;
 
+/**
+ *  Note: The user's ID is currently part of the access token string returned to you as part of the oauth/access_token response -- but you shouldn't rely on that being the case forever.
+ *  https://twittercommunity.com/t/get-the-user-id-of-a-user-from-an-access-token/2079/2
+ */
+- (NSString * __nullable)retrieveUserIDFromAccessToken;
+
 - (NSString * __nullable)oauthCallback;
 
 #pragma mark - API Request

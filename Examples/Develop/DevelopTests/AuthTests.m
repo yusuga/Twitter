@@ -88,6 +88,8 @@
         [self waitForExpectationsWithTimeout:10. handler:^(NSError *error) {
             XCTAssertNil(error, @"error: %@", error);
         }];
+        
+        XCTAssertEqualObjects(auth.userID, [auth retrieveUserIDFromAccessToken]);
     }
 }
 

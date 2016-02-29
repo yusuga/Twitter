@@ -164,6 +164,28 @@ NSString * const TWAuthAuthenticationFailedErrorNotification = @"TWAuthAuthentic
                                                       userInfo:nil];
 }
 
+- (NSString * __nullable)retrieveUserIDFromAccessToken
+{
+    /*
+     *  # Access token format
+     *  - 123456789-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+     */
+    static NSString * const kBoundary = @"-";
+    
+    NSString *token = self.accessToken;
+    if (!token.length) return nil;
+    
+    if (![[NSCharacterSet decimalDigitCharacterSet] isSupersetOfSet:[NSCharacterSet characterSetWithCharactersInString:[token substringWithRange:NSMakeRange(0, 1)]]]) return nil;
+    
+    if ([token rangeOfString:kBoundary].location == NSNotFound) return nil;
+    
+    NSScanner *scanner = [[NSScanner alloc] initWithString:token];
+    
+    NSString *userID;
+    [scanner scanUpToCharactersFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet] intoString:&userID];
+    return userID;
+}
+
 #pragma mark - API Request
 
 - (TWAPIRequestOperation * __nullable)sendRequestWithHTTPMethod:(NSString *)HTTPMethod
