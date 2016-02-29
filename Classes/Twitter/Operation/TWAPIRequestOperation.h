@@ -7,7 +7,7 @@
 
 #import <AFNetworking/AFHTTPRequestOperation.h>
 #import "TWStreamParser.h"
-#import "TWAPIRequestOperationProtocol.h"
+#import "TWCancellableProtocol.h"
 
 /**
  *  Blank lines
@@ -15,7 +15,7 @@
  */
 
 NS_ASSUME_NONNULL_BEGIN
-@interface TWAPIRequestOperation : AFHTTPRequestOperation <TWAPIRequestOperationProtocol>
+@interface TWAPIRequestOperation : AFHTTPRequestOperation <TWCancellableProtocol>
 
 - (void)setStreamBlock:(void (^)(TWAPIRequestOperation *operation, NSDictionary *json, TWStreamJSONType type))block
    streamKeepAliveTime:(NSTimeInterval)streamKeepAliveTime;

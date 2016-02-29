@@ -72,7 +72,7 @@
 		B810F7531ADE6EB1006A7100 /* keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.txt; sourceTree = "<group>"; };
 		B810F7611ADF835E006A7100 /* ErrorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTests.m; sourceTree = "<group>"; };
 		B816146B1ADBB0C200C1F724 /* TWAuthProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAuthProtocol.h; sourceTree = "<group>"; };
-		B81D4C1C1C8302E900F474E6 /* TWAPIRequestOperationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperationProtocol.h; sourceTree = "<group>"; };
+		B81D4C1C1C8302E900F474E6 /* TWCancellableProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWCancellableProtocol.h; sourceTree = "<group>"; };
 		B81D4C1D1C83142600F474E6 /* TWAPIMultipleRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIMultipleRequestOperation.h; sourceTree = "<group>"; };
 		B81D4C1E1C83142600F474E6 /* TWAPIMultipleRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAPIMultipleRequestOperation.m; sourceTree = "<group>"; };
 		B81D4C1F1C83142600F474E6 /* TWAPIRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAPIRequestOperation.h; sourceTree = "<group>"; };
@@ -330,7 +330,7 @@
 			children = (
 				B81D4C211C83142600F474E6 /* TWAPIRequestOperationManager.h */,
 				B81D4C221C83142600F474E6 /* TWAPIRequestOperationManager.m */,
-				B81D4C1C1C8302E900F474E6 /* TWAPIRequestOperationProtocol.h */,
+				B81D4C1C1C8302E900F474E6 /* TWCancellableProtocol.h */,
 				B81D4C1F1C83142600F474E6 /* TWAPIRequestOperation.h */,
 				B81D4C201C83142600F474E6 /* TWAPIRequestOperation.m */,
 				B81D4C1D1C83142600F474E6 /* TWAPIMultipleRequestOperation.h */,
