@@ -43,6 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (NSHTTPURLResponse *)response
+{
+    @synchronized(self.operations) {
+        AFHTTPRequestOperation *ope = [[[self.operations objectEnumerator] allObjects] firstObject];
+        return ope.response;
+    }
+}
+
 #pragma mark -
 
 @end

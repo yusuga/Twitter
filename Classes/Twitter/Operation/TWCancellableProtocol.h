@@ -13,4 +13,6 @@
 - (void)cancel;
 - (BOOL)isCancelled;
 
+- (NSHTTPURLResponse *)response;
+
 @end
