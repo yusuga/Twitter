@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface TWAPIMultipleRequestOperation : NSObject <TWCancellableProtocol>
 
-- (void)addOperation:(AFHTTPRequestOperation *)operation;
+- (void)addOperation:(id<TWCancellableProtocol>)operation;
 
 - (void)cancel;
 @property (nonatomic, readonly, getter=isCancelled) BOOL cancelled;
