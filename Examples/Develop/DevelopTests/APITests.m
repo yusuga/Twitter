@@ -145,6 +145,18 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
     }];
 }
 
+- (void)testPostStatusesLookup
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesLookupWithTweetIDs:@[kTargetTweetIDStr]
+                               includeEntities:YES
+                                      trimUser:YES
+                                    completion:^(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error) {
+                                        validateAPICompletionAndFulfill(operation, NSArray, tweets, error);
+                                    }];
+    }];
+}
+
 - (void)testGetStatusesLookupMapped
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {

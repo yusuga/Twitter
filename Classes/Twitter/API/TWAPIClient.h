@@ -172,6 +172,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Returns fully-hydrated tweet objects for up to 100 tweets per request, as specified by comma-separated values passed to the id parameter.
  *
+ *  # Note
+ *  - You are strongly encouraged to use a POST for larger requests.
+ *  - ユーザIDの要求数が多い場合はPOSTの使用を推奨しています。
  */
 
 - (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
@@ -181,6 +184,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion;
+
+- (TWAPIRequestOperation *)postStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
+                                          includeEntities:(BOOL)includeEntities
+                                                 trimUser:(BOOL)trimUser
+                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion;
 
 - (TWAPIRequestOperation *)getStatusesLookupMappedWithTweetIDs:(NSArray *)tweetIDs
                                                includeEntities:(BOOL)includeEntities

@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "Twitter.h"
+#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
+    
     return YES;
 }
 

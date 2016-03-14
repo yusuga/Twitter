@@ -364,8 +364,59 @@ NS_ASSUME_NONNULL_BEGIN
 - (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
                                          includeEntities:(BOOL)includeEntities
                                                 trimUser:(BOOL)trimUser
-                                                     map:(BOOL)map
-                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable respondObject, NSError * __nullable error))completion;
+                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
+{
+    return [self requestStatusesLookupWithHTTPMethod:kTWHTTPMethodGET
+                                            TweetIDs:tweetIDs
+                                     includeEntities:includeEntities
+                                            trimUser:trimUser
+                                                 map:NO
+                                          completion:completion];
+}
+
+- (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
+                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
+{
+    return [self requestStatusesLookupWithHTTPMethod:kTWHTTPMethodGET
+                                            TweetIDs:tweetIDs
+                                     includeEntities:YES
+                                            trimUser:NO
+                                                 map:NO
+                                          completion:completion];
+}
+
+- (TWAPIRequestOperation *)postStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
+                                          includeEntities:(BOOL)includeEntities
+                                                 trimUser:(BOOL)trimUser
+                                               completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
+{
+    return [self requestStatusesLookupWithHTTPMethod:kTWHTTPMethodPOST
+                                            TweetIDs:tweetIDs
+                                     includeEntities:includeEntities
+                                            trimUser:trimUser
+                                                 map:NO
+                                          completion:completion];
+}
+
+- (TWAPIRequestOperation *)getStatusesLookupMappedWithTweetIDs:(NSArray *)tweetIDs
+                                               includeEntities:(BOOL)includeEntities
+                                                      trimUser:(BOOL)trimUser
+                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable mappedTweets, NSError * __nullable error))completion
+{
+    return [self requestStatusesLookupWithHTTPMethod:kTWHTTPMethodGET
+                                            TweetIDs:tweetIDs
+                                     includeEntities:includeEntities
+                                            trimUser:trimUser
+                                                 map:YES
+                                          completion:completion];
+}
+
+- (TWAPIRequestOperation *)requestStatusesLookupWithHTTPMethod:(NSString *)HTTPMethod
+                                                      TweetIDs:(NSArray *)tweetIDs
+                                               includeEntities:(BOOL)includeEntities
+                                                      trimUser:(BOOL)trimUser
+                                                           map:(BOOL)map
+                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable respondObject, NSError * __nullable error))completion
 {
     NSParameterAssert(tweetIDs);
     
@@ -375,43 +426,21 @@ NS_ASSUME_NONNULL_BEGIN
     if (trimUser) params[@"trim_user"] = tw_boolStr(trimUser);
     if (map) params[@"map"] = tw_boolStr(map);
     
-    return [self GET:@"statuses/lookup.json"
-          parameters:[NSDictionary dictionaryWithDictionary:params]
-          completion:completion];
-}
+    NSString *endPoint = @"statuses/lookup.json";
+    NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:params];
+    
+    if ([HTTPMethod isEqualToString:kTWHTTPMethodGET]) {
+        return [self GET:endPoint
+              parameters:parameters
+              completion:completion];
+    } else if ([HTTPMethod isEqualToString:kTWHTTPMethodPOST]) {
+        return [self POST:endPoint
+               parameters:parameters
+               completion:completion];
+    } else {
+        @throw [NSString stringWithFormat:@"%s, Unsupported HTTPMethod: %@", __func__, HTTPMethod];
+    }
 
-- (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
-                                         includeEntities:(BOOL)includeEntities
-                                                trimUser:(BOOL)trimUser
-                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
-{
-    return [self getStatusesLookupWithTweetIDs:tweetIDs
-                               includeEntities:includeEntities
-                                      trimUser:trimUser
-                                           map:NO
-                                    completion:completion];
-}
-
-- (TWAPIRequestOperation *)getStatusesLookupWithTweetIDs:(NSArray *)tweetIDs
-                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSArray * __nullable tweets, NSError * __nullable error))completion
-{
-    return [self getStatusesLookupWithTweetIDs:tweetIDs
-                               includeEntities:YES
-                                      trimUser:NO
-                                           map:NO
-                                    completion:completion];
-}
-
-- (TWAPIRequestOperation *)getStatusesLookupMappedWithTweetIDs:(NSArray *)tweetIDs
-                                               includeEntities:(BOOL)includeEntities
-                                                      trimUser:(BOOL)trimUser
-                                                    completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable mappedTweets, NSError * __nullable error))completion
-{
-    return [self getStatusesLookupWithTweetIDs:tweetIDs
-                               includeEntities:includeEntities
-                                      trimUser:trimUser
-                                           map:YES
-                                    completion:completion];
 }
 
 #pragma mark -

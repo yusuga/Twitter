@@ -3,3 +3,4 @@ pod 'AFNetworking', '~> 2.0'
 pod 'OAuthCore', '~> 0.0.1'
 
 pod 'RMUniversalAlert'
+pod 'AFNetworkActivityLogger'
