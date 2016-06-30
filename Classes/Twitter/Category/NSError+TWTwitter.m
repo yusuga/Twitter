@@ -165,6 +165,14 @@ static NSString *kCode = @"code";
                            userInfo:[NSDictionary dictionaryWithDictionary:info]];
 }
 
++ (NSError *)tw_streamingIsDisconnectedError
+{
+    return [self tw_apiErrorWithCode:TWAPIErrorCodeStreamingIsDisconnected
+                         description:TWLocalizedString(@"Streaming is disconnected.")
+                       failureReason:nil
+                   appendingUserInfo:nil];
+}
+
 - (BOOL)tw_isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code
 {
     return [self.domain isEqualToString:TWAPIErrorDomain] && self.code == code;

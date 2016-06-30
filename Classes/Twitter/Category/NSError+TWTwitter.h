@@ -258,6 +258,11 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeAccessToProtectedUser = 1001,
     
     /**
+     *  Streaming is disconnected.
+     */
+    TWAPIErrorCodeStreamingIsDisconnected = 1101,
+    
+    /**
      *  Authentication error.
      *
      *  - /oauth/access_token
@@ -284,6 +289,9 @@ typedef NS_ENUM(NSInteger, TWAccountErrorCode) {
                                               underlyingError:(NSError *)underlyingError
                                                    screenName:(NSString * __nullable)screenName;
 + (NSError * __nullable)tw_errorFromErrors:(NSArray *)errors;
+
++ (NSError *)tw_streamingIsDisconnectedError;
+
 - (BOOL)tw_isEqualToTwitterAPIErrorCode:(TWAPIErrorCode)code;
 
 - (NSURL * __nullable)tw_failingURL;

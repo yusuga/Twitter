@@ -150,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     stream:stream
                                 completion:^(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error) {
                                     if (operation.isCancelled) return ;
-                                    failure(operation, error ?: [NSError tw_unexpectedBranchErrorWithDescription:@"Unexpected branch of success stream"]);
+                                    failure(operation, error ?: [NSError tw_streamingIsDisconnectedError]);
                                 }];
 }
 
