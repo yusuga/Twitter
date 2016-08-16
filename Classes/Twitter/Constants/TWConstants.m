@@ -125,6 +125,10 @@ NSString *kTWHTTPMethodPUT = @"PUT";
 
 NSString * const kTWPostData = @"kTWPostData";
 
+#pragma mark - Notification
+
+NSString * const TWAPIErrorNotification = @"TWAPIErrorNotification";
+
 @implementation TWConstants
 
 @end

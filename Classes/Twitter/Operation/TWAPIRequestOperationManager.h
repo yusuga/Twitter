@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TWAPIRequestOperationManager : AFHTTPRequestOperationManager
 
 @property (nonatomic) NSTimeInterval streamKeepAliveTime; // Defualt: 60.
+@property (nonatomic) BOOL allowsPostErrorNotification; // Default: NO
 
 - (TWAPIRequestOperation *)twitterAPIRequest:(NSURLRequest *)request
                               uploadProgress:(nullable void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress

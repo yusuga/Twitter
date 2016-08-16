@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Twitter.h"
 #import "Constants.h"
+#import "TWConstants.h"
 
 static TWAPIClient *__apiClient;
 
@@ -28,6 +29,7 @@ static TWAPIClient *__apiClient;
                                                                          consumerSecret:[Constants consumerSecret]
                                                                             accessToken:[Constants accessToken]
                                                                       accessTokenSecret:[Constants accessTokenSecret]]];
+        __apiClient.auth.httpClient.allowsPostErrorNotification = YES;
     });
 }
 
@@ -38,29 +40,49 @@ static TWAPIClient *__apiClient;
 
 - (void)test404
 {
-    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        [client getUsersShowWithUserID:1
-                          orScreenName:nil
-                       includeEntities:YES
-                            completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
-                                XCTAssertNotNil(operation);
-                                XCTAssertNil(user);
-                                XCTAssertNotNil(error);
-                                XCTAssertTrue([error.localizedDescription isKindOfClass:[NSString class]]);
-                                XCTAssertTrue([error.tw_failingURL isKindOfClass:[NSURL class]]);
-                                XCTAssertTrue([error.tw_failingURLResponse isKindOfClass:[NSHTTPURLResponse class]]);
-                                XCTAssertTrue([error.tw_underlyingError isKindOfClass:[NSError class]]);
-                                XCTAssertEqual(error.tw_HTTPStatusCode, 404);
-                                XCTAssertFalse(error.tw_isCancelled);
-                                [expectation fulfill];
-                            }];
+    [self expectationForNotification:TWAPIErrorNotification
+                              object:nil
+                             handler:^BOOL(NSNotification * _Nonnull notification)
+     {
+         XCTAssertNotNil(notification);
+         NSError *error = notification.object;
+         XCTAssertTrue([error isKindOfClass:[NSError class]]);
+         AFHTTPRequestOperation *operation = notification.userInfo[@"operation"];
+         XCTAssertTrue([operation isKindOfClass:[AFHTTPRequestOperation class]]);
+         return YES;
+     }];
+    
+    [__apiClient getUsersShowWithUserID:1
+                           orScreenName:nil
+                        includeEntities:YES
+                             completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error) {
+                                 XCTAssertNotNil(operation);
+                                 XCTAssertNil(user);
+                                 XCTAssertNotNil(error);
+                                 XCTAssertTrue([error.localizedDescription isKindOfClass:[NSString class]]);
+                                 XCTAssertTrue([error.tw_failingURL isKindOfClass:[NSURL class]]);
+                                 XCTAssertTrue([error.tw_failingURLResponse isKindOfClass:[NSHTTPURLResponse class]]);
+                                 XCTAssertTrue([error.tw_underlyingError isKindOfClass:[NSError class]]);
+                                 XCTAssertEqual(error.tw_HTTPStatusCode, 404);
+                                 XCTAssertFalse(error.tw_isCancelled);
+                             }];
+    
+    [self waitForExpectationsWithTimeout:5. handler:^(NSError *error) {
+        XCTAssertNil(error, @"error: %@", error);
     }];
 }
 
 - (void)testCancelAPIRequestOpration
 {
-    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        TWAPIRequestOperation *ope = [client getUsersShowWithUserID:20
+    XCTestExpectation *expectation = [self expectationForNotification:TWAPIErrorNotification
+                                                               object:nil
+                                                              handler:^BOOL(NSNotification * _Nonnull notification)
+                                      {
+                                          XCTFail();
+                                          return NO;
+                                      }];
+    
+    TWAPIRequestOperation *ope = [__apiClient getUsersShowWithUserID:20
                                                        orScreenName:nil
                                                     includeEntities:YES
                                                          completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable user, NSError * __nullable error)
@@ -73,10 +95,18 @@ static TWAPIClient *__apiClient;
                                           XCTAssertTrue([error.tw_underlyingError isKindOfClass:[NSError class]]);
                                           XCTAssertEqual(error.tw_HTTPStatusCode, NSURLErrorCancelled);
                                           XCTAssertTrue([error tw_isCancelled]);
-                                          [expectation fulfill];
                                       }];
-        XCTAssertNotNil(ope);
-        [ope cancel];
+    XCTAssertNotNil(ope);
+    [ope cancel];
+    
+    NSTimeInterval timeout = 5;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((timeout - 1) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
+        XCTAssertNil(error, @"error: %@", error);
     }];
 }
 

@@ -7,6 +7,7 @@
 
 #import "TWAPIRequestOperationManager.h"
 #import "TWUtil.h"
+#import "TWConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @implementation TWAPIRequestOperationManager
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                                       stream:(nullable void (^)(TWAPIRequestOperation *operation, NSDictionary *json, TWStreamJSONType type))stream
                                   completion:(void (^)(TWAPIRequestOperation *operation, id __nullable responseObject, NSError * __nullable error))completion
 {
+    __weak typeof(self) wself = self;
     TWAPIRequestOperation *operation = [[TWAPIRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = self.responseSerializer;
     operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
@@ -43,6 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
         completion((id)operation, responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion((id)operation, nil, error);
+        
+        if (wself.allowsPostErrorNotification && !operation.isCancelled) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:TWAPIErrorNotification
+                                                                object:error
+                                                              userInfo:operation ? @{@"operation" : operation} : nil];
+        }
     }];
     operation.completionQueue = self.completionQueue;
     operation.completionGroup = self.completionGroup;

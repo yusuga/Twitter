@@ -33,6 +33,10 @@ typedef NS_ENUM(NSInteger, TWAPISearchResultType) {
     TWAPISearchResultTypePopular,
 };
 
+#pragma mark - Notification
+
+extern NSString * const TWAPIErrorNotification;
+
 @interface TWConstants : NSObject
 
 @end
