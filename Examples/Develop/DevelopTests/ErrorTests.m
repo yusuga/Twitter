@@ -29,8 +29,9 @@ static TWAPIClient *__apiClient;
                                                                          consumerSecret:[Constants consumerSecret]
                                                                             accessToken:[Constants accessToken]
                                                                       accessTokenSecret:[Constants accessTokenSecret]]];
-        __apiClient.auth.httpClient.allowsPostErrorNotification = YES;
     });
+    
+    [TWAPIRequestOperationManager setAllowsPostErrorNotification:YES];
 }
 
 - (void)tearDown

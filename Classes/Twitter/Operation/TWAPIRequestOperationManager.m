@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @implementation TWAPIRequestOperationManager
 
+static BOOL __allowsPostErrorNotification;
+
 - (instancetype)initWithBaseURL:(nullable NSURL *)url
 {
     if (self = [super initWithBaseURL:url]) {
@@ -46,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion((id)operation, nil, error);
         
-        if (wself.allowsPostErrorNotification && !operation.isCancelled) {
+        if ([[wself class] allowsPostErrorNotification] && !operation.isCancelled) {
             [[NSNotificationCenter defaultCenter] postNotificationName:TWAPIErrorNotification
                                                                 object:error
                                                               userInfo:operation ? @{@"operation" : operation} : nil];
@@ -57,6 +59,18 @@ NS_ASSUME_NONNULL_BEGIN
     
     [self.operationQueue addOperation:operation];
     return operation;
+}
+
+#pragma mark -
+
++ (void)setAllowsPostErrorNotification:(BOOL)yesNo
+{
+    __allowsPostErrorNotification = yesNo;
+}
+
++ (BOOL)allowsPostErrorNotification
+{
+    return __allowsPostErrorNotification;
 }
 
 #pragma mark - NSSecureCoding
