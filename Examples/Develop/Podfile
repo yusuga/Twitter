@@ -1,6 +1,13 @@
 platform :ios, '7.0'
-pod 'AFNetworking', '~> 2.0'
-pod 'OAuthCore', '~> 0.0.1'
 
-pod 'RMUniversalAlert'
-pod 'AFNetworkActivityLogger'
+target 'Develop' do
+  pod 'AFNetworking', '~> 2.0'
+  pod 'OAuthCore', '~> 0.0.1'
+
+  pod 'RMUniversalAlert'
+  pod 'AFNetworkActivityLogger'
+
+  target 'DevelopTests' do
+    inherit! :search_paths
+  end
+end
