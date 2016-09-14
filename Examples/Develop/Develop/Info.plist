@@ -6,8 +6,10 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>stream.twitter.com</key>
+			<key>twitter.com</key>
 			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
 				<key>NSExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
