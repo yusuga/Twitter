@@ -18,7 +18,7 @@
 #define kTargetTweetID2 440322224407314432 // https://twitter.com/theellenshow/status/440322224407314432
 #define kTargetTweetID2Str @"440322224407314432"
 
-#define kSlug @"news"
+#define kSlug @"twitter"
 
 #define kListUserID 20 // https://twitter.com/ev
 #define kListOwnerID 571202103 // https://twitter.com/Medium
