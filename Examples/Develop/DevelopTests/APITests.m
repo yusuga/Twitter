@@ -10,8 +10,6 @@
 #import "Twitter.h"
 #import "Constants.h"
 
-static TWAPIClient *__apiClient;
-
 static int64_t const kSinceID = 1;
 static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum value
 
@@ -24,18 +22,6 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)setUp
 {
     [super setUp];
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        TWOAuth1Token *token = [[TWOAuth1Token alloc] initWithConsumerKey:[Constants consumerKey]
-                                                           consumerSecret:[Constants consumerSecret]
-                                                              accessToken:[Constants accessToken]
-                                                        accessTokenSecret:[Constants accessTokenSecret]
-                                                                   userID:[Constants userID]
-                                                               screenName:nil];
-        
-        __apiClient = [[TWAPIClient alloc] initWithAuth:[TWAuth userAuthWithOAuth1Token:token]];
-    });
 }
 
 - (void)tearDown {
@@ -1701,6 +1687,44 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 
 #pragma mark - Firehose
 
+#pragma mark - Tweet mode
+
+- (void)testExtendedMode
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client getStatusesShowWithTweetID:kTargetTweetID
+                                  trimUser:NO
+                          includeMyRetweet:YES
+                           includeEntities:YES
+                                completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+                                    XCTAssertFalse(tweet[@"text"]);
+                                    XCTAssertTrue(tweet[@"full_text"]);
+                                    XCTAssertTrue(tweet[@"display_text_range"]);
+                                    // NSLog(@"tweet: \n%@", tweet);
+                                    validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+                                }];
+    }];
+}
+
+- (void)testCompatibilityMode
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        client.auth.compatibilityMode = YES;
+        
+        [client getStatusesShowWithTweetID:kTargetTweetID
+                                  trimUser:NO
+                          includeMyRetweet:YES
+                           includeEntities:YES
+                                completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+                                    XCTAssertTrue(tweet[@"text"]);
+                                    XCTAssertFalse(tweet[@"full_text"]);
+                                    XCTAssertFalse(tweet[@"display_text_range"]);
+                                    // NSLog(@"tweet: \n%@", tweet);
+                                    validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+                                }];
+    }];
+}
+
 #pragma mark - Utility
 
 - (void)clientAsyncTestBlock:(void(^)(TWAPIClient *client, XCTestExpectation *expectation))block
@@ -1711,13 +1735,18 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)clientAsyncTestBlock:(void(^)(TWAPIClient *client, XCTestExpectation *expectation))block
                      timeout:(NSTimeInterval)timeout
 {
-    if (__apiClient) {
-        XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
-        block(__apiClient, expectation);
-        [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
-            XCTAssertNil(error, @"error: %@", error);
-        }];
-    }
+    TWOAuth1Token *token = [[TWOAuth1Token alloc] initWithConsumerKey:[Constants consumerKey]
+                                                       consumerSecret:[Constants consumerSecret]
+                                                          accessToken:[Constants accessToken]
+                                                    accessTokenSecret:[Constants accessTokenSecret]
+                                                               userID:[Constants userID]
+                                                           screenName:nil];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
+    block([[TWAPIClient alloc] initWithAuth:[TWAuth userAuthWithOAuth1Token:token]], expectation);
+    [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
+        XCTAssertNil(error, @"error: %@", error);
+    }];
 }
 
 @end
