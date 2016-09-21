@@ -129,6 +129,14 @@ extern NSString * const TWAuthAuthenticationFailedErrorNotification;
 
 @property (nonatomic, readonly) TWAPIRequestOperationManager *httpClient;
 
+/**
+ New attachment_url option is now live on the Tweet endpoints
+ https://twittercommunity.com/t/new-attachment-url-option-is-now-live-on-the-tweet-endpoints/74270/1
+ 
+ `NO` by default.
+ */
+@property (nonatomic) BOOL compatibilityMode;
+
 - (TWAPIRequestOperation * __nullable)sendRequestWithHTTPMethod:(NSString *)HTTPMethod
                                                   baseURLString:(NSString *)baseURLString
                                               relativeURLString:(NSString *)relativeURLString
