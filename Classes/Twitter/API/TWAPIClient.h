@@ -211,6 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
                                      displayCoordinates:(BOOL)displayCoordinates
                                                trimUser:(BOOL)trimUser
                                                mediaIDs:(NSArray * __nullable)mediaIDs
+                                          attachmentURL:(NSString * __nullable)attachmentURL
                                          uploadProgress:(void (^ __nullable)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)) uploadProgress
                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion;
 

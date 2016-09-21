@@ -106,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                            placeID:(NSString * __nullable)placeID
                                                 displayCoordinates:(BOOL)displayCoordinates
                                                           trimUser:(BOOL)trimUser
+                                                     attachmentURL:(NSString * __nullable)attachmentURL
                                                     uploadProgress:(void (^ __nullable)(TWRequestState state, CGFloat progress))uploadProgress
                                                         completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion
 {
@@ -165,6 +166,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                    displayCoordinates:displayCoordinates
                                                              trimUser:trimUser
                                                              mediaIDs:[NSArray arrayWithArray:mediaIDs]
+                                                        attachmentURL:attachmentURL
                                                        uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
                                    {
                                        if (uploadProgress) uploadProgress(TWRequestStateUploadTweet, 0.9 + ((CGFloat)totalBytesWritten/totalBytesExpectedToWrite)*0.1);

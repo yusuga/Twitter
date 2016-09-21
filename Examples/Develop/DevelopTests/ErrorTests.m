@@ -125,6 +125,7 @@ static TWAPIClient *__apiClient;
                                                                              placeID:nil
                                                                   displayCoordinates:YES
                                                                             trimUser:NO
+                                                                       attachmentURL:nil
                                                                       uploadProgress:^(TWRequestState state, CGFloat progress)
                                               {
                                                   NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
@@ -267,6 +268,83 @@ static TWAPIClient *__apiClient;
     }];
 }
 #endif
+
+#pragma mark - API
+
+- (void)testPostStatusesUpdateWithEmptyTextAndAttachmentURL
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:@""
+                           inReplyToStatusID:0
+                           possiblySensitive:NO
+                                    latitude:nil
+                                   longitude:nil
+                                     placeID:nil
+                          displayCoordinates:NO
+                                    trimUser:NO
+                                    mediaIDs:nil
+                               attachmentURL:kAttachmentURL
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             XCTAssertEqualObjects(error.domain, TWAPIErrorDomain);
+             XCTAssertEqual(error.code, TWAPIErrorCodeMissingRequiredParameter);
+             [expectation fulfill];
+         }];
+    }];
+}
+
+- (void)testUploadMultipleMediaWithAttachmentURL
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        NSData *media = [Constants imageData];
+        
+        [client tw_postStatusesUpdateWithStatus:kText
+                                      mediaData:@[media]
+                              inReplyToStatusID:0
+                              possiblySensitive:NO
+                                       latitude:nil
+                                      longitude:nil
+                                        placeID:nil
+                             displayCoordinates:YES
+                                       trimUser:NO
+                                  attachmentURL:kAttachmentURL
+                                 uploadProgress:^(TWRequestState state, CGFloat progress)
+         {
+             NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+         {
+             XCTAssertEqualObjects(error.domain, TWAPIErrorDomain);
+             XCTAssertEqual(error.code, TWAPIErrorCodeErrorTweetExceedsTheNumberOfAllowedAttachmentTypes);
+             [expectation fulfill];
+         }];
+    } timeout:60.];
+}
+
+- (void)testPostStatusesUpdateWithInvalidAttachmentURLs
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:kText
+                           inReplyToStatusID:0
+                           possiblySensitive:NO
+                                    latitude:nil
+                                   longitude:nil
+                                     placeID:nil
+                          displayCoordinates:NO
+                                    trimUser:NO
+                                    mediaIDs:nil
+                               attachmentURL:@"https://twitter.com"
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             XCTAssertEqualObjects(error.domain, TWAPIErrorDomain);
+             XCTAssertEqual(error.code, TWAPIErrorCodeAttachmentURLParameterIsInvalid);
+             [expectation fulfill];
+         }];
+    }];
+}
 
 #pragma mark - Utility
 

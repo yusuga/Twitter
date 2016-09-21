@@ -269,6 +269,7 @@ static TWAPIClient *__apiClient;
                                         placeID:nil
                              displayCoordinates:YES
                                        trimUser:NO
+                                  attachmentURL:nil
                                  uploadProgress:^(TWRequestState state, CGFloat progress)
          {
              NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
@@ -288,6 +289,77 @@ static TWAPIClient *__apiClient;
          }];
     } timeout:60.];
 }
+
+- (void)testUploadMultipleMediaWithQuoteTweetText
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        NSData *media = [Constants imageData];
+        
+        [client tw_postStatusesUpdateWithStatus:[NSString stringWithFormat:@"%@, QuoteTweet: %@", kText, kAttachmentURL]
+                                      mediaData:@[media, media, media, media]
+                              inReplyToStatusID:0
+                              possiblySensitive:NO
+                                       latitude:nil
+                                      longitude:nil
+                                        placeID:nil
+                             displayCoordinates:YES
+                                       trimUser:NO
+                                  attachmentURL:nil
+                                 uploadProgress:^(TWRequestState state, CGFloat progress)
+         {
+             NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+         {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+
+             [client tw_postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                            completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSNull, [NSNull null], error);
+              }];
+         }];
+    } timeout:60.];
+}
+
+- (void)testUploadMultipleMediaWithEmptyText
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        NSData *media = [Constants imageData];
+        
+        [client tw_postStatusesUpdateWithStatus:@""
+                                      mediaData:@[media]
+                              inReplyToStatusID:0
+                              possiblySensitive:NO
+                                       latitude:nil
+                                      longitude:nil
+                                        placeID:nil
+                             displayCoordinates:YES
+                                       trimUser:NO
+                                  attachmentURL:nil
+                                 uploadProgress:^(TWRequestState state, CGFloat progress)
+         {
+             NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+         {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+             
+             [client tw_postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                            completion:^(TWAPIRequestOperation * __nullable operation, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSNull, [NSNull null], error);
+              }];
+         }];
+    } timeout:60.];
+}
+
 
 #pragma mark - User
 

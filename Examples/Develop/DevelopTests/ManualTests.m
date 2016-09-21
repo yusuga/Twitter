@@ -103,6 +103,7 @@ static TWAPIClient *__apiClient;
                                         placeID:nil
                              displayCoordinates:YES
                                        trimUser:NO
+                                  attachmentURL:nil
                                  uploadProgress:^(TWRequestState state, CGFloat progress)
          {
              NSLog(@"%s, state = %zd, progress = %f", __func__, state, progress);

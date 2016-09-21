@@ -1,5 +1,10 @@
 # Twitter for Objective-C
 
+## API
+
+- [Upcoming changes to Tweets](https://dev.twitter.com/overview/api/upcoming-changes-to-tweets)
+- [New attachment_url option is now live on the Tweet endpoints](https://twittercommunity.com/t/new-attachment-url-option-is-now-live-on-the-tweet-endpoints/74270)
+
 ## ATS
 
 |domain|Key|Signature algorithm|

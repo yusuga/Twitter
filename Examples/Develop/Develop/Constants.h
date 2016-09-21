@@ -18,6 +18,9 @@
 #define kTargetTweetID2 440322224407314432 // https://twitter.com/theellenshow/status/440322224407314432
 #define kTargetTweetID2Str @"440322224407314432"
 
+#define kAttachmentURL @"https://twitter.com/jack/status/20"
+#define kAttachmentURL2 @"https://twitter.com/biz/status/21"
+
 #define kSlug @"twitter"
 
 #define kListUserID 20 // https://twitter.com/ev

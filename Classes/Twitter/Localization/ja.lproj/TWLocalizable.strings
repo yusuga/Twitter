@@ -8,9 +8,11 @@
 "Over capacity" = "Twitterにアクセスできませんでした。Twitterのシステムに障害が起きている可能性もあります。"; // Error code: 130
 "Error processing your OAuth request: invalid signature or token" = "認証(OAuth)リクエスト中にエラーが発生しました。署名またはトークンが無効です。"; // Error code: 350
 
+"Error 44" = "無効なURLが添付されています。";
 "Error 88 format with screenName" = "TwitterのAPI制限に達しました(%@)。制限は%@後にリセットされます。";
 "Error 88 format" = "TwitterのAPI制限に達しました。制限は%@後にリセットされます。";
 "Error 261" = "このアプリからの書き込み(ツイート/リツイート/いいね等)をTwitter社が制限しました。この制限はアプリの開発元がTwitter社に対して解決を求める必要があります。アプリの公式情報等を確認し復旧まで今しばらくお待ちください。";
+"Error 386" = "ツイートに添付可能なファイル数を超えています。";
 "Error 1001" = "非公開アカウントです";
 
 "Streaming is disconnected." = "ストリーミングが切断されました。";

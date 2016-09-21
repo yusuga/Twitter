@@ -454,6 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
                                      displayCoordinates:(BOOL)displayCoordinates
                                                trimUser:(BOOL)trimUser
                                                mediaIDs:(NSArray * __nullable)mediaIDs
+                                          attachmentURL:(NSString * __nullable)attachmentURL
                                          uploadProgress:(void (^ __nullable)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)) uploadProgress
                                              completion:(void (^)(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error))completion
 {
@@ -469,6 +470,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (displayCoordinates) params[@"display_coordinates"] = tw_boolStr(displayCoordinates);
     if (trimUser) params[@"trim_user"] = tw_boolStr(trimUser);
     if ([mediaIDs count]) params[@"media_ids"] = [mediaIDs componentsJoinedByString:@","];
+    if (attachmentURL.length) params[@"attachment_url"] = attachmentURL;
     
     return [self POST:@"statuses/update.json"
            parameters:[NSDictionary dictionaryWithDictionary:params]
@@ -490,6 +492,7 @@ NS_ASSUME_NONNULL_BEGIN
                            displayCoordinates:NO
                                      trimUser:NO
                                      mediaIDs:nil
+                                attachmentURL:nil
                                uploadProgress:uploadProgress
                                    completion:completion];
 }
@@ -509,6 +512,7 @@ NS_ASSUME_NONNULL_BEGIN
                            displayCoordinates:NO
                                      trimUser:NO
                                      mediaIDs:mediaIDs
+                                attachmentURL:nil
                                uploadProgress:uploadProgress
                                    completion:completion];
 }

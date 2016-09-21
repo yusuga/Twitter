@@ -378,6 +378,14 @@ static NSString *kCode = @"code";
     
     // TODO: Localize
     
+    {
+        NSString *key = [NSString stringWithFormat:@"Error %zd", code];
+        NSString *localizedDesc = TWLocalizedString(key);
+        if (![localizedDesc isEqualToString:key]) {
+            desc = [localizedDesc stringByAppendingString:desc];
+        }
+    }
+
     switch (code) {
         case TWAPIErrorCodeNoUserMatchesForSpecifiedTerms: // 17
             break;
@@ -398,6 +406,9 @@ static NSString *kCode = @"code";
             // OK
             break;
         case TWAPIErrorCodeNotAuthorizedForEndpoint: // 37
+            break;
+        case TWAPIErrorCodeAttachmentURLParameterIsInvalid: // 44
+            // OK
             break;
         case TWAPIErrorCodeUserNotFound: // 50
             // OK
@@ -444,6 +455,8 @@ static NSString *kCode = @"code";
             break;
         case TWAPIErrorCodeCannotFollowOverLimit: // 161
             break;
+        case TWAPIErrorCodeMissingRequiredParameter: // 170
+            break;
         case TWAPIErrorCodeNotAuthorizedToSeeStatus: // 179
             break;
         case TWAPIErrorCodeOverDailyStatusUpdateLimit: // 185
@@ -460,14 +473,8 @@ static NSString *kCode = @"code";
         case TWAPIErrorCodeEndpointRetired: // 251
             break;
         case TWAPIErrorCodeApplicationCannotPerformWriteAction: // 261
-        {
-            NSString *key = @"Error 261";
-            NSString *localizedDesc = TWLocalizedString(key);
-            if (![localizedDesc isEqualToString:key]) {
-                desc = [localizedDesc stringByAppendingString:desc];
-            }
+            // OK
             break;
-        }
         case TWAPIErrorCodeCannotMuteSelf: // 271
             break;
         case TWAPIErrorCodeCannotMuteSpecifiedUser: // 272
@@ -475,6 +482,12 @@ static NSString *kCode = @"code";
         case TWAPIErrorCodeAlreadyRetweeted: // 327
             break;
         case TWAPIErrorCodeErrorProcessingYourOAuthRequestInvalidSignatureOrToken: // 350
+            // OK
+            break;
+        case TWAPIErrorCodeErrorYouAttemptedToReplyToTweetThatIsDeletedOrNotVisibleToYou: // 385
+            // OK
+            break;
+        case TWAPIErrorCodeErrorTweetExceedsTheNumberOfAllowedAttachmentTypes: // 386
             // OK
             break;
         default:

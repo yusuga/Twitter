@@ -56,9 +56,11 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeMediaParameterIsMissing = 38,
     
     /**
-     *  Media parameter is invalid.
+     *  Attachment_url parameter is invalid.
+     *
+     *  Old specifications: Media parameter is invalid.
      */
-    TWAPIErrorCodeMediaParameterIsInvalid = 44,
+    TWAPIErrorCodeAttachmentURLParameterIsInvalid = 44,
     
     /**
      *  User not found.
@@ -157,6 +159,14 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
     TWAPIErrorCodeCannotFollowOverLimit = 161,
     
     /**
+     *  Missing required parameter
+     *
+     *  ex:
+     *  - Missing required parameter: status.
+     */
+    TWAPIErrorCodeMissingRequiredParameter = 170,
+    
+    /**
      *  Corresponds with HTTP 403 — returned when a Tweet cannot be viewed by the authenticating user, usually due to the Tweet's author having protected their Tweets.
      */
     TWAPIErrorCodeNotAuthorizedToSeeStatus = 179,
@@ -233,6 +243,16 @@ typedef NS_ENUM(NSInteger, TWAPIErrorCode) {
      *  Error processing your OAuth request: invalid signature or token
      */
     TWAPIErrorCodeErrorProcessingYourOAuthRequestInvalidSignatureOrToken = 350,
+    
+    /**
+     *  Corresponds with HTTP 403. A reply can only be sent with reference to an existing public Tweet.
+     */
+    TWAPIErrorCodeErrorYouAttemptedToReplyToTweetThatIsDeletedOrNotVisibleToYou = 385,
+    
+    /**
+     *  Corresponds with HTTP 403. A Tweet is limited to a single attachment resource (media, Quote Tweet, etc.)
+     */
+    TWAPIErrorCodeErrorTweetExceedsTheNumberOfAllowedAttachmentTypes = 386,
     
     /**
      *  HTTP Status Code

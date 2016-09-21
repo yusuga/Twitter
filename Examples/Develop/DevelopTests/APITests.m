@@ -217,6 +217,94 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
     }];
 }
 
+- (void)testPostStatusesUpdateWithAttachmentURL
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:kText
+                           inReplyToStatusID:0
+                           possiblySensitive:NO
+                                    latitude:nil
+                                   longitude:nil
+                                     placeID:nil
+                          displayCoordinates:NO
+                                    trimUser:NO
+                                    mediaIDs:nil
+                               attachmentURL:kAttachmentURL
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+             
+             [client postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+              }];
+         }];
+    }];
+}
+
+- (void)testPostStatusesUpdateWithQuoteTweetURL
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:[NSString stringWithFormat:@"%@, QuoteTweet: %@", kText, kAttachmentURL]
+                           inReplyToStatusID:0
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+             
+             [client postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+              }];
+         }];
+    }];
+}
+
+- (void)testPostStatusesUpdateWithAttachmentURLAndQuoteTweetURL
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client postStatusesUpdateWithStatus:[NSString stringWithFormat:@"%@, QuoteTweet: %@", kText, kAttachmentURL]
+                           inReplyToStatusID:0
+                           possiblySensitive:NO
+                                    latitude:nil
+                                   longitude:nil
+                                     placeID:nil
+                          displayCoordinates:NO
+                                    trimUser:NO
+                                    mediaIDs:nil
+                               attachmentURL:kAttachmentURL2
+                              uploadProgress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite)
+         {
+             NSLog(@"uploadPrgress bytesWritten = %zd, totalBytesWritten = %lld, totalBytesExpectedToWrite = %lld, progress = %f", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, (CGFloat)totalBytesWritten/totalBytesExpectedToWrite);
+         } completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error) {
+             validateAPICompletion(operation, NSDictionary, tweet, error);
+             if (error) {
+                 [expectation fulfill];
+                 return ;
+             }
+             
+             [client postStatusesDestroyWithTweetID:[tweet[@"id"] longLongValue]
+                                         completion:^(TWAPIRequestOperation * __nullable operation, NSDictionary * __nullable tweet, NSError * __nullable error)
+              {
+                  validateAPICompletionAndFulfill(operation, NSDictionary, tweet, error);
+              }];
+         }];
+    }];
+}
+
 - (void)testPostStatusesUpdateWithMediaAndPostStatusesDestroy
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
