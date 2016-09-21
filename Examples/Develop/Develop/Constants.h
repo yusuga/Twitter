@@ -21,10 +21,10 @@
 #define kSlug @"news"
 
 #define kListUserID 20 // https://twitter.com/ev
-#define kListOwnerID 40381496 // https://twitter.com/Favstar
-#define kListMemberID 809760 // https://twitter.com/badbanana
-#define kListID 1534 // https://twitter.com/Favstar/lists/top-50-funny
-#define kListSlug @"top-50-funny" // https://twitter.com/Favstar/lists/top-50-funny
+#define kListOwnerID 571202103 // https://twitter.com/Medium
+#define kListMemberID 1153 // https://twitter.com/AndrewCrow
+#define kListID 86737505 // https://twitter.com/Medium/lists/medium-employees
+#define kListSlug @"medium-employees" // https://twitter.com/Medium/lists/medium-employees
 
 #define kWOEID 1
 #define kPlaceID @"df51dec6f4ee2b2c"
