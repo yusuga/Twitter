@@ -11,8 +11,6 @@
 #import "TWUtil.h"
 #import "Constants.h"
 
-static TWAPIClient *__apiClient;
-
 @interface ManualTests : XCTestCase
 
 @end
@@ -22,14 +20,6 @@ static TWAPIClient *__apiClient;
 - (void)setUp
 {
     [super setUp];
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        __apiClient = [[TWAPIClient alloc] initWithAuth:[TWAuth userAuthWithConsumerKey:[Constants consumerKey]
-                                                                         consumerSecret:[Constants consumerSecret]
-                                                                            accessToken:[Constants accessToken]
-                                                                      accessTokenSecret:[Constants accessTokenSecret]]];
-    });
 }
 
 - (void)tearDown {
@@ -81,6 +71,30 @@ static TWAPIClient *__apiClient;
 }
 #endif
 
+#if 0
+#warning manual test is enabled
+- (void)testGetUser
+{
+    [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
+        [client getUserWithUserOnly:NO
+                         allReplies:YES
+                          locations:nil
+                 stringifyFriendIDs:YES
+                             stream:^(TWAPIRequestOperation * __nonnull operation, NSDictionary * __nonnull json, TWStreamJSONType type)
+         {
+             if (type == TWStreamJSONTypeTweet) {
+                 if ([json[@"user"][@"id_str"] isEqualToString:client.auth.userID]) {
+                     NSLog(@"json: \n%@", json);
+                 }
+             }
+         } failure:^(TWAPIRequestOperation * __nonnull operation, NSError * __nonnull error) {
+             XCTFail(@"errro = %@", error);
+             [expectation fulfill];
+         }];
+    } timeout:60.*60.];
+}
+#endif
+
 #pragma mark - Utility
 
 - (void)uploadMediaWithText:(NSString *)text
@@ -129,13 +143,18 @@ static TWAPIClient *__apiClient;
 - (void)clientAsyncTestBlock:(void(^)(TWAPIClient *client, XCTestExpectation *expectation))block
                      timeout:(NSTimeInterval)timeout
 {
-    if (__apiClient) {
-        XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
-        block(__apiClient, expectation);
-        [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
-            XCTAssertNil(error, @"error: %@", error);
-        }];
-    }
+    TWAPIClient *client = [[TWAPIClient alloc] initWithAuth:[TWAuth userAuthWithConsumerKey:[Constants consumerKey]
+                                                                             consumerSecret:[Constants consumerSecret]
+                                                                                accessToken:[Constants accessToken]
+                                                                          accessTokenSecret:[Constants accessTokenSecret]]];
+    client.auth.userID = [Constants userID];
+    client.auth.screenName = [Constants screenName];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __func__]];
+    block(client, expectation);
+    [self waitForExpectationsWithTimeout:timeout handler:^(NSError *error) {
+        XCTAssertNil(error, @"error: %@", error);
+    }];
 }
 
 @end
