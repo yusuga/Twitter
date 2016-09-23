@@ -1709,7 +1709,7 @@ static int64_t const kMaxID = INT64_MAX - 1; // 63bit maximum - 1 is the maximum
 - (void)testCompatibilityMode
 {
     [self clientAsyncTestBlock:^(TWAPIClient *client, XCTestExpectation *expectation) {
-        client.auth.compatibilityMode = YES;
+        client.compatibilityMode = YES;
         
         [client getStatusesShowWithTweetID:kTargetTweetID
                                   trimUser:NO

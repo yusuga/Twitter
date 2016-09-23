@@ -72,6 +72,12 @@ NS_ASSUME_NONNULL_BEGIN
                                                          stream:(void (^ __nullable)(TWAPIRequestOperation *operation, NSDictionary *json, TWStreamJSONType type))stream
                                                      completion:(void (^)(TWAPIRequestOperation * __nullable operation, id __nullable responseObject, NSError * __nullable error))completion
 {
+    if (!self.compatibilityMode) {
+        NSMutableDictionary *extendedParams = parameters.mutableCopy;
+        [extendedParams setObject:@"extended" forKey:@"tweet_mode"];
+        parameters = extendedParams.copy;
+    }
+    
     TWAPIRequestOperation *ope = [self.auth sendRequestWithHTTPMethod:HTTPMethod
                                                         baseURLString:baseURLString
                                                     relativeURLString:relativeURLString
