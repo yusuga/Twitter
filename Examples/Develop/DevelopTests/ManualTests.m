@@ -84,7 +84,9 @@
          {
              if (type == TWStreamJSONTypeTweet) {
                  if ([json[@"user"][@"id_str"] isEqualToString:client.auth.userID]) {
-                     NSLog(@"json: \n%@", json);
+                     NSData *data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:nil];
+                     //NSLog(@"json: \n%@", json);
+                     NSLog(@"json: \n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                  }
              }
          } failure:^(TWAPIRequestOperation * __nonnull operation, NSError * __nonnull error) {
