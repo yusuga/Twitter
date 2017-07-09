@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.acceptableContentTypes = [self.acceptableContentTypes setByAddingObject:@"text/html"];
+        self.acceptableContentTypes = [self.acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html", @"text/plain"]];
     }
     return self;
 }
@@ -38,7 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if ([[response MIMEType] isEqualToString:@"text/html"]) {
         return nil;
+    } else if ([[response MIMEType] isEqualToString:@"text/plain"]) {
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }
+    
     return [super responseObjectForResponse:response
                                        data:data
                                       error:error];
